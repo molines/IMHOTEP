@@ -24,7 +24,13 @@ Copy the namelists and scripts required by the tool, and get bathy and coordinat
    ./get_bat_coord.sh
    ```
 
- 3. Edit the `jobcfg` file to the machine you are using
+ 3. Fills closed seas in the original bathymetry: ( this scipt is valid only for eORCA025)
+
+   ```
+   ./close_seas.sh 
+   ```
+
+ 4. Edit the `jobcfg` file to the machine you are using
   This concerns the header of the batch script, and the number of core you are using.
   Note that the `nammpp` block of the `namelist_cfg` should be coherent with the number of core asked for,
 adjusting `jpni, jpnj` and `jpnij`.
@@ -33,23 +39,23 @@ adjusting `jpni, jpnj` and `jpnij`.
 
    Submit the batch.  
     
- 4. Rebuild the domain_cfg file in a single piece using rebuild_nemo tool.
+ 5. Rebuild the domain_cfg file in a single piece using rebuild_nemo tool.
 
    ```
    rebuild_nemo -d 1 domain_cfg <jpnj>
    ```
 
- 5. Document the new domain_cfg file :
+ 6. Document the new domain_cfg file :
 
    ```
    ./dcmtk_dom_doc.exe  -b eORCA025_bathymetry_b0.2.nc -c eORCA025_coord_c3.0.nc -n namelist_cfg -d domain_cfg.nc
    ```
 
- 6. Move the final file to the `eORCA025.L75-I` directory:
+ 7. Move the final file to the `eORCA025.L75-I` directory:
 
    ```
    mv domain_cfg.nc ../eORCA025.L75_domain_cfg.nc
    ```
 
- 7. **YOU ARE DONE !**
+ 8. **YOU ARE DONE !**
 
