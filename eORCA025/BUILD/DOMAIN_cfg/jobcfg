@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --nodes=2
+#SBATCH --ntasks=80
+#SBATCH --ntasks-per-node=40
+#SBATCH --threads-per-core=1
+#SBATCH -J DomainCfg
+#SBATCH -A cli@cpu
+#SBATCH -e zDomCfg.e%j
+#SBATCH -o zDomCfg.o%j
+#SBATCH --time=0:30:00
+#SBATCH --exclusive
+
+
+cd   /gpfswork/rech/cli/rcli002/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build
+
+ulimit -s unlimited
+ srun --mpi=pmi2 -K1 -n 80 ./make_domain_cfg.exe
+
