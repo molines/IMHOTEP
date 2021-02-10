@@ -31,7 +31,8 @@ adjusting `jpni, jpnj` and `jpnij`.
 > Tip : it is a good practice at this step to use jpni=1 in order to use zonal stripes. The output of the
 > tool will be a bunch of jpnj files without missing land proc, hence the rebuild file will be continuous.  
 
-    Submit the batch.  
+   Submit the batch.  
+    
  4. Rebuild the domain_cfg file in a single piece using rebuild_nemo tool.
 
    ```
