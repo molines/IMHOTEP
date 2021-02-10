@@ -36,7 +36,9 @@ Vertical stretching parameters will be those of the standard DRAKKAR 75 levels, 
   * Bathymetry : eORCA025_bathymetry_b0.2.nc
   * Coordinates : eORCA025_coord_c3.0.nc 
   * DOMAIN_cfg tool : from DCM/4.0.5
-  * Namelists for make_domain_cfg.exe  are available in [./BUILD/DOMAIN_cfg](this directory)
+  * Namelists for make_domain_cfg.exe  are available in [this  directory](./BUILD/DOMAIN_cfg)
+  * A description step by step of the build procedure is reported in the [README](./BUILD/DOMAIN_cfg/README.md) file 
+placed in this directory.
 
 
 
