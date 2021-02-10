@@ -7,7 +7,8 @@
    dcm_mktool -n DOMAIN_cfg -m X64_JEANZAY_jm  -c eORCA025.L75-IMOTHEP00
   ```
 
-  The tool is ready to be used in `$WORKDIR/WORCA025.L75-IMOTHEP00/tools/DOMAIN_cfg` directory
+  The tool is ready to be used in `$WORKDIR/WORCA025.L75-IMOTHEP00/tools/DOMAIN_cfg` directory.
+  
  2. Work in `$WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build`:
 
    ```
