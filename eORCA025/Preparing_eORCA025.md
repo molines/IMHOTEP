@@ -30,8 +30,15 @@ least the corresponing weight files), distance to the coast file for SSS restori
 This file defines the numerical grid (horizontal and vertical) including the corresponding metrics. In the creation
 process we need a coordinate file (for the horizontal grid), a bathymetric file together with a set of streching coeficients
 in order to define the vertical grid, with partial cells.  
+
 We will take the coordinates and bathymetry files used by Pierre Mathiot when setting up his eORCA025.L121 configuration.
-Vertical stretching parameters will be those of the standard DRAKKAR 75 levels, (as in OCCIPUT, for instance).
+Vertical stretching parameters will be those of the standard DRAKKAR 75 levels, (as in OCCIPUT, for instance):
+  * Bathymetry : eORCA025_bathymetry_b0.2.nc
+  * Coordinates : eORCA025_coord_c3.0.nc 
+  * DOMAIN_cfg tool : from DCM/4.0.5
+  * Namelists for make_domain_cfg.exe  are available in [./BUILD/DOMAIN_cfg](this directory)
+
+
 
 ### 2.2 Initial conditions files, and restoring files (if any).
 There are quite a few available data set for T and S climatology. Among them, the World Ocean Atlases (ex-Levitus), with 
