@@ -2,7 +2,9 @@
 
 ## Getting the climatological data
 ### Recent version of World Ocean Atlas : WOA2018
-  * We took the TS climatology from the NOAA data center, using the customized script 
+  * We took the TS climatology from the NOAA data center. 
+  * This raw data set requires some adaptation before using it for interpolation.
+  * See details of the preparation in this [report](../WOA2018/WOA18_processing.md)
 
 The building of initial conditions suppose that you already have :
   * domain_cfg file for the configuration
