@@ -18,7 +18,7 @@ case $res in
 esac
 
 # temperatures (in situ)
-URLT=$URL/temperature/${decad}$res
+URLT=$URL/temperature/${decad}/$res
 for m in {00..16} ; do
   wget $URLT/${prefix}_t${m}_${ext}.nc
 done
