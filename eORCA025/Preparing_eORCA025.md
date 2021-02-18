@@ -59,6 +59,12 @@ as low as 95 Sv at Drake passage, after 50 years of run.  If the decision is to 
 data set to use, for this particular restoring. (In the past, we used the Gouretsky annual climatology, which was computed
 in a density framework. But this is now a rather old dataset... ). 
 
+We prepared initial conditions from WOA18. In fact I prepared 2 sets : first one from 1955-1964 decade climatology, available in WOA18,
+another from 1981-2010 climatology. Details and comments regarding this preparation are described in a [technical note][../BUILD/WOA2018/WOA18_processing.md]. 
+
+The creation of the NEMO files is described in this other [document](../BUILD/INITIAL_CONDITIONS/README_CI.md). From our experience, having good and clean initial
+conditions, double checked is a key point for having a smooth simulation... This is the reason for which I prefer initial conditions on the model grid rather than on a regular grid with '3D interpolation on the fly' and weight files.
+
 ### 2.3 Distance-to-the coast file
 This file is used for the SSS restoring in order to prevent restoring in the vicinity of the coast, letting the  boundary currents
 construct the runoff plumes at the scales allowed by the model resolution (and not present in the restoring data set). 
