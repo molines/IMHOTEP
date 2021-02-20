@@ -12,6 +12,11 @@
 #SBATCH --exclusive
 
 #set -x
+PERIOD1=5564
+PERIOD2=81B0
+title1="WOA18 $PERIOD1 - $PERIOD2"
+ff=eORCA025.L75_${PERIOD1}-${PERIOD2}_WOA18_1m_votemper.nc
+
 vp=" -286 -80 72 85"
 zoom="2 2 1440 1200"
 figs=./fig_woa18_temp
@@ -32,13 +37,11 @@ ystep=30
 tick="-tick 0.2"
 clname='Potential temperature '
 lorca="-orca"
-title1="WOA18 5564 - CLIM"
 
 
 
 mkdir -p $figs
 
-   ff=eORCA025.L75_5564-CLIM_WOA18_1m_votemper.nc
 for m in {1..12} ; do
    mm=$( printf "%02d" $m )
    case $m in

@@ -12,7 +12,8 @@
 #SBATCH --exclusive
 
 #set -x
-PERIOD=5564  # CLIM
+#PERIOD=5564  # CLIM
+PERIOD=81B0  # CLIM 81B0
 #PERIOD=CLIM  # CLIM
 ###
 vp=" -286 -80 72 85"
@@ -37,7 +38,8 @@ clname='Salinity '
 lorca="-orca"
 case $PERIOD in
 (5564)  title1="WOA18 1955-1964" ;;
-(CLIM)  title1="WOA18 1981-2010" ;;
+(81B0)  title1="WOA18 1981-2010" ;;
+(CLIM)  title1="WOA18 1955-2017" ;;
 esac
 
 

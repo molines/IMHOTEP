@@ -12,6 +12,7 @@
 #SBATCH --exclusive
 
 #set -x
+PERIOD=81B0
 vp=" -286 -80 72 85"
 zoom="2 2 1440 1200"
 figs=./fig_woa18_temp1200
@@ -33,15 +34,19 @@ ystep=30
 tick="-tick 2"
 clname='Potential temperature '
 lorca="-orca"
-title1="WOA18 1955-1964 1200m"
-#title1="WOA18 1980-2010 1200m"
+case $PERIOD in
+(5564)  title1="WOA18 1955-1964" ;;
+(81B0)  title1="WOA18 1981-2010" ;;
+(CLIM)  title1="WOA18 1955-2017" ;;
+esac
+
 title2="Potential Temperature (deg)  Annual Mean"
 
 
 
 mkdir -p $figs
 
-   ff=eORCA025.L75_5564_WOA18_1y_votemper.nc
+   ff=eORCA025.L75_${PERIOD}_WOA18_1y_votemper.nc
    g=${ff%.nc} 
    if [ ! -f $figs/$g.png ] ; then
 #      ln -sf $f $ff

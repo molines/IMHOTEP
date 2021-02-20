@@ -13,7 +13,8 @@
 
 #set -x
 #PERIOD=5564  # CLIM
-PERIOD=CLIM  # CLIM
+PERIOD=81B0  # CLIM
+#PERIOD=CLIM  # CLIM
 ###
 vp=" -286 -80 72 85"
 zoom="2 2 1440 1200"
@@ -37,7 +38,8 @@ clname='Potential temperature '
 lorca="-orca"
 case $PERIOD in
 (5564)  title1="WOA18 1955-1964" ;;
-(CLIM)  title1="WOA18 1981-2010" ;;
+(81B0)  title1="WOA18 1981-2010" ;;
+(CLIM)  title1="WOA18 1955-2017" ;;
 esac
 
 

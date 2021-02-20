@@ -12,7 +12,8 @@
 #SBATCH --exclusive
 
 #set -x
-PERIOD=5564  # CLIM
+#PERIOD=5564  # CLIM
+PERIOD=81B0  # CLIM
 #PERIOD=CLIM  # CLIM
 ###
 vp=" -286 -80 72 85"
@@ -38,7 +39,8 @@ clname='Potential temperature '
 lorca="-orca"
 case $PERIOD in
 (5564)  title1="WOA18 1955-1964 ${dep}m" ;;
-(CLIM)  title1="WOA18 1981-2010 ${dep}m" ;;
+(81B0)  title1="WOA18 1981-2010 ${dep}m" ;;
+(CLIM)  title1="WOA18 1955-2017 ${dep}m" ;;
 esac
 
 

@@ -9,32 +9,40 @@
 #SBATCH -J JOB_
 #SBATCH -e zjob.e%j
 #SBATCH -o zjob.o%j
-#SBATCH --time=0:30:00
+#SBATCH --time=1:00:00
 #SBATCH --exclusive
 
 ulimit -s unlimited
+cd /gpfswork/rech/cli/rcli002/eORCA025.L75/eORCA025.L75-I/WOA2018_Assessment
 
-cd /gpfswork/rech/cli/rcli002/eORCA025.L75/eORCA025.L75-I
+PERIOD=(5564 81B0 CLIM )
+echo ${PERIOD[@]}
+np=${#PERIOD[@]}
+imax=$(( np - 1 ))
 
-for typ in votemper vosaline ; do
-   ncdiff eORCA025.L75_5564_WOA18_1y_${typ}.nc4 eORCA025.L75_CLIM_WOA18_1y_${typ}.nc4  eORCA025.L75_5564-CLIM_WOA18_1y_${typ}.nc4
+for i in $( seq 0 $imax ) ; do
+    ideb=$(( i + 1 ))
+   for j in  $(seq $ideb $imax ) ; do
+     echo ${PERIOD[$i]} ${PERIOD[$j]}
+     P1=${PERIOD[$i]}
+     P2=${PERIOD[$j]}
+     
+     if [ $P1 = '5564' -a $P2 = 'CLIM' ] ; then
+       echo skip
+     else
+
+     for typ in votemper vosaline ; do
+        ncdiff eORCA025.L75_${P1}_WOA18_1y_${typ}.nc eORCA025.L75_${P2}_WOA18_1y_${typ}.nc  eORCA025.L75_${P1}-${P2}_WOA18_1y_${typ}.nc
+        ncks -A -v nav_lon,nav_lat eORCA025.L75_${P1}_WOA18_1y_${typ}.nc eORCA025.L75_${P1}-${P2}_WOA18_1y_${typ}.nc
+     done
+
+     for typ in votemper vosaline ; do
+        ncdiff eORCA025.L75_${P1}_WOA18_1m_${typ}.nc eORCA025.L75_${P2}_WOA18_1m_${typ}.nc  eORCA025.L75_${P1}-${P2}_WOA18_1m_${typ}.nc
+        ncks -A -v nav_lon,nav_lat eORCA025.L75_${P1}_WOA18_1m_${typ}.nc eORCA025.L75_${P1}-${P2}_WOA18_1m_${typ}.nc
+     done
+     fi
+
+
+   done
 done
-
-for typ in votemper vosaline ; do
-   ncdiff eORCA025.L75_5564_WOA18_${typ}.nc4 eORCA025.L75_CLIM_WOA18_${typ}.nc4  eORCA025.L75_5564-CLIM_WOA18_1m_${typ}.nc4
-done
-
-
-
-
-exit
-
--rw-r--r-- 1 rcli002 cli  156205782 Feb 16 14:31 eORCA025.L75_5564_WOA18_1y_vosaline.nc4
--rw-r--r-- 1 rcli002 cli  203295060 Feb 16 14:23 eORCA025.L75_5564_WOA18_1y_votemper.nc4
--rw-r--r-- 1 rcli002 cli 1213788683 Feb 16 14:08 eORCA025.L75_5564_WOA18_vosaline.nc4
--rw-r--r-- 1 rcli002 cli 1723292897 Feb 16 14:06 eORCA025.L75_5564_WOA18_votemper.nc4
--rw-r--r-- 1 rcli002 cli  155559157 Feb 16 14:29 eORCA025.L75_CLIM_WOA18_1y_vosaline.nc4
--rw-r--r-- 1 rcli002 cli  203124502 Feb 16 14:27 eORCA025.L75_CLIM_WOA18_1y_votemper.nc4
--rw-r--r-- 1 rcli002 cli 1186357653 Feb 16 14:09 eORCA025.L75_CLIM_WOA18_vosaline.nc4
--rw-r--r-- 1 rcli002 cli 1700614683 Feb 16 14:11 eORCA025.L75_CLIM_WOA18_votemper.nc4
 

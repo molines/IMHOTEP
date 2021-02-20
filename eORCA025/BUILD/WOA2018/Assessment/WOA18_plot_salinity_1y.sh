@@ -11,6 +11,7 @@
 #SBATCH --time=2:30:00
 #SBATCH --exclusive
 
+PERIOD=81B0
 #set -x
 vp=" -286 -80 72 85"
 zoom="2 2 1440 1200"
@@ -32,15 +33,20 @@ ystep=30
 tick="-tick 1"
 clname='Salinity '
 lorca="-orca"
-title1="WOA18 1955-1964"
-#title1="WOA18 1981-2010"
+
+case $PERIOD in
+(5564)  title1="WOA18 1955-1964" ;;
+(81B0)  title1="WOA18 1981-2010" ;;
+(CLIM)  title1="WOA18 1955-2017" ;;
+esac
+
 title2="Relative Salinity  Annual Mean"
 
 
 
 mkdir -p $figs
 
-   ff=eORCA025.L75_5564_WOA18_1y_vosaline.nc
+   ff=eORCA025.L75_${PERIOD}_WOA18_1y_vosaline.nc
    g=${ff%.nc} 
    if [ ! -f $figs/$g.png ] ; then
 #      ln -sf $f $ff
