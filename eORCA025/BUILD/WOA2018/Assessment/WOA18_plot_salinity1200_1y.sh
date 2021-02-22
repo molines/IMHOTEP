@@ -35,9 +35,9 @@ tick="-tick 0.2"
 clname='Salinity '
 lorca="-orca"
 case $PERIOD in
-(5564)  title1="WOA18 1955-1964" ;;
-(81B0)  title1="WOA18 1981-2010" ;;
-(CLIM)  title1="WOA18 1955-2017" ;;
+(5564)  title1="WOA18 1955-1964 ${dep}m" ;;
+(81B0)  title1="WOA18 1981-2010 ${dep}m" ;;
+(CLIM)  title1="WOA18 1955-2017 ${dep}m" ;;
 esac
 
 title2="Relative Salinity  Annual Mean"
