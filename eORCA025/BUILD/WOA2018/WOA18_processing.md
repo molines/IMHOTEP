@@ -16,7 +16,7 @@ for creating a monthly full depth climatology by combining monthly and quaterly 
 
 ## 4. Converting in situ temperature and relative salinity according to the equation of state used in NEMO.
    * WOA2018 files give the ocean temperature as *in-situ* temperatures, and salinity as relative salinity.
-   * NEMO is using either EOS80 equation of state (requiring potential temperature \theta-0) or TEOS10 equation of state (using conservative 
+   * NEMO is using either EOS80 equation of state (requiring potential temperature \{theta}0) or TEOS10 equation of state (using conservative 
 temperature 'CT' and absolute salinity 'SA')
    * Conversion to \theta-0 can be performed by the program [t_to_theta](https://github.com/molines/JMMTOOLS/DATA_TOOLS/LEVITUS-WOA/t_to_theta.f90).
    * convertsion to CT and SA can be performed by ....
