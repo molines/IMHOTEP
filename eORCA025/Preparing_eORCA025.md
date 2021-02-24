@@ -59,8 +59,8 @@ as low as 95 Sv at Drake passage, after 50 years of run.  If the decision is to 
 data set to use, for this particular restoring. (In the past, we used the Gouretsky annual climatology, which was computed
 in a density framework. But this is now a rather old dataset... ). 
 
-We prepared initial conditions from WOA18. In fact I prepared 2 sets : first one from 1955-1964 decade climatology, available in WOA18,
-another from 1981-2010 climatology. Details and comments regarding this preparation are described in a [technical note][../BUILD/WOA2018/WOA18_processing.md]. 
+We prepared initial conditions from WOA18. In fact I prepared 3 sets : first one from 1955-1964 decade climatology, available in WOA18,
+another from 1981-2010 climatology, and a last one with 1955-2017 long term monthly climatology.  Details and comments regarding this preparation are described in a [technical note][../BUILD/WOA2018/WOA18_processing.md]. 
 
 The creation of the NEMO files is described in this other [document](../BUILD/INITIAL_CONDITIONS/README_CI.md). From our experience, having good and clean initial
 conditions, double checked is a key point for having a smooth simulation... This is the reason for which I prefer initial conditions on the model grid rather than on a regular grid with '3D interpolation on the fly' and weight files.
@@ -73,10 +73,26 @@ If this file is simply build from surface *tmask* for instance, some side effect
 small islands, like in the western tropical pacific: If these islands are taken as land point, a large part of the ocean around
 this constellation of islands does not have SSS restoring, which is really bad, because this area is where the correction is
 efficient to counter balance poorly represented precipitations !  Hence, the surface *tmask* must be carefully edited, drowning
-small islands, in order to have a distance-to-the-coast file that takes into account only main continental land.
+small islands, in order to have a distance-to-the-coast file that takes into account only main continental land. This is done using
+**BMGTOOLS**, an interactive java-based program initially dedicated  to tunning the bathymetry. Detailed procedure is discribed in
+this [document](../BUILD/DISTCOAST/README_DISTCOAST.md). Note that in the procedure we use a dummy very large value for the distance,
+in some closed seas (Med Sea, Black Sea) in order to maintain SSS restoring even near the coast.
 
 ### 2.4 Atmospheric forcing files
 Decision is to be made on the forcing data set. Candidates are : DFS5.2, JRA55, ERA5. 
+#### 2.4.1 Preparing the forcing file
+It is  important to note that atmospheric fields from reanalysis, of course, have a global coverage, for oceans and land. 
+Prior to interpolation, reanalysis fields must be modified in such a way that land points are replaced by an extrapolation 
+of ocean points (so called 'drowning' process). If this is not done, interpolated sea values may feel the influence of 
+(very different) land values.  The 'drowning' process can be performed with the *mask_drown* program of the SOSIE serie.
+
+#### 2.4.2 Building weight files
+NEMO allows the use of atmospheric forcing on their native relatively low resolution grid. Therefore, a set of weight files
+is needed for 'interpolation on the fly' (IOF). For wind components, we use a bicubic interpolation in order to ensure a 
+continuous curl (first derivative). For other fields, a bilinear interpolation is used. 
+
+Building weight files requires information on both source and target grid.  The detailed process of  building weights 
+and preparing atmospheric fields is described in this [document](../BUILD/WEIGHTS/README.md).
 
 ### 2.5 Enhancement files
 #### 2.5.1 Bottom friction
