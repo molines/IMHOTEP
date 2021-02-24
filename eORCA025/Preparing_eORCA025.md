@@ -60,9 +60,9 @@ data set to use, for this particular restoring. (In the past, we used the Gouret
 in a density framework. But this is now a rather old dataset... ). 
 
 We prepared initial conditions from WOA18. In fact I prepared 3 sets : first one from 1955-1964 decade climatology, available in WOA18,
-another from 1981-2010 climatology, and a last one with 1955-2017 long term monthly climatology.  Details and comments regarding this preparation are described in a [technical note][../BUILD/WOA2018/WOA18_processing.md]. 
+another from 1981-2010 climatology, and a last one with 1955-2017 long term monthly climatology.  Details and comments regarding this preparation are described in a [technical note](./BUILD/WOA2018/WOA18_processing.md). 
 
-The creation of the NEMO files is described in this other [document](../BUILD/INITIAL_CONDITIONS/README_CI.md). From our experience, having good and clean initial
+The creation of the NEMO files is described in this other [document](./BUILD/INITIAL_CONDITIONS/README_CI.md). From our experience, having good and clean initial
 conditions, double checked is a key point for having a smooth simulation... This is the reason for which I prefer initial conditions on the model grid rather than on a regular grid with '3D interpolation on the fly' and weight files.
 
 ### 2.3 Distance-to-the coast file
@@ -75,7 +75,7 @@ this constellation of islands does not have SSS restoring, which is really bad, 
 efficient to counter balance poorly represented precipitations !  Hence, the surface *tmask* must be carefully edited, drowning
 small islands, in order to have a distance-to-the-coast file that takes into account only main continental land. This is done using
 **BMGTOOLS**, an interactive java-based program initially dedicated  to tunning the bathymetry. Detailed procedure is discribed in
-this [document](../BUILD/DISTCOAST/README_DISTCOAST.md). Note that in the procedure we use a dummy very large value for the distance,
+this [document](./BUILD/DISTCOAST/README_DISTCOAST.md). Note that in the procedure we use a dummy very large value for the distance,
 in some closed seas (Med Sea, Black Sea) in order to maintain SSS restoring even near the coast.
 
 ### 2.4 Atmospheric forcing files
@@ -92,7 +92,7 @@ is needed for 'interpolation on the fly' (IOF). For wind components, we use a bi
 continuous curl (first derivative). For other fields, a bilinear interpolation is used. 
 
 Building weight files requires information on both source and target grid.  The detailed process of  building weights 
-and preparing atmospheric fields is described in this [document](../BUILD/WEIGHTS/README.md).
+and preparing atmospheric fields is described in this [document](./BUILD/WEIGHTS/README.md).
 
 ### 2.5 Enhancement files
 #### 2.5.1 Bottom friction
