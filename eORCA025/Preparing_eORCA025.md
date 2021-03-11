@@ -18,7 +18,7 @@ the communauty !
 few month of 4.2_RC.
 
 
-** Decision : Use of NEMO at release 4.0.5 ***
+**Decision : Use of NEMO at release 4.0.5**
 
 ## 2. Preparing Input files
 Input data files are independant of the NEMO release to be used (at least I hope so.), and they can be prepared ASAP. 
@@ -47,7 +47,7 @@ There are quite a few available data set for T and S climatology. Among them, th
 recent releases (last being 2018 release). Also of interest is the EN4 gridded data set, which is probably a bit biased 
 toward recent years. There are also many products based on ARGO float remapping.  A choice must be done.  
 
-** Decision : use of 1981-2010 climatology  for initial conditions.**
+**Decision : use of 1981-2010 climatology  for initial conditions.**
 
 
 Also worth to be mentioned is the 3D T-S restoring to be used (or not ?) in some areas. In NEMO (with DRAKKAR enhancement),
@@ -88,7 +88,7 @@ we musk keep the coast line with runoff in the computation of the distance to th
 ### 2.4 Atmospheric forcing files
 Decision is to be made on the forcing data set. Candidates are : DFS5.2, JRA55, ERA5. 
 
-** Decision: Use of JRA55, because (1) Widely used in OMIP, (2) grants forcing till present. **
+**Decision: Use of JRA55, because (1) Widely used in OMIP, (2) grants forcing till present.**
 
 #### 2.4.1 Preparing the forcing file
 It is  important to note that atmospheric fields from reanalysis, of course, have a global coverage, for oceans and land. 
@@ -153,9 +153,13 @@ configuration. Therefore some specific treatments are being discussed to convert
 
 
 #### 2.6.3 Spinup strategy.
-IMOTHEP first run will use climatological (seasonal) input for the runoff (liquid and solid). For ISBA based runoff, the long term 1979-2018 daily climatology will be used.
+IMOTHEP first run will use climatological (seasonal) input for the runoff (liquid and solid). 
+
+For ISBA based runoff, the long term 1979-2018 daily climatology will be used.
+
 For Greenland,  both liquid and solid contributions are pretty stable in the period 1959-1990 and then (from 1990 to present) show strong trends and variations. Therefore,
 we decided to use the 'stable' climatology (based on 1959-1990 period) for the spinup run.  Sensitivity run, with interannual runoff/calving variability will start in 1980, hence from a stabilized pre-90's state.
+
 ## 3. Preparing run time files: NEMO version dependent.
 At run time, NEMO requires control input files such as namelists for the ocean and the sea-ice, as well as a
 set of xml files describing the I/O strategy in term of data output for XIOS.
