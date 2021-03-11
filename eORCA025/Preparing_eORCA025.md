@@ -18,7 +18,7 @@ the communauty !
 few month of 4.2_RC.
 
 
- Decision : **(to be taken collectively)**
+** Decision : Use of NEMO at release 4.0.5 ***
 
 ## 2. Preparing Input files
 Input data files are independant of the NEMO release to be used (at least I hope so.), and they can be prepared ASAP. 
@@ -47,6 +47,8 @@ There are quite a few available data set for T and S climatology. Among them, th
 recent releases (last being 2018 release). Also of interest is the EN4 gridded data set, which is probably a bit biased 
 toward recent years. There are also many products based on ARGO float remapping.  A choice must be done.  
 
+** Decision : use of 1981-2010 climatology  for initial conditions.**
+
 
 Also worth to be mentioned is the 3D T-S restoring to be used (or not ?) in some areas. In NEMO (with DRAKKAR enhancement),
 initial conditions on T-S and the restoring data set can be different. Traditionnally, in DRAKKAR-like runs, we use to
@@ -58,6 +60,8 @@ overflow off antarctica continental shelf. The consequence of AABW disparition i
 as low as 95 Sv at Drake passage, after 50 years of run.  If the decision is to keep the AABW restoring we may think about the
 data set to use, for this particular restoring. (In the past, we used the Gouretsky annual climatology, which was computed
 in a density framework. But this is now a rather old dataset... ). 
+
+ > A new Gouretsky climatology is now available : get it and compare  (tbd) 
 
 We prepared initial conditions from WOA18. In fact I prepared 3 sets : first one from 1955-1964 decade climatology, available in WOA18,
 another from 1981-2010 climatology, and a last one with 1955-2017 long term monthly climatology.  Details and comments regarding this preparation are described in a [technical note](./BUILD/WOA2018/WOA18_processing.md). 
@@ -78,8 +82,14 @@ small islands, in order to have a distance-to-the-coast file that takes into acc
 this [document](./BUILD/DISTCOAST/README_DISTCOAST.md). Note that in the procedure we use a dummy very large value for the distance,
 in some closed seas (Med Sea, Black Sea) in order to maintain SSS restoring even near the coast.
 
+After this first file was build we came to preparing the runoff files, and using ISBA climatology there are several input of fresh water in the indonesian area, so that I think that
+we musk keep the coast line with runoff in the computation of the distance to the coast file...
+
 ### 2.4 Atmospheric forcing files
 Decision is to be made on the forcing data set. Candidates are : DFS5.2, JRA55, ERA5. 
+
+** Decision: Use of JRA55, because (1) Widely used in OMIP, (2) grants forcing till present. **
+
 #### 2.4.1 Preparing the forcing file
 It is  important to note that atmospheric fields from reanalysis, of course, have a global coverage, for oceans and land. 
 Prior to interpolation, reanalysis fields must be modified in such a way that land points are replaced by an extrapolation 
@@ -109,18 +119,43 @@ in the Labrador Sea, along the West Greenland coast.  Playing with this conditio
 many years of model tunning in the communauty. No strict rationale can be provided (intent of defining lateral rugosity
 did not lead to convincing results... ). 
 
+#### 2.5.3 3D restoring file:
+We decided to create the so called `resto.nc` file out of NEMO, in order to use the standard tradmp NEMO code. This will
+ease the tracability of the configuration.
+##### Overflow regions
+
+##### Semi-enclosed seas
+
+##### Deep waters in the Southern Ocean.
+
 ### 2.6 Runoff files
 This is the central part of IMOTHEP ! For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
 dependent fresh water flux (in kg/m2/s) given for *ad hoc* grid cells. It also contain a mask where *ad hoc* grid cells have
-the value of 0.5 instead of 0. elsewhere. 
+the value of 0.5 instead of 0. elsewhere.  The technical details of howto prepare the runoff files are given in [this document](./BUILD/RUNOFF/README_RUNOFF.md). 
 
-Building of this file first requires the building of the mask, used to spread the runoff nearby river estuaries. Then, the
-values of the runoff are projected on the grid points, according to the area of the model cell. The pre-processing work 
-consist of providing timeseries of the runoff for the rivers.  A decision is to be made on the choice of the rivers with interannual
-time-series  and those with climatological (seasonal) only time-series.    Once the interannual file is provided,  a
-seasonal climatology will be derived.  This climatological file will be used throughout all the 'climatological' experiments, hence
-is needed ASAP, for the first run. 
+#### 2.6.1 Liquid runoff:
+After several comparision between available data set, decision was take to use the global ISBA reanalysis giving river discharge 
+on 1/2 degree regular grid.  Comparision with observations, for the main rivers (Amazon, Orinoco, Mississipi, Congo, Niger, Gange, Bramhapoutre, Irriwady)
+showed that the reanalysis well captures the interannual variability which indicated that is is suitable for the goal of the project.
 
+Interannual ISBA runoff will be used everywhere in the global ocean except around Antarctica and Greenland. 
+   * for antarctica we will use the iceshelf parametrization (ISF NEMO module) of Pierre Mathiot with climatological input files
+   * for Greenland, Jeremie Mouginot prepare interannual file for the runoff (260 selected points).
+
+#### 2.6.2 Solid runoff ( icebergs calving).
+Decision was taken to use calving flux and explicit representation of the icebergs (ICB NEMO module). This module is fed by annual calving rate (Gt/year)
+applied at specific locations around Antarctica and Greenland.
+
+For Antarctica we will use the input files prepared by Pierre Mathiot, using an annual climatology coherent for calving rate and basal iceshelf melting (for liquid contribution).
+
+For Greenland, we will use interannual files prepared by Jeremie Mouginot. Calving around Greenland mainly occurs in fjords which are not well resolved with the eORCA025
+configuration. Therefore some specific treatments are being discussed to convert part of the calving rate at the glaciar front into liquid runoff at the entrance of the fjords.
+
+
+#### 2.6.3 Spinup strategy.
+IMOTHEP first run will use climatological (seasonal) input for the runoff (liquid and solid). For ISBA based runoff, the long term 1979-2018 daily climatology will be used.
+For Greenland,  both liquid and solid contributions are pretty stable in the period 1959-1990 and then (from 1990 to present) show strong trends and variations. Therefore,
+we decided to use the 'stable' climatology (based on 1959-1990 period) for the spinup run.  Sensitivity run, with interannual runoff/calving variability will start in 1980, hence from a stabilized pre-90's state.
 ## 3. Preparing run time files: NEMO version dependent.
 At run time, NEMO requires control input files such as namelists for the ocean and the sea-ice, as well as a
 set of xml files describing the I/O strategy in term of data output for XIOS.
