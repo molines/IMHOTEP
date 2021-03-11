@@ -19,7 +19,7 @@ range -89.5 to 89.5 degrees. Time counter is using units in days since 1979-01-0
 
 ## Processing the data:
 In the IMOTHEP project the very first runs are foreseen as forced by climatological runoff. Therefore, the first task is to compute this
-climatological runoff (daily).  As the original file syteme uses a greogorian calendar, with leap years, we adopt the following processing :
+climatological runoff (daily).  As the original file syteme uses a gregorian calendar, with leap years, we adopt the following processing :
 
 Prepare a file without feb 29, using cdo
 
