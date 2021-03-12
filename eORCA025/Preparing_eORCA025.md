@@ -143,14 +143,20 @@ Interannual ISBA runoff will be used everywhere in the global ocean except aroun
    * for Greenland, Jeremie Mouginot prepare interannual file for the runoff (260 selected points).
 
 #### 2.6.2 Solid runoff ( icebergs calving).
-Decision was taken to use calving flux and explicit representation of the icebergs (ICB NEMO module). This module is fed by annual calving rate (Gt/year)
-applied at specific locations around Antarctica and Greenland.
+Decision was taken to use calving flux and explicit representation of the icebergs (ICB NEMO module). This module is fed by annual calving rate (km3/year)
+applied at specific locations around Antarctica and Greenland.  This information is read in NEMO through the `sn_icb` structure. Note that in the second part of the projet, when
+AGRIF zoom will be deployed in the North Atlantic, we know that icebergs are not crossing the AGRIF boundaries.  We have analysed that most of the icebergs are drifting southward so
+that probably very few may have the tendency to cross the Northern Agrif boundary.
 
 For Antarctica we will use the input files prepared by Pierre Mathiot, using an annual climatology coherent for calving rate and basal iceshelf melting (for liquid contribution).
 
 For Greenland, we will use interannual files prepared by Jeremie Mouginot. Calving around Greenland mainly occurs in fjords which are not well resolved with the eORCA025
 configuration. Therefore some specific treatments are being discussed to convert part of the calving rate at the glaciar front into liquid runoff at the entrance of the fjords.
 
+We do note that on Pierre Mathiot file, there is also a contribution for the northern hemisphere, around Greenland, but also for very few spots in Svalblard and Canadian Archipelago.
+These areas are not covered by Jeremie Mouginot work.  With regard to the AGRIF strategy  in the second part of the project, it is probably safer to just ignore this (small) contribution
+
+Details of the construction of the calving files are given in this [technical note](./BUILD/CALVING/README_CALVING.md).
 
 #### 2.6.3 Spinup strategy.
 IMOTHEP first run will use climatological (seasonal) input for the runoff (liquid and solid). 
