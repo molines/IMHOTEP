@@ -71,25 +71,25 @@ CONTAINS
     ALLOCATE ( dphif(npiglo,npjglo), dlamf(npiglo,npjglo), de1f(npiglo,npjglo), de2f(npiglo,npjglo) )
 
     ! T point
-    ierr = NF90_INQ_VARID(ncid,'dphit',id) ; ierr= NF90_GET_VAR(ncid, id, dphit, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'dlamt',id) ; ierr= NF90_GET_VAR(ncid, id, dlamt, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'de1t'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de1t  , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'de2t'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2t  , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'gphit',id) ; ierr= NF90_GET_VAR(ncid, id, dphit, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'glamt',id) ; ierr= NF90_GET_VAR(ncid, id, dlamt, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'e1t'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de1t , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'e2t'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2t , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
     ! U point
-    ierr = NF90_INQ_VARID(ncid,'dphiu',id) ; ierr= NF90_GET_VAR(ncid, id, dphiu, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'dlamu',id) ; ierr= NF90_GET_VAR(ncid, id, dlamu, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'de1u'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de1u  , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'de2u'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2u  , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'gphiu',id) ; ierr= NF90_GET_VAR(ncid, id, dphiu, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'glamu',id) ; ierr= NF90_GET_VAR(ncid, id, dlamu, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'e1u'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de1u , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'e2u'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2u , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
     ! V point
-    ierr = NF90_INQ_VARID(ncid,'dphiv',id) ; ierr= NF90_GET_VAR(ncid, id, dphiv, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'dlamv',id) ; ierr= NF90_GET_VAR(ncid, id, dlamv, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'de1v'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de1v  , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'de2v'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2v  , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'gphiv',id) ; ierr= NF90_GET_VAR(ncid, id, dphiv, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'glamv',id) ; ierr= NF90_GET_VAR(ncid, id, dlamv, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'e1v'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de1v , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'e2v'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2v , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
     ! F point
-    ierr = NF90_INQ_VARID(ncid,'dphif',id) ; ierr= NF90_GET_VAR(ncid, id, dphif, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'dlamf',id) ; ierr= NF90_GET_VAR(ncid, id, dlamf, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'de1f'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de1f  , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
-    ierr = NF90_INQ_VARID(ncid,'de2f'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2f  , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'gphif',id) ; ierr= NF90_GET_VAR(ncid, id, dphif, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'glamf',id) ; ierr= NF90_GET_VAR(ncid, id, dlamf, start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'e1f'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de1f , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
+    ierr = NF90_INQ_VARID(ncid,'e2f'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2f , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
     ! close input file
     ierr = NF90_CLOSE(ncid)
   END SUBROUTINE GetGrid025
@@ -374,28 +374,28 @@ CONTAINS
     ierr = NF90_DEF_VAR(ncid,'time_counter', NF90_DOUBLE, (/idt/), idtim)
 
     ! T points
-    ierr = NF90_DEF_VAR(ncid,'dphit',NF90_DOUBLE,(/idx,idy,idt/), idphit )
-    ierr = NF90_DEF_VAR(ncid,'dlamt',NF90_DOUBLE,(/idx,idy,idt/), idlamt )
-    ierr = NF90_DEF_VAR(ncid,'de1t',  NF90_DOUBLE,(/idx,idy,idt/), ide1t )
-    ierr = NF90_DEF_VAR(ncid,'de2t',  NF90_DOUBLE,(/idx,idy,idt/), ide2t )
+    ierr = NF90_DEF_VAR(ncid,'gphit',NF90_DOUBLE,(/idx,idy,idt/), idphit )
+    ierr = NF90_DEF_VAR(ncid,'glamt',NF90_DOUBLE,(/idx,idy,idt/), idlamt )
+    ierr = NF90_DEF_VAR(ncid,'e1t',  NF90_DOUBLE,(/idx,idy,idt/), ide1t )
+    ierr = NF90_DEF_VAR(ncid,'e2t',  NF90_DOUBLE,(/idx,idy,idt/), ide2t )
 
     ! U points
-    ierr = NF90_DEF_VAR(ncid,'dphiu',NF90_DOUBLE,(/idx,idy,idt/), idphiu )
-    ierr = NF90_DEF_VAR(ncid,'dlamu',NF90_DOUBLE,(/idx,idy,idt/), idlamu )
-    ierr = NF90_DEF_VAR(ncid,'de1u',  NF90_DOUBLE,(/idx,idy,idt/), ide1u )
-    ierr = NF90_DEF_VAR(ncid,'de2u',  NF90_DOUBLE,(/idx,idy,idt/), ide2u )
+    ierr = NF90_DEF_VAR(ncid,'gphiu',NF90_DOUBLE,(/idx,idy,idt/), idphiu )
+    ierr = NF90_DEF_VAR(ncid,'glamu',NF90_DOUBLE,(/idx,idy,idt/), idlamu )
+    ierr = NF90_DEF_VAR(ncid,'e1u',  NF90_DOUBLE,(/idx,idy,idt/), ide1u )
+    ierr = NF90_DEF_VAR(ncid,'e2u',  NF90_DOUBLE,(/idx,idy,idt/), ide2u )
 
     ! V points
-    ierr = NF90_DEF_VAR(ncid,'dphiv',NF90_DOUBLE,(/idx,idy,idt/), idphiv )
-    ierr = NF90_DEF_VAR(ncid,'dlamv',NF90_DOUBLE,(/idx,idy,idt/), idlamv )
-    ierr = NF90_DEF_VAR(ncid,'de1v',  NF90_DOUBLE,(/idx,idy,idt/), ide1v )
-    ierr = NF90_DEF_VAR(ncid,'de2v',  NF90_DOUBLE,(/idx,idy,idt/), ide2v )
+    ierr = NF90_DEF_VAR(ncid,'gphiv',NF90_DOUBLE,(/idx,idy,idt/), idphiv )
+    ierr = NF90_DEF_VAR(ncid,'glamv',NF90_DOUBLE,(/idx,idy,idt/), idlamv )
+    ierr = NF90_DEF_VAR(ncid,'e1v',  NF90_DOUBLE,(/idx,idy,idt/), ide1v )
+    ierr = NF90_DEF_VAR(ncid,'e2v',  NF90_DOUBLE,(/idx,idy,idt/), ide2v )
 
     ! F points
-    ierr = NF90_DEF_VAR(ncid,'dphif',NF90_DOUBLE,(/idx,idy,idt/), idphif )
-    ierr = NF90_DEF_VAR(ncid,'dlamf',NF90_DOUBLE,(/idx,idy,idt/), idlamf )
-    ierr = NF90_DEF_VAR(ncid,'de1f',  NF90_DOUBLE,(/idx,idy,idt/), ide1f )
-    ierr = NF90_DEF_VAR(ncid,'de2f',  NF90_DOUBLE,(/idx,idy,idt/), ide2f )
+    ierr = NF90_DEF_VAR(ncid,'gphif',NF90_DOUBLE,(/idx,idy,idt/), idphif )
+    ierr = NF90_DEF_VAR(ncid,'glamf',NF90_DOUBLE,(/idx,idy,idt/), idlamf )
+    ierr = NF90_DEF_VAR(ncid,'e1f',  NF90_DOUBLE,(/idx,idy,idt/), ide1f )
+    ierr = NF90_DEF_VAR(ncid,'e2f',  NF90_DOUBLE,(/idx,idy,idt/), ide2f )
 
     ierr = NF90_ENDDEF(ncid)
     ! Put variables
