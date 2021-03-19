@@ -35,20 +35,25 @@ PROGRAM mkorca05
 
   CHARACTER(LEN=80) :: cf_domain025='eORCA025.L75_domain_cfg.nc'
   CHARACTER(LEN=80) :: cf_coord05='eORCA05_coordinates.nc'
+  CHARACTER(LEN=80) :: cf_domain05='ORCA05_domain_cfg.nc'
   CHARACTER(LEN=10) :: cdimx='x', cdimy='y'
   !!----------------------------------------------------------------------
-  CALL GetGrid025
+  CALL GetGrid(cf_domain025)
   CALL GetSize05
   CALL BuildLonLat
   CALL BuildMetric
+  CALL ReleaseGrid   ! deallocate grid arrays used for eORCA025
+  CALL GetGrid(cf_domain05)
+  CALL Merge05
+  CALL ReleaseGrid   ! deallocate grid arrays used for ORCA05
 
   CALL Wcoord
 
 CONTAINS
 
-  SUBROUTINE GetGrid025
+  SUBROUTINE GetGrid(cd_domain)
     !!---------------------------------------------------------------------
-    !!                  ***  ROUTINE GetGrid025  ***
+    !!                  ***  ROUTINE GetGrid  ***
     !!
     !! ** Purpose :  Read all the horizontal variables of eORCA025 grid 
     !!               Can probably be done readin less (horizontal metrics not used !)
@@ -56,9 +61,9 @@ CONTAINS
     !! ** Method  :  Netcdf Primitives 
     !!
     !!----------------------------------------------------------------------
+    CHARACTER(LEN=*), INTENT(in) :: cd_domain
 
-    ! Read eORCA025 grid:
-    ierr = NF90_OPEN(cf_domain025,NF90_NOWRITE, ncid)
+    ierr = NF90_OPEN(cd_domain,NF90_NOWRITE, ncid)
     ! dimensions
     ierr = NF90_INQ_DIMID(ncid, cdimx,id) ; ierr = NF90_INQUIRE_DIMENSION(ncid,id, len=npiglo)
     ierr = NF90_INQ_DIMID(ncid, cdimy,id) ; ierr = NF90_INQUIRE_DIMENSION(ncid,id, len=npjglo)
@@ -92,7 +97,25 @@ CONTAINS
     ierr = NF90_INQ_VARID(ncid,'e2f'  ,id) ; ierr= NF90_GET_VAR(ncid, id, de2f , start=(/1,1,1/), count=(/npiglo,npjglo,1/) )
     ! close input file
     ierr = NF90_CLOSE(ncid)
-  END SUBROUTINE GetGrid025
+  END SUBROUTINE GetGrid
+
+  SUBROUTINE ReleaseGrid
+    !!---------------------------------------------------------------------
+    !!                  ***  ROUTINE ReleaseGrid  ***
+    !!
+    !! ** Purpose :  Deallocate grid arrays before re-use
+    !!
+    !! ** Method  :  Deallocate global arrays
+    !!
+    !!----------------------------------------------------------------------
+
+    DEALLOCATE ( dphit, dlamt, de1t, de2t )
+    DEALLOCATE ( dphiu, dlamu, de1u, de2u )
+    DEALLOCATE ( dphiv, dlamv, de1v, de2v )
+    DEALLOCATE ( dphif, dlamf, de1f, de2f )
+
+  END SUBROUTINE ReleaseGrid
+
 
   SUBROUTINE GetSize05
     !!---------------------------------------------------------------------
@@ -251,7 +274,7 @@ CONTAINS
         ! de1 F = dist between V(i) and V(i+1)
         ! de2 F = dist between U(j) and U(j+1)
         de1f5(ji,jj) =  dist ( dlamv5(ji,jj), dlamv5(ji+1,jj  ), dphiv5(ji,jj), dphiv5(ji+1,jj  ) ) * 1000.d0 ! in meters
-        de2f5(ji,jj) =  dist ( dlamu5(ji,jj), dlamu5(ji  ,jj+1), dphif5(ji,jj), dphiu5(ji  ,jj+1) ) * 1000.d0 ! in meters
+        de2f5(ji,jj) =  dist ( dlamu5(ji,jj), dlamu5(ji  ,jj+1), dphiu5(ji,jj), dphiu5(ji  ,jj+1) ) * 1000.d0 ! in meters
       ENDDO
     ENDDO
     ! Periodicity
@@ -347,6 +370,52 @@ CONTAINS
 
 
   END SUBROUTINE BuildMetric
+
+  SUBROUTINE Merge05
+    !!---------------------------------------------------------------------
+    !!                  ***  ROUTINE Merge05  ***
+    !!
+    !! ** Purpose :   patch northern part of the domain from ORCA05
+    !!                to freshly build eORCA05
+    !!
+    !! ** Method  :   patch north of a common line (hand defined)
+    !!
+    !!----------------------------------------------------------------------
+    INTEGER(KIND=4) :: ijcommon1=260   ! ORCA05
+    INTEGER(KIND=4) :: ijcommon2=353   ! eORCA05
+    !!----------------------------------------------------------------------
+    IF ( nidim5 /= npiglo ) THEN
+      PRINT *, ' PROBLEM : I grid sizes mismatch !'
+      STOP 1
+    ENDIF
+    ij=ijcommon2
+    DO jj=ijcommon1,npjglo
+       dphit5(:,ij) = dphit(:,jj)
+       dlamt5(:,ij) = dlamt(:,jj)
+       de1t5(:,ij)  = de1t(:,jj)
+       de2t5(:,ij)  = de2t(:,jj)
+
+       dphiu5(:,ij) = dphiu(:,jj)
+       dlamu5(:,ij) = dlamu(:,jj)
+       de1u5(:,ij)  = de1u(:,jj)
+       de2u5(:,ij)  = de2u(:,jj)
+
+       dphiv5(:,ij) = dphiv(:,jj)
+       dlamv5(:,ij) = dlamv(:,jj)
+       de1v5(:,ij)  = de1v(:,jj)
+       de2v5(:,ij)  = de2v(:,jj)
+
+       dphif5(:,ij) = dphif(:,jj)
+       dlamf5(:,ij) = dlamf(:,jj)
+       de1f5(:,ij)  = de1f(:,jj)
+       de2f5(:,ij)  = de2f(:,jj)
+       ij=ij+1
+    ENDDO
+    ! update njdim5 to real value
+    njdim5=ij - 1
+    
+
+  END SUBROUTINE Merge05
   SUBROUTINE Wcoord
     !!---------------------------------------------------------------------
     !!                  ***  ROUTINE Wcoord  ***
