@@ -381,8 +381,8 @@ CONTAINS
     !! ** Method  :   patch north of a common line (hand defined)
     !!
     !!----------------------------------------------------------------------
-    INTEGER(KIND=4) :: ijcommon1=260   ! ORCA05
-    INTEGER(KIND=4) :: ijcommon2=353   ! eORCA05
+    INTEGER(KIND=4) :: ijcommon1= 79   ! ORCA05
+    INTEGER(KIND=4) :: ijcommon2=172   ! eORCA05
     !!----------------------------------------------------------------------
     IF ( nidim5 /= npiglo ) THEN
       PRINT *, ' PROBLEM : I grid sizes mismatch !'
