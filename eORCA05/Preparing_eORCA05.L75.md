@@ -1,0 +1,43 @@
+# Preparing eORCA05 configuration
+## Context
+In the series of the ORCA configuration, ORCA05 has never been extended to eORCA05. The only operational configuration is ORCA05.L46.
+In the second part/phase of the project, we plan to run an ORCA05 configuration with 2 AGRIF nest (in the North Atlantic and North Indian oceans), with a factor
+2 refinement, leading to have localy 1/4 degree resolution, identical to the resolution used in the first part of the project. In the second part, we 
+plan to use this nesting strategy because we want to perform an ensemble run with 10 members. Using nest will reduce the cost of the ensemble simulation.
+
+It is of primary interest for the project to be able to compare runs achieved in the two phases. As be are using eORCA025.L75 in the first phase, it seems
+logical to setup an eORCA05.L75  as the mother grid used in the second phase.  An extra difficulty comes from the location of the North Indian nest : it crosses
+the E-W periodic boundary of the ORCA grid, which is just not supported by NEMO v4.0.6 (used in the project). We manage to shfit the E-W periodic boundary 
+by 180 deg (which became located in the Eastern Pacific), so that both Atlantic and Indian oceans are not splitted.
+
+This document describes the actions that were performed for the development of the  eCAOR05.L75 configuration, used as the mother grid for the AGRIF nests.
+
+## Creating the eORCA05 horizontal grid.
+We start from eORCA025 grid and figure out how ORCA05 points matches  eORCA025  points.  We found that T point ORCA05(3,256) is located as T points eORCA025(5,697).
+In the same manner, for instance, we found that U point ORCA05(3,256) = T points eORCA025(6,297), etc ..
+The program [mkorca05.f90](BUILD/HGR/mkorca05.f90) was written in order to create the eORCA05 grid, and in particular its southern extension, using  the matching points.
+After determining the location of T U V F points in the eORCA05 grid, e1 and e2 metrics was calculated using orthodromic distance between *ad hoc* points. Finally, we 
+patch the eORCA05 grid with original ORCA05 grid north of J=79.  This program ends up creating the file `eORCA05_coordinates.nc`.
+
+## Creating the eORCA05 bathymetry.
+Here again we use the eORCA025 bathymetry to infer eORCA05 bathymetry, ice-shelf bathymetry and ice-shelf draft.  eORCA05 bathymetry is a weighted average of
+9 eORCA025 neigbour points of the matching T points.  The program [mkbathy05.f90](BUILD/HGR/mkbathy05.f90) was build for this purpose. As for the coordinates,
+the eORCA05 bathymetry coming out from this process, was patched with the original ORCA05 bathymetry, north of J=9. This program ends up creating the `eORCA05_bathymetry_b0.2_closed_seas.nc`
+
+## Creating the eORCA05.L75 domain_cfg
+Having now both the coordinates, and the bathymetry for the eORCA05 horizontal grid, we were able to compute the `domain_cfg.nc` file using exactly the same
+settings that were used for eORCA025.L75 (see the procedure in [this document](../eORCA025/BUILD/DOMAIN_cfg/README.md) ).  We end up with the file `eORCA05.L75_domain_cfg.nc`.
+
+## Creating Initial conditions for T and S, as well as the restoring T and S
+
+## Creating weight files for the atmospheric forcing.
+
+## Creating Runoff 
+
+## Creating extra config files
+
+
+## From eORCA05.L75 to eCAOR05.L75 : shifting the grid
+A specific program, written as a new [CDFTOOLS](https://github.com/meom-group/CDFTOOLS), `cdfshif05.f90`, just shift the E-W periodic boundary by 180 degree. The program is fair enough to deal
+with any NEMO input file, provided the name of 'x' and 'y' dimensions are known, and the time dimension (if any) in `UNLIMITED` in the netcdf sense. Resulting CAOR05 grid and files 
+have been successfully tested. This was a great step forward for the implementation of phase 2 with AGRIF nest !
