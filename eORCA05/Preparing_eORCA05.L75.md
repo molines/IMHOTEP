@@ -27,13 +27,30 @@ the eORCA05 bathymetry coming out from this process, was patched with the origin
 Having now both the coordinates, and the bathymetry for the eORCA05 horizontal grid, we were able to compute the `domain_cfg.nc` file using exactly the same
 settings that were used for eORCA025.L75 (see the procedure in [this document](../eORCA025/BUILD/DOMAIN_cfg/README.md) ).  We end up with the file `eORCA05.L75_domain_cfg.nc`.
 
-## Creating Initial conditions for T and S, as well as the restoring T and S
+## Creating Initial conditions for T and S, as well as the restoring T and S:
+We choose the same WOA18 data set that was used for eORCA025.L75, and the same `SOSIE` procedure.
 
 ## Creating weight files for the atmospheric forcing.
+Weights file for JRA55 forcing data set were prepared  following the same procedure that was used for eORCA025 (see [this document](../eORCA025/BUILD/WEIGHTS/README.md) ).
+When calling the `mkweights.ksh` scripts, of course we used the eORCA05_domain_cfg.nc file. `wght_JRA55_eORCA05_bicub.nc`  and `wght_JRA55_eORCA05_bilin.nc` were build 
+this way.
 
-## Creating Runoff 
+## Creating Continental Fresh Water fluxes files:
+### **Runoff**
+### **Calving**
+### **Iceshelf melting**
+### **SSS restoring climatology:**  
+In the first phase of the project,  spinup run is used  to infer a precipitation correction corresponding to the climatology of 
+the SSS restoring. All sensitivity runs are performed without any SSS restoring, but using this correction.  When switching to global eORCA05, the question
+is raised wether to use the same approach (requires a eORCA05 spinup, and diagnostic of the SSS restoring term), or to directly use an eORCA05 interpolation of the correction.
+Behind this question, is the coherency regarding the total amount of fresh water entering  the domain. (Still, evaporation is not controlled externally and may differ between 
+the 2 resolutions !). 
 
 ## Creating extra config files
+### **Distance to coast**
+### **Enhanced bottom friction**
+### **Lateral conditions (shlat)**
+### **3D restoring coefficient.**
 
 
 ## From eORCA05.L75 to eCAOR05.L75 : shifting the grid
