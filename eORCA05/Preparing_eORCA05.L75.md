@@ -1,9 +1,8 @@
 # Preparing eORCA05 configuration
 ## Context
 In the series of the ORCA configuration, ORCA05 has never been extended to eORCA05. The only operational configuration is ORCA05.L46.
-In the second part/phase of the project, we plan to run an ORCA05 configuration with 2 AGRIF nest (in the North Atlantic and North Indian oceans), with a factor
-2 refinement, leading to have localy 1/4 degree resolution, identical to the resolution used in the first part of the project. In the second part, we 
-plan to use this nesting strategy because we want to perform an ensemble run with 10 members. Using nest will reduce the cost of the ensemble simulation.
+In the second part/phase of the project, we plan to run an ORCA05 configuration with 2 AGRIF nests (in the North Atlantic and North Indian oceans), with a refinement factor of 2, leading to have localy 1/4 degree resolution, identical to the resolution used in the first part of the project. In the second part, we 
+plan to use this nesting strategy because we want to perform an ensemble run with 10 members. Using nests will reduce the cost of the ensemble simulation.
 
 It is of primary interest for the project to be able to compare runs achieved in the two phases. As be are using eORCA025.L75 in the first phase, it seems
 logical to setup an eORCA05.L75  as the mother grid used in the second phase.  An extra difficulty comes from the location of the North Indian nest : it crosses
@@ -22,7 +21,7 @@ patch the eORCA05 grid with original ORCA05 grid north of J=79.  This program en
 ## Creating the eORCA05 bathymetry.
 Here again we use the eORCA025 bathymetry to infer eORCA05 bathymetry, ice-shelf bathymetry and ice-shelf draft.  eORCA05 bathymetry is a weighted average of
 9 eORCA025 neigbour points of the matching T points.  The program [mkbathy05.f90](BUILD/HGR/mkbathy05.f90) was build for this purpose. As for the coordinates,
-the eORCA05 bathymetry coming out from this process, was patched with the original ORCA05 bathymetry, north of J=9. This program ends up creating the `eORCA05_bathymetry_b0.2_closed_seas.nc`
+the eORCA05 bathymetry coming out from this process, was patched with the original ORCA05 bathymetry, north of J=79. This program ends up creating the `eORCA05_bathymetry_b0.2_closed_seas.nc`
 
 ## Creating the eORCA05.L75 domain_cfg
 Having now both the coordinates, and the bathymetry for the eORCA05 horizontal grid, we were able to compute the `domain_cfg.nc` file using exactly the same
@@ -38,6 +37,5 @@ settings that were used for eORCA025.L75 (see the procedure in [this document](.
 
 
 ## From eORCA05.L75 to eCAOR05.L75 : shifting the grid
-A specific program, written as a new [CDFTOOLS](https://github.com/meom-group/CDFTOOLS), `cdfshif05.f90`, just shift the E-W periodic boundary by 180 degree. The program is fair enough to deal
-with any NEMO input file, provided the name of 'x' and 'y' dimensions are known, and the time dimension (if any) in `UNLIMITED` in the netcdf sense. Resulting CAOR05 grid and files 
-have been successfully tested. This was a great step forward for the implementation of phase 2 with AGRIF nest !
+A specific program, written as a new [CDFTOOLS](https://github.com/meom-group/CDFTOOLS), `cdfshift05.f90`, just shift the E-W periodic boundary by 180 degree. The progra m is fair enough to dealwith any NEMO input file, provided the name of 'x' and 'y' dimensions are known, and the time dimension (if any) is `UNLIMITED` 
+in the netcdf sense. Resulting CAOR05 grid and files  have been successfully tested. This was a great step forward for the implementation of phase 2 with AGRIF nest !
