@@ -27,8 +27,11 @@ the eORCA05 bathymetry coming out from this process, was patched with the origin
 Having now both the coordinates, and the bathymetry for the eORCA05 horizontal grid, we were able to compute the `domain_cfg.nc` file using exactly the same
 settings that were used for eORCA025.L75 (see the procedure in [this document](../eORCA025/BUILD/DOMAIN_cfg/README.md) ).  We end up with the file `eORCA05.L75_domain_cfg.nc`.
 
-## Creating Initial conditions for T and S, as well as the restoring T and S:
-We choose the same WOA18 data set that was used for eORCA025.L75, and the same `SOSIE` procedure.
+## Creating Initial conditions for T and S, as well as the restoring T and S: (Potential temperature and Relative salinity).
+We choose the same WOA18 data set that was used for eORCA025.L75 (30 yrs climatology, 1980-2010), and the same `SOSIE` procedure. So, all the sosie namelist used with eORCA025.L75 were adapted to eORCA05.L75.
+The adaptation only consists in changing the name of the mesh_mask.nc file. The output files produced by SOSIE were reformatted to a NEMO standard, using the 
+[mknemolike.sh](BUILD/INITIAL_COND/mknemolike.sh) script. This latter operation is basically  dedicated to renaming the netcdf file dimensions, and coordinates 
+variables. The process ends up producing  `eORCA05.L75_81B0_WOA18_1m_votemper.nc` and `eORCA05.L75_81B0_WOA18_1m_vosaline.nc`
 
 ## Creating weight files for the atmospheric forcing.
 Weights file for JRA55 forcing data set were prepared  following the same procedure that was used for eORCA025 (see [this document](../eORCA025/BUILD/WEIGHTS/README.md) ).
