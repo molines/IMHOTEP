@@ -18,7 +18,7 @@ the communauty !
 few month of 4.2_RC.
 
 
-**Decision : Use of NEMO at release 4.0.5**
+**Decision : Use of NEMO at release 4.0.5** (update : actually minor release **4.0.6** )
 
 ## 2. Preparing Input files
 Input data files are independant of the NEMO release to be used (at least I hope so.), and they can be prepared ASAP. 
@@ -58,16 +58,25 @@ the right depht), but also on a much wider area in the southern Ocean, in the bo
 the AABW which otherwise tend to disappear by vertical mixing and because they are not well alimented by the dense water
 overflow off antarctica continental shelf. The consequence of AABW disparition is the spining down of the ACC, which  can be
 as low as 95 Sv at Drake passage, after 50 years of run.  If the decision is to keep the AABW restoring we may think about the
-data set to use, for this particular restoring. (In the past, we used the Gouretsky annual climatology, which was computed
+data set to use, for this particular restoring. (In the past, we used the Gouretski annual climatology, which was computed
 in a density framework. But this is now a rather old dataset... ). 
 
- > A new Gouretsky climatology is now available : get it and compare  (tbd) 
+ > A new Gouretski climatology is now available (2018).  This new Gouretski climatology offer a monthly climatology for T,S.
+ > Data set was retrieved from the [DKRZ web-site](https://cera-www.dkrz.de/WDCC/ui/cerasearch/entry?acronym=WAGHC_V1.0) (after
+ > registration. The details of this climatology are given in this [paper](https://doi.org/10.1080/16742834.2019.1588066). 
+ > Some reformating was performed (creating a single monthly file of temperature, salinity. Computing potential temperature).
+ > This data set is now kept on ige-meom-cal1:/mnt/meom/DATA_SET/GOURETSKI_2018
+
+**Decision : use Gouretski monthly climatology for restoring.**
+
 
 We prepared initial conditions from WOA18. In fact I prepared 3 sets : first one from 1955-1964 decade climatology, available in WOA18,
 another from 1981-2010 climatology, and a last one with 1955-2017 long term monthly climatology.  Details and comments regarding this preparation are described in a [technical note](./BUILD/WOA2018/WOA18_processing.md). 
 
 The creation of the NEMO files is described in this other [document](./BUILD/INITIAL_CONDITIONS/README_CI.md). From our experience, having good and clean initial
 conditions, double checked is a key point for having a smooth simulation... This is the reason for which I prefer initial conditions on the model grid rather than on a regular grid with '3D interpolation on the fly' and weight files.
+
+The same processing was done for Gouretski monthly climatology, with sosie. Scripts and namelists are available in [this directory](./BUILD/GOURETSKI_18)
 
 ### 2.3 Distance-to-the coast file
 This file is used for the SSS restoring in order to prevent restoring in the vicinity of the coast, letting the  boundary currents
@@ -103,6 +112,9 @@ continuous curl (first derivative). For other fields, a bilinear interpolation i
 
 Building weight files requires information on both source and target grid.  The detailed process of  building weights 
 and preparing atmospheric fields is described in this [document](./BUILD/WEIGHTS/README.md).
+
+Although not atmospheric forcing, we decided to use geothermal heating from the bottom of the ocean, using the Goutorbe data set,
+proposed on a regular 1 degree grid. Weight files for bilinear interpolation were also built in the same way.
 
 ### 2.5 Enhancement files
 #### 2.5.1 Bottom friction

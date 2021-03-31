@@ -34,3 +34,12 @@
 ```
 > Tip : in the mkweight.ksh script, I set BINDIR=./ 
 
+## compute the weight file for the geothermal flux (Goutorbe)
+  * need the Geothermal flux file ( ghflux_v2.0.nc  )
+  * use the mkweight script
+
+```
+   ./mkweight.ksh -c eORCA05.L75_domain_cfg.nc  -M ghflux_v2.0.nc  -m bilinear
+   mv wght_bilinear_eORCA05.L75_domain_cfg.nc ../wght_ghflux_eORCA05_bilin.nc
+```
+
