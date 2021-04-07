@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=40
+#SBATCH --threads-per-core=1
+#SBATCH -A cli@cpu
+#SBATCH --hint=nomultithread
+#SBATCH -J JOB_
+#SBATCH -e zjob.e%j
+#SBATCH -o zjob.o%j
+#SBATCH --time=5:30:00
+##SBATCH --exclusive
+
+ ulimit -s unlimited
+cd  /gpfswork/rech/cli/rcli002/eORCA025.L75/eORCA025.L75-I/GREENLAN_BATHY_chk
+
+ln -sf /gpfswork/rech/cli/rcli002/DEVGIT/NEMOBAT/INTERP0/batinterp.exe ./
+ln -sf /gpfswork/rech/cli/rcli002/DATA_SET/BATHYMETRY/BedMachineGreenland-2020-04-10_lon_lat.nc ./
+
+./batinterp.exe -f eGREENLAND025.L75_namelist2020
+
+
