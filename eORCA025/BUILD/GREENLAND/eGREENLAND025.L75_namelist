@@ -1,0 +1,25 @@
+&naminterpo
+   nn_interp = 1       ! interpolation method : O: Arithmetic Average
+                       !                        1: Median average
+   nn_perio  = 0       ! NEMO periodic conditions (99 : automatic inference)
+
+   ! NEMO bathymetry output file
+   cn_fout   = 'eGREENLAND025.L75_bathy_meter_001.nc'   ! name of the output file
+   cn_varout = 'Bathymetry'       ! name of output variable
+
+   ! NEMO coordinate file
+   cn_fgrid  = 'eGREENLAND025.L75_mesh_hgr.nc'      ! name of horizontal grid file
+
+   ! External Bathymetric file
+   cn_fbatin = 'BedMachineGreenland-2017-09-20_lon_lat.nc'  ! name of external baty file
+   ln_regin  = .FALSE.  ! True  : Regular external bathy file
+                        ! False :Irregular external bathy file
+   cn_varin  = 'bed'    ! name of bathymetry in file
+   cn_xdim   = 'x'      ! name of X dimension
+   cn_ydim   = 'y'      ! name of Y dimension
+   cn_lonv   = 'nav_lon'    ! name of longitude variable
+   cn_latv   = 'nav_lat'    ! name of latitude variable
+
+   ! change sign  of bathymetry
+   ln_sign   = .FALSE.  ! change sign for bathymetry (ISF related)
+/
