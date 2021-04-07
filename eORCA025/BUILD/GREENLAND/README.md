@@ -31,6 +31,7 @@ coordinates to longitude latitude.
     * [bathyinterp.F90](https://github.com/molines/NEMOBAT/blob/master/INTERP0/batinterp.F90), used to interpolate refined bathymetry on the NEMO grid.
     * [apply_history.f90](https://github.com/molines/NEMOBAT/blob/master/INPUT_UTILITIES/apply_history.f90), used to apply hand corrections made with BMGTOOLS and loggued
 into an history file.
+    * [apply_patch.f90](https://github.com/molines/NEMOBAT/blob/master/INPUT_UTILITIES/apply_patch.f90), used to merge the regional area into the global file.
     * [mergebat.f90](https://github.com/molines/NEMOBAT/blob/master/INPUT_UTILITIES/mergebat.f90), used to patch the bathymetric file with the regionally
 refined one.
   * [BMGTOOLS](https://archimer.ifremer.fr/doc/00195/30646/) in order to perfom hand correction on the Bathymetry.
@@ -123,7 +124,7 @@ eGREENLAND025.L75_bathy_meter_002.4.nc. The changes performed on the files, poin
 ```
  #sample of history file :
 ...
-@ Modification nr: 128
+#@ Modification nr: 128
 2021-04-06 15:38:34: H0 at i=   88 and j=  191 changed from:       -0.0 to:      100.0
 2021-04-06 15:38:34: H0 at i=   89 and j=  192 changed from:       -0.0 to:      100.0
 2021-04-06 15:38:34: H0 at i=   90 and j=  192 changed from:        2.4 to:      100.0
@@ -143,12 +144,12 @@ eGREENLAND025.L75_bathy_meter_002.4.nc. The changes performed on the files, poin
 ...
 ```
     * The apply_history program was written to apply the corrections loggued in the history file, so that, transition from 002.4 to 002.5 can be performed with :
+
 ```
   apply_history.x -b eGREENLAND025.L75_bathy_meter_002.4.nc -h eGREENLAND025.L75_bathy_meter_002.5_history -o eGREENLAND025.L75_bathy_meter_002.5.nc
 ```
-
-
   * Final masking, in order to get rid of the '-10 points'
+
 ```
   cdfmltmask -f eGREENLAND025.L75_bathy_meter_002.5.nc -m eGREENLAND025.L75_mesh_mask.nc -p T        -v Bathymetry -o eGREENLAND025.L75_bathy_meter_002.6.nc
 ```
@@ -188,6 +189,10 @@ cdfcofdis -H eGREENLAND025.L75_mesh_mask.nc  -M eGREENLAND025.L75_maskbound.nc -
 /
 ```
   * Final step: patch regional file into the global file
+```
+ apply_patch.x  -w 898 1124 972 1204 -b eORCA025_bathymetry_b0.2_closed_seas.nc -p eGREENLAND025.L75_bathy_meter_003.nc -o eORCA025_bathymetry_b0.2_closed_seas_greenland.nc
+```
+
 
   * Clean some intermediate files
 
