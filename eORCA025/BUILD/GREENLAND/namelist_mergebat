@@ -1,0 +1,22 @@
+!  Template namelist for mergebat program
+!  MUST BE EDITED TO FIT YOUR NEEDS
+!
+&nammerge
+   rn_limit  = 80    ! (km) Width of the ramp for merging
+! Original file : The original bathymetry file to be patched 
+   cn_orig  = "eGREENLAND025.L75_bathymetry.nc"
+       cn_xdim  = "x"           ! x-dimension name
+       cn_ydim  = "y"           ! y-dimension name
+       cn_vbat  = "Bathymetry"  ! name of the bathymetry variable in original file
+
+! Patch file :
+   cn_patch = "eGREENLAND025.L75_bathy_meter_002.6.nc"
+       cn_vbatp = "Bathymetry"  ! name of the bathymetry variable in the patch file
+
+! Output file : (from a copy of the original file)
+   cn_final = "eGREENLAND025.L75_bathy_meter_005.nc"
+
+! Distance file : give the distance to the boudaries
+   cn_dist = "eGREENLAND025.L75_distbound.nc"
+       cn_vdist = "Tcoast"     ! name of the distance in the distance file
+/
