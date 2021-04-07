@@ -59,22 +59,24 @@ having 2 extra variables : nav_lon and nav_lat (longitude, latitude). (BedMachin
 ### 2.3 Using BedMachine data to produce a NEMO Bathymetry.
   * Extract a sub-domain of eORCA025 to include the area covered by BedMachine file:
 
-```
+  ```
     ncks -d y,971,1203 eORCA025.L75_mesh_mask.nc eGREENLAND025.L75_mesh_mask.nc
     ncks -d y,971,1203 eORCA025_bathymetry_b0.2_closed_seas.nc eGREENLAND025.L75_bathymetry
-```
+  ```
+  
   * Interpolate BedMachine bathymetry on the eGREENLAND025 grid. This is done with batinterp program, and this [namelist](./eGREENLAND025.L75_namelist).
-```
-cat << eof > ./eGREENLAND025.L75_namelist
-&naminterpo
+  
+  ```
+  cat << eof > ./eGREENLAND025.L75_namelist
+  &naminterpo
    nn_interp = 1       ! interpolation method : O: Arithmetic Average
                        !                        1: Median average
    nn_perio  = 0       ! NEMO periodic conditions (99 : automatic inference)
-
+   
    ! NEMO bathymetry output file
    cn_fout   = 'eGREENLAND025.L75_bathy_meter_002.nc'   ! name of the output file
    cn_varout = 'Bathymetry'       ! name of output variable
-
+   
    ! NEMO coordinate file
    cn_fgrid  = 'eGREENLAND025.L75_mesh_hgr.nc'      ! name of horizontal grid file
 
@@ -90,64 +92,71 @@ cat << eof > ./eGREENLAND025.L75_namelist
 
    ! change sign  of bathymetry
    ln_sign   = .FALSE.  ! change sign for bathymetry (ISF related)
-/
-eof
-
- batinterp.exe -f ./eGREENLAND025.L75_namelist
-```
+  /
+  of
+   
+   batinterp.exe -f ./eGREENLAND025.L75_namelist
+   ```
+    
     * Note that we choose nn_interp=1 (Median average) as the interpolation method.
     * This procedure was submmitted via a [batch job](./job_batinterp) because it takes more than 1 hour.
-    * The procedure provide `eGREENLAND025.L75_bathy_meter_002.nc` file. This file is just the interpolation of BedMachine elevation data set on the NEMO grid.
-In particular, it has data everywhere, positive Bathymetry corresponds to land value. So some post processing is required
+    * The procedure provide `eGREENLAND025.L75_bathy_meter_002.nc` file. This file is just the interpolation of BedMachine elevation data set on the NEMO grid. In particular, it has data everywhere, positive Bathymetry corresponds to land value. So some post processing is required
   *  Changing the sign of the bathymetry
-```
+
+  ```
   ncap2 -s "Bathymetry=float(-1.*Bathymetry)" eGREENLAND025.L75_bathy_meter_002.nc eGREENLAND025.L75_bathy_meter_002.1.nc
-```
+  ```
 
   * Get rid of land values (negative Bathymetry)
-```
+
+  ```
   ncap2 -s "where(Bathymetry < 0 ) Bathymetry=0 ;" eGREENLAND025.L75_bathy_meter_002.1.nc eGREENLAND025.L75_bathy_meter_002.2.nc
-```
-    * We notice that the bedrock in central Greenland is below the sea level, but is not covered by the ocean.
+  ```
+  
+  * We notice that the bedrock in central Greenland is below the sea level, but is not covered by the ocean.
   * Masking the Bathymetry.  We choose to maintain the same coastal mask than the original file, in order to be able to use the GFWF file already constructed. In this process
-we want to identify grid points (if any) that were in the water in the original bathy file and which are now considered as land point after BedMachine interpolation. To do so, we use
-a 2 level mask : BedMachine and eORCA025 land points are set to 0 and eORCA025 land points only are set to -10 
-```
+we want to identify grid points (if any) that were in the water in the original bathy file and which are now considered as land point after BedMachine interpolation. To do so, we use a 2 level mask : BedMachine and eORCA025 land points are set to 0 and eORCA025 land points only are set to -10 
+  
+  ```
   cdfmltmask -f eGREENLAND025.L75_bathy_meter_002.2.nc -m eGREENLAND025.L75_mesh_mask.nc -p T        -v Bathymetry -o eGREENLAND025.L75_bathy_meter_002.3.nc
   cdfmltmask -f eGREENLAND025.L75_bathy_meter_002.3.nc -m eGREENLAND025.L75_mesh_mask.nc -p T -s -10 -v Bathymetry -o eGREENLAND025.L75_bathy_meter_002.4.nc -noup
-```
-    * The resulting file for this step is eGREENLAND025.L75_bathy_meter_002.4.nc. Looking at this file with ncview shows coastal white cells corresponding to missing values.
+  ```
+  
+  * The resulting file for this step is eGREENLAND025.L75_bathy_meter_002.4.nc. Looking at this file with ncview shows coastal white cells corresponding to missing values.
 These cells were sea points in the original file and are now land points. Next step will make them sea again !
 
   * Hand correction in order to drown and correct  too shallow coastal values. This was done  with BMGTOOLS, on eGREENLAND025.L75_bathy_meter_002.5.nc, which is a copy of
 eGREENLAND025.L75_bathy_meter_002.4.nc. The changes performed on the files, point by points are loggued on this [history file](./eGREENLAND025.L75_bathy_meter_002.5_history).  
-```
- #sample of history file :
-...
-#@ Modification nr: 128
-2021-04-06 15:38:34: H0 at i=   88 and j=  191 changed from:       -0.0 to:      100.0
-2021-04-06 15:38:34: H0 at i=   89 and j=  192 changed from:       -0.0 to:      100.0
-2021-04-06 15:38:34: H0 at i=   90 and j=  192 changed from:        2.4 to:      100.0
-2021-04-06 15:38:34: H0 at i=   82 and j=  194 changed from:        9.0 to:      100.0
-2021-04-06 15:38:34: H0 at i=   85 and j=  194 changed from:        5.8 to:      100.0
-#@ Modification nr: 129
-2021-04-06 15:39:00: H0 at i=   96 and j=  172 changed from:       78.3 to:       90.0
-2021-04-06 15:39:00: H0 at i=   96 and j=  173 changed from:        1.9 to:       90.0
-2021-04-06 15:39:00: H0 at i=   96 and j=  174 changed from:       74.1 to:       90.0
-2021-04-06 15:39:00: H0 at i=   98 and j=  175 changed from:       -0.0 to:       90.0
-#@ Modification nr: 130
-2021-04-06 15:39:32: H0 at i=   98 and j=  170 changed from:        4.5 to:       50.0
-2021-04-06 15:39:32: H0 at i=   98 and j=  171 changed from:       26.5 to:       50.0
-#@ Modification nr: 131
-2021-04-06 15:39:50: H0 at i=   97 and j=  178 changed from:       -0.0 to:      350.0
-#@ Modification nr: 132
-...
-```
-    * The apply_history program was written to apply the corrections loggued in the history file, so that, transition from 002.4 to 002.5 can be performed with :
+  
+  ```
+  #sample of history file :
+  ...
+  #@ Modification nr: 128
+  2021-04-06 15:38:34: H0 at i=   88 and j=  191 changed from:       -0.0 to:      100.0
+  2021-04-06 15:38:34: H0 at i=   89 and j=  192 changed from:       -0.0 to:      100.0
+  2021-04-06 15:38:34: H0 at i=   90 and j=  192 changed from:        2.4 to:      100.0
+  2021-04-06 15:38:34: H0 at i=   82 and j=  194 changed from:        9.0 to:      100.0
+  2021-04-06 15:38:34: H0 at i=   85 and j=  194 changed from:        5.8 to:      100.0
+  #@ Modification nr: 129
+  2021-04-06 15:39:00: H0 at i=   96 and j=  172 changed from:       78.3 to:       90.0
+  2021-04-06 15:39:00: H0 at i=   96 and j=  173 changed from:        1.9 to:       90.0
+  2021-04-06 15:39:00: H0 at i=   96 and j=  174 changed from:       74.1 to:       90.0
+  2021-04-06 15:39:00: H0 at i=   98 and j=  175 changed from:       -0.0 to:       90.0
+  #@ Modification nr: 130
+  2021-04-06 15:39:32: H0 at i=   98 and j=  170 changed from:        4.5 to:       50.0
+  2021-04-06 15:39:32: H0 at i=   98 and j=  171 changed from:       26.5 to:       50.0
+  #@ Modification nr: 131
+  2021-04-06 15:39:50: H0 at i=   97 and j=  178 changed from:       -0.0 to:      350.0
+  #@ Modification nr: 132
+  ...
+  ```
+  
+  * The apply_history program was written to apply the corrections loggued in the history file, so that, transition from 002.4 to 002.5 can be performed with :
 
 ```
   apply_history.x -b eGREENLAND025.L75_bathy_meter_002.4.nc -h eGREENLAND025.L75_bathy_meter_002.5_history -o eGREENLAND025.L75_bathy_meter_002.5.nc
 ```
+  
   * Final masking, in order to get rid of the '-10 points'
 
 ```
@@ -159,39 +168,44 @@ bathymetry that was produced in the former step.
     * This merge process requires a file with the distance to the boundaries for the patch (ie the file coming from 
 BedMachine interpolation). This 'distance' file can be produced by cdfcofdis, using a mask file infered from the interpolated bathymetry file, where the values
 are arbitrarily set to 9999.99 outside the BedMachine boundaries:
-```
-ncap2 -s "where(Bathymetry >= 9999.9) Bathymetry=0 ; elsewhere  Bathymetry=1. ;" eGREENLAND025.L75_bathy_meter_002.1.nc eGREENLAND025.L75_maskbound.nc
-ncrename -v Bathymetry,tmask eGREENLAND025.L75_maskbound.nc
-cdfcofdis -H eGREENLAND025.L75_mesh_mask.nc  -M eGREENLAND025.L75_maskbound.nc -surf -o eGREENLAND025.L75_distbound.nc -nc4
-```
+    
+    ```
+    ncap2 -s "where(Bathymetry >= 9999.9) Bathymetry=0 ; elsewhere  Bathymetry=1. ;" eGREENLAND025.L75_bathy_meter_002.1.nc eGREENLAND025.L75_maskbound.nc
+    ncrename -v Bathymetry,tmask eGREENLAND025.L75_maskbound.nc
+    cdfcofdis -H eGREENLAND025.L75_mesh_mask.nc  -M eGREENLAND025.L75_maskbound.nc -surf -o eGREENLAND025.L75_distbound.nc -nc4
+    ```
+    
     * Merging by itself is performed by mergebat, which take a [namelist](./namelist_mergebat)  as argument.
-```
-   mergebat.x -f ./namelist_mergebat
-   cat ./namelist_mergebat
-&nammerge
-   rn_limit  = 80    ! (km) Width of the ramp for merging
-! Original file : The original bathymetry file to be patched 
-   cn_orig  = "eGREENLAND025.L75_bathymetry.nc"
+    
+    ```
+    mergebat.x -f ./namelist_mergebat
+    cat ./namelist_mergebat
+    &nammerge
+      rn_limit  = 80    ! (km) Width of the ramp for merging
+      ! Original file : The original bathymetry file to be patched 
+      cn_orig  = "eGREENLAND025.L75_bathymetry.nc"
        cn_xdim  = "x"           ! x-dimension name
        cn_ydim  = "y"           ! y-dimension name
        cn_vbat  = "Bathymetry"  ! name of the bathymetry variable in original file
-!
-! Patch file :
-   cn_patch = "eGREENLAND025.L75_bathy_meter_002.6.nc"
+      !
+      ! Patch file :
+      cn_patch = "eGREENLAND025.L75_bathy_meter_002.6.nc"
        cn_vbatp = "Bathymetry"  ! name of the bathymetry variable in the patch file
-! 
-! Output file : (from a copy of the original file)
-   cn_final = "eGREENLAND025.L75_bathy_meter_003.nc"
-!
-! Distance file : give the distance to the boudaries
-   cn_dist = "eGREENLAND025.L75_distbound.nc"
+      ! 
+      ! Output file : (from a copy of the original file)
+      cn_final = "eGREENLAND025.L75_bathy_meter_003.nc" 
+      ! 
+      ! Distance file : give the distance to the boudaries
+      cn_dist = "eGREENLAND025.L75_distbound.nc"
        cn_vdist = "Tcoast"     ! name of the distance in the distance file
-/
-```
+      /
+     ```
+  
   * Final step: patch regional file into the global file
-```
- apply_patch.x  -w 898 1124 972 1204 -b eORCA025_bathymetry_b0.2_closed_seas.nc -p eGREENLAND025.L75_bathy_meter_003.nc -o eORCA025_bathymetry_b0.2_closed_seas_greenland.nc
-```
+  
+  ```
+  apply_patch.x  -w 898 1124 972 1204 -b eORCA025_bathymetry_b0.2_closed_seas.nc -p eGREENLAND025.L75_bathy_meter_003.nc -o eORCA025_bathymetry_b0.2_closed_seas_greenland.nc
+  ```
 
 
   * Clean some intermediate files
