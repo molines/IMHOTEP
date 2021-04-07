@@ -29,6 +29,8 @@ the model bathymetry around Greenland, using the BedMachineGreenland-2020-04-10.
     * [NSDIC_map_trf.f90](https://github.com/molines/NEMOBAT/blob/master/INPUT_UTILITIES/NSIDC_map_trf.f90), used for transforming stereo graphic polar
 coordinates to longitude latitude.
     * [bathyinterp.F90](https://github.com/molines/NEMOBAT/blob/master/INTERP0/batinterp.F90), used to interpolate refined bathymetry on the NEMO grid.
+    * [apply_history.f90](https://github.com/molines/NEMOBAT/blob/master/INPUT_UTILITIES/apply_history.f90), used to apply hand corrections made with BMGTOOLS and loggued
+into an history file.
     * [mergebat.f90](https://github.com/molines/NEMOBAT/blob/master/INPUT_UTILITIES/mergebat.f90), used to patch the bathymetric file with the regionally
 refined one.
   * [BMGTOOLS](https://archimer.ifremer.fr/doc/00195/30646/) in order to perfom hand correction on the Bathymetry.
@@ -140,7 +142,11 @@ eGREENLAND025.L75_bathy_meter_002.4.nc. The changes performed on the files, poin
 #@ Modification nr: 132
 ...
 ```
-    * Although not automatic, the information is there to rebuild exactly the eGREENLAND025.L75_bathy_meter_002.5.nc corrected file.
+    * The apply_history program was written to apply the corrections loggued in the history file, so that, transition from 002.4 to 002.5 can be performed with :
+```
+  apply_history.x -b eGREENLAND025.L75_bathy_meter_002.4.nc -h eGREENLAND025.L75_bathy_meter_002.5_history -o eGREENLAND025.L75_bathy_meter_002.5.nc
+```
+
 
   * Final masking, in order to get rid of the '-10 points'
 ```
