@@ -79,7 +79,7 @@ having 2 extra variables : nav_lon and nav_lat (longitude, latitude). (BedMachin
    
    ! NEMO coordinate file
    cn_fgrid  = 'eGREENLAND025.L75_mesh_hgr.nc'      ! name of horizontal grid file
-
+   
    ! External Bathymetric file
    cn_fbatin = 'BedMachineGreenland-2020-04-10_lon_lat.nc'  ! name of external baty file
    ln_regin  = .FALSE.  ! True  : Regular external bathy file
@@ -89,15 +89,15 @@ having 2 extra variables : nav_lon and nav_lat (longitude, latitude). (BedMachin
    cn_ydim   = 'y'      ! name of Y dimension
    cn_lonv   = 'nav_lon'    ! name of longitude variable
    cn_latv   = 'nav_lat'    ! name of latitude variable
-
+   
    ! change sign  of bathymetry
    ln_sign   = .FALSE.  ! change sign for bathymetry (ISF related)
-  /
-  of
+   /
+   eof
    
    batinterp.exe -f ./eGREENLAND025.L75_namelist
-   ```
-    
+  ```
+
     * Note that we choose nn_interp=1 (Median average) as the interpolation method.
     * This procedure was submmitted via a [batch job](./job_batinterp) because it takes more than 1 hour.
     * The procedure provide `eGREENLAND025.L75_bathy_meter_002.nc` file. This file is just the interpolation of BedMachine elevation data set on the NEMO grid. In particular, it has data everywhere, positive Bathymetry corresponds to land value. So some post processing is required
@@ -125,8 +125,7 @@ we want to identify grid points (if any) that were in the water in the original 
   * The resulting file for this step is eGREENLAND025.L75_bathy_meter_002.4.nc. Looking at this file with ncview shows coastal white cells corresponding to missing values.
 These cells were sea points in the original file and are now land points. Next step will make them sea again !
 
-  * Hand correction in order to drown and correct  too shallow coastal values. This was done  with BMGTOOLS, on eGREENLAND025.L75_bathy_meter_002.5.nc, which is a copy of
-eGREENLAND025.L75_bathy_meter_002.4.nc. The changes performed on the files, point by points are loggued on this [history file](./eGREENLAND025.L75_bathy_meter_002.5_history).  
+  * Hand correction in order to drown and correct  too shallow coastal values. This was done  with BMGTOOLS, on eGREENLAND025.L75_bathy_meter_002.5.nc, which is a copy of eGREENLAND025.L75_bathy_meter_002.4.nc. The changes performed on the files, point by points are loggued on this [history file](./eGREENLAND025.L75_bathy_meter_002.5_history).  
   
   ```
   #sample of history file :
