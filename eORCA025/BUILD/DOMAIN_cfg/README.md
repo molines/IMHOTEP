@@ -24,11 +24,15 @@ Copy the namelists and scripts required by the tool, and get bathy and coordinat
    ./get_bat_coord.sh
    ```
 
- 3. Fills closed seas in the original bathymetry: ( this scipt is valid only for eORCA025)
+> update 09/04/2021: In the final process original bathymetry has been modified around Greenland. New bathymetry is `eORCA025_bathymetry_b0.2_closed_seas_greenland.nc`
+
+ 3. Fills closed seas in the original bathymetry: ( this script is valid only for eORCA025)
 
    ```
    ./close_seas.sh 
    ```
+
+> update 09/04/2021: This step is already done for `eORCA025_bathymetry_b0.2_closed_seas_greenland.nc`.
 
  4. Edit the `jobcfg` file to the machine you are using
   This concerns the header of the batch script, and the number of core you are using.
@@ -48,14 +52,18 @@ adjusting `jpni, jpnj` and `jpnij`.
  6. Document the new domain_cfg file :
 
    ```
-   ./dcmtk_dom_doc.exe  -b eORCA025_bathymetry_b0.2.nc -c eORCA025_coord_c3.0.nc -n namelist_cfg -d domain_cfg.nc
+   ./dcmtk_dom_doc.exe  -b eORCA025_bathymetry_b0.2_closed_seas_greenland.nc -c eORCA025_coord_c3.0.nc -n namelist_cfg -d domain_cfg.nc
    ```
+
+> update 09/04/2021: name of bathy file
 
  7. Move the final file to the `eORCA025.L75-I` directory:
 
    ```
-   mv domain_cfg.nc ../eORCA025.L75_domain_cfg.nc
+   mv domain_cfg.nc ../eORCA025.L75_domain_cfg_closed_seas_greenland.nc
    ```
+
+> update 09/04/2021: domain file name changed
 
  8. **YOU ARE DONE !**
 
