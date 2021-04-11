@@ -16,3 +16,8 @@ For Antarctica, we took the file prepared by Pierre Mathiot, in which a clever a
 So far, for eORCA025 configuration we take Pierre Mathiot file for Antarctica. Data for Antarctica are annual.
 
 ## Dealing with data with different frequency.
+We are faced to the problem of different frequencies for calving data in the southern and northern hemisphere. A straight forward workaround is to replicate
+annual data on 12 month to form a pseudo monthly file.  A smarter way is to make NEMO able to read various data set (defined in the namelist), each with its own
+frequency.  At the end, `fldread` does the job to provide a `now` field for each of the original data set,  which will be cumulated when used in NEMO.
+
+This latter technique can also be used for runoff data.
