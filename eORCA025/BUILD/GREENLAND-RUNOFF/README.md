@@ -1,5 +1,16 @@
 # Making of the Greenland runoff and calving files
 ## 1. Context
+Greenland runoff (liquid and solid) were infered from .... and provided to the project by Jeremie Mouginot, Pierre Mathiot and Nicolas Jourdain. 
+Main sources of liquid and solid runoff are the glaciars and ice sheets. Some glaciar have  a terrestrial end, with all the melted waters forming 
+a river that arrives to the Sea. Other glaciar have a marine end, with a floating ice tongue.  These latter glaciars contribute to both solid 
+(calving of iceberg at the glaciar front) and liquid (with surface waters and melted water being released  at the bottom of the glaciar tongue, at a depth 
+depending on the glaciar thickness). One of the main problem for forcing an ocean model is that, in case of relatively coarse resolution (coarse compared the the fjords
+width) the first sea-point off the model coastline is far from the actual position of the glaciar front or the river mouth. More over, a bathymetric sill is very often 
+observed downstream fjords. In addition, part of the calved icebergs melt in the fjord before reaching the first model sea point !  Considering all these details, some 
+choices have to be made to provide NEMO with liquid discharge, deptht of the discharge, and calving rate.  There is a big uncertainty on the amount of fresh water released by 
+icebergs that are melting in the fjords.  The litterature on this point (very few indeed), gives for some fjords, melted estimates ranging from 30% to 80%  of the calved icebergs.Pragmatically, a conservative choice of 50% have been made so far, so that half of the calved iceberg mass is converted to liquid discharge (associated to the glaciar depth),
+and the remnant half is used as a calving source at NEMO first sea-point.
+
 
 ## 2. Programs
 ### 2.1 Checking
