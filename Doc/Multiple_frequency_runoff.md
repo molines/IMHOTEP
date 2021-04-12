@@ -101,5 +101,84 @@ At NEMO level, the routines affected by this new capability are :
          ENDIF
     ```
 
-
 ## 4. Runoff
+For runoff data set, we can consider the same technique in order to deal with various runoff dataset.  However, it is a bit more
+complex as for liquid runoff, there are already many different `sn_` structures in addition to the basic one (`sn_rnf`). In fact, we have the
+possible following data set, associated with liquid runoff (taken from an example namelist):
+
+```fortran
+!-----------------------------------------------------------------------
+&namsbc_rnf    !   runoffs                                              (ln_rnf =T)
+!-----------------------------------------------------------------------
+   ln_rnf_mouth  = .true.     !  specific treatment at rivers mouths
+      rn_hrnf    =  10.e0     !  depth over which enhanced vertical mixing is used    (ln_rnf_mouth=T)
+      rn_avt_rnf =   2.e-3    !  value of the additional vertical mixing coef. [m2/s] (ln_rnf_mouth=T)
+   rn_rfact      =   1.e0     !  multiplicative factor for runoff
+
+   ! mandatory runoff information
+   cn_dir      = './'      !  root directory for the runoff data location
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
+   sn_rnf      = 'eORCA025_runoff_ISBA_clim_0.0' , -1.       , 'sorunoff', .true.      , .true. , 'yearly'  , ''       , '' , ''
+   sn_cnf      = 'eORCA025_runoff_ISBA_clim_0.0' , -12.      , 'socoefr' , .false.     , .true. , 'yearly'  , ''       , '' , ''
+   ! optional runoff information
+   ln_rnf_depth  = .false.    !  read in depth information for runoff
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
+   sn_dep_rnf  = ' '            ,         0.       , 'rodepth' ,   .false.    , .true. , 'yearly'  , ''       , '' , ''
+
+   ln_rnf_tem    = .false.    !  read in temperature information for runoff
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
+   sn_t_rnf    = ' '            ,        24.       , 'rotemper',   .true.     , .true. , 'yearly'  , ''       , '' , ''
+   ln_rnf_sal    = .false.    !  read in salinity information for runoff
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
+   sn_s_rnf    = ' '            ,        24.       , 'rosaline',   .true.     , .true. , 'yearly'  , ''       , '' , ''
+
+   ln_rnf_depth_ini = .false. ! compute depth at initialisation from runoff file
+      rn_rnf_max  = 5.735e-4  !  max value of the runoff climatologie over global domain ( ln_rnf_depth_ini = .true )
+      rn_dep_max  = 150.      !  depth over which runoffs is spread ( ln_rnf_depth_ini = .true )
+      nn_rnf_depth_file = 0   !  create (=1) a runoff depth file or not (=0)
+
+   !  iceberg put as runoff 
+   ln_rnf_icb  = .false.   !  read in iceberg flux from a file (fill sn_i_rnf if .true.)
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
+   sn_i_rnf    = 'NOT_USED'              ,        -1.        , 'sorunoff',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
+
+/
+```
+
+Up to now, we do not plan to use neither temperatures nor salinities for runoff. So we can pragmatically focus on the other fields:
+  * **sn_rnf**: This is the river discharge data set and obviously there can be multiple files (different frequency or climatologies vs interannual).
+  * **sn_cnf**: This field is a runoff mask, indicating to NEMO where the runoff are applied. This information was historically used for many purpose but
+primarily for changing the tracer advection scheme for stability reason. (The centered 2nd order tracer advection scheme was the default scheme, and at
+runoff points, it was necessary to use an upstream scheme, or at least a mix of the two schemes). Now that we almost always use the FCT --ex TVD-- tracer
+advection scheme, the runoff mask is not more used for this purpose. But indeed, it is used for switching-off the SSS restoring at the runoff points.  In 
+the DRAKKAR version of NEMO, we have implemented the option of fading out the SSS-restoring in coastal areas, on the base of a dataset giving the distance
+to the coast in the ocean.  Therefore, it is likely that only one file is enough to describe all the runoff points, independently from the frequency or
+characteristics (climatological or interannual) of the runoffs.
+  * **sn_dep_rnf**:  This field gives the deptht of the water column on which the runoff is applied.  Using or not this information is an option and we decided to 
+use it instead of adding an extra vertical mixing at runoff points. 
+    * There are no sf_dep_rnf structure as this is a constant field in time, therefore the namelist entry is used only to get the file name and variable name.
+    * Here the question of using ISF param for the glaciar runoff around greenland is raised ? The difference being in the latent heat flux corresponding to icemelt, in case
+of the ISF parameterization*
+
+    *the question of multiple depth is also raised ? Is it possible to have different depth for a single point ? **Need to check** *
+       * ==> When using VVL, the depth of the runoff plays a role when updating the horizontal divergence on the layers impacted by the runoff.  Having multiple depth 
+requires having multiple nk_rnf, rnf and rnf_b arrays ! (h_rnf are recomputed from nk_rnf, using updated values of e3t_n).  Note also that rnf_b array is written in
+restart files and in case of multiple rnf_b this has to be changed too. 
+
+       > As a conclusion on this point : using multiple depth is feasable but quite intrusive. If for a given model grid point, there are many runoff contributions with different 
+depths, (and I have check up to 6 contribution for a single point), there should be as many files as contributions. 
+
+> A minimum work around  can be to sum up all water discharge contributing to a single point, and to take the maximum runoff depth of the contribution as the actual
+runoff depth.  This will be done in the preparation of the file, and the change in NEMO in this case will be very similar to the calving case, playing with multiple
+dataset.
+
