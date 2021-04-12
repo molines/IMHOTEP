@@ -1,14 +1,14 @@
 # NEMO implementation for multiple runoff, calving ... files
 ## 1. Context:
 It is very often that input data for runoff or calving have frequency depending on the localisation: for instance, in IMOTHEP we use IsBA interannual daily runoff almost
-everywhere, except around Greenland where data are only monthly. On the other hand, in some part of the proect, we will switch off interannual runoff locally and use climatology
+everywhere, except around Greenland where data are only monthly. On the other hand, in some part of the project, we will switch off interannual runoff locally and use climatology
 instead.  Therefore there is a need for using multiple files for runoff or calving or even ISF, having different frequency or different type (climatology vs interannual). 
 
 ## 2. Road Map:
 In NEMO, information about the data set used for forcing is often passed to the code through the `fldread` process. In the namelist, this corresponds to the `sn_`structure
 where filename and variable names are defined, where frequency and shape of the data (yearly or monthly) are indicated, as well as the climatological or interannual content of the files.  Also, in case of interpolation on the fly, a weight file can be associated with the data file (when it is not on the model grid). At the end, in NEMO, this namelist 
 information is used to build a new structure (`sf_xxx`) containing the data and all the relevant information. At a given time-step, the forcing field is available in the array
-`sf_xxx(index)%now(:,:)`. Note that index is in general 1 for forcing data; it is used for tracer data where it takes the value jptem or jpsal (for instance in
+`sf_xxx(index)%now(:,:,1)`. Note that index is in general 1 for forcing data; it is used for tracer data where it takes the value jptem or jpsal (for instance in
 `sf_tsd(jptem)%now(:,:,:)` giving a 3D interpolation of the temperature field associated with `sf_tsd`.
 
 For our present purpose, we will use index as a counter in case of various files (with different charatecteristics) used for the same field, sf_xxx(1) pointing to the
@@ -32,11 +32,11 @@ At the namelist level, we define (example for pedagogic purpose) :
 ```
 
 `nn_icb_freq` define the total number of frequencies used for icb (in a more general sense, the number of data set), including the standard one, defined in the standard
-NEMO namelist block `namberg`.  Here 3 means, 1 standard + 2 extra. In the example we have sn_icb(1) (first extra) corresponding to monthly climatological data, and
+NEMO namelist block `namberg`.  Here 3, means 1 standard + 2 extra. In the example we have sn_icb(1) (first extra) corresponding to monthly climatological data, and
 sn_icb(2) corresponding to an annual interannual data set.  Up to now, the maximum number of extra data set is limited to 5 (hard coded dimension), but can be increased to any
 number is necessary.
 
-At NEMO level, the routines afected by this new capabilities are :
+At NEMO level, the routines affected by this new capability are :
   * **icbini.F90** : 
 
     ```fortran
@@ -56,7 +56,7 @@ At NEMO level, the routines afected by this new capabilities are :
     #endif
     ```
 
-    Then when calling fld_fill (initialization of the sf_icb structure we have :
+    Then when calling fld_fill (initialization of the sf_icb structure) we have :
 
     ```fortran
     #if defined key_drakkar
@@ -80,8 +80,8 @@ At NEMO level, the routines afected by this new capabilities are :
     #else
       .... standard NEMO code
     ```
-  * **icbstp.F90**
-    When using sf_icb()%now we have the following modification:
+  * **icbstp.F90**:
+    When using sf_icb()%now we have the following modifications:
 
     ```fortran
           IF( nn_test_icebergs < 0 .OR. ln_use_calving ) THEN !* read calving data
