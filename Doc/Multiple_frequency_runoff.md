@@ -157,7 +157,7 @@ possible following data set, associated with liquid runoff (taken from an exampl
 
 Up to now, we do not plan to use neither temperatures nor salinities for runoff. So we can pragmatically focus on the other fields:
   * **sn_rnf**: This is the river discharge data set and obviously there can be multiple files (different frequency or climatologies vs interannual).
-  * **sn_cnf**: This field is a runoff mask, indicating to NEMO where the runoff are applied. This information was historically used for many purpose but
+  * **sn_cnf**: This field is a runoff mask, indicating to NEMO where the runoff are applied. This information was historically used for many purposes but
 primarily for changing the tracer advection scheme for stability reason. (The centered 2nd order tracer advection scheme was the default scheme, and at
 runoff points, it was necessary to use an upstream scheme, or at least a mix of the two schemes). Now that we almost always use the FCT --ex TVD-- tracer
 advection scheme, the runoff mask is not more used for this purpose. But indeed, it is used for switching-off the SSS restoring at the runoff points.  In 
@@ -167,18 +167,19 @@ characteristics (climatological or interannual) of the runoffs.
   * **sn_dep_rnf**:  This field gives the deptht of the water column on which the runoff is applied.  Using or not this information is an option and we decided to 
 use it instead of adding an extra vertical mixing at runoff points. 
     * There are no sf_dep_rnf structure as this is a constant field in time, therefore the namelist entry is used only to get the file name and variable name.
-    * Here the question of using ISF param for the glaciar runoff around greenland is raised ? The difference being in the latent heat flux corresponding to icemelt, in case
-of the ISF parameterization*
-
-    *the question of multiple depth is also raised ? Is it possible to have different depth for a single point ? **Need to check** *
+    * The question of multiple depth is also raised:  Is it possible to have different depth for a single point ? **Need to check** *
        * ==> When using VVL, the depth of the runoff plays a role when updating the horizontal divergence on the layers impacted by the runoff.  Having multiple depth 
 requires having multiple nk_rnf, rnf and rnf_b arrays ! (h_rnf are recomputed from nk_rnf, using updated values of e3t_n).  Note also that rnf_b array is written in
 restart files and in case of multiple rnf_b this has to be changed too. 
 
        > As a conclusion on this point : using multiple depth is feasable but quite intrusive. If for a given model grid point, there are many runoff contributions with different 
-depths, (and I have check up to 6 contribution for a single point), there should be as many files as contributions. 
+depths, (and I have check up to 6 contributions for a single point), there should be as many files as contributions. 
 
 > A minimum work around  can be to sum up all water discharge contributing to a single point, and to take the maximum runoff depth of the contribution as the actual
 runoff depth.  This will be done in the preparation of the file, and the change in NEMO in this case will be very similar to the calving case, playing with multiple
 dataset.
+
+> The question of using ISF param for the glaciar runoff around greenland is raised. The difference being in the latent heat flux corresponding to icemelt, in case of
+the ISF parameterization. ISF parametrization take a range of depths corresponding the the depths of the grounding line (max) and to the depth of the ice at the 
+iceshelf edge (min).
 
