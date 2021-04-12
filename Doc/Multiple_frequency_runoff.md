@@ -102,6 +102,7 @@ At NEMO level, the routines affected by this new capability are :
     ```
 
 ## 4. Runoff
+### 4.1 Analysis:
 For runoff data set, we can consider the same technique in order to deal with various runoff dataset.  However, it is a bit more
 complex as for liquid runoff, there are already many different `sn_` structures in addition to the basic one (`sn_rnf`). In fact, we have the
 possible following data set, associated with liquid runoff (taken from an example namelist):
@@ -183,3 +184,8 @@ dataset.
 the ISF parameterization. ISF parametrization take a range of depths corresponding the the depths of the grounding line (max) and to the depth of the ice at the 
 iceshelf edge (min).
 
+### 4.2 Implementation in NEMO
+As a starting point, we choose to add multiple files capability only for the runoff dataset, and this is primarily done for having different frequencies and data type 
+(climatology vs interannual). We thus assume that runoff mask and runoff depths are described in separate single files.
+
+For such an implementation, the modification are very similar to the modification performed for calving, and the impacted routines are:
