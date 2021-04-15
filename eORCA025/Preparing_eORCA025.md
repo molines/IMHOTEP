@@ -9,7 +9,7 @@ Two options are on the table:
 recent AGRIF developpement, that can me usefull for the second part of the project.
  * NEMO trunk : this is the sharp edge of NEMO on going developpent, that will lead to a the 4.2_RC (Release Candidate) 
 in June or July 2021.
-   * Advantage : this 4.2_RC, have various AGRIF enhancement, of interest for IMOTHEP:
+   * Advantage : this 4.2_RC, have various AGRIF enhancement, of interest for IMHOTEP:
      * AGRIF nests across the periodic boundary
      * AGRIF parallelism for various nests at the same level
      * On the side of advantages, the fact of using a pionnering new version and receive the aknowledgment of 
@@ -141,7 +141,7 @@ ease the tracability of the configuration.
 ##### Deep waters in the Southern Ocean.
 
 ### 2.6 Runoff files
-This is the central part of IMOTHEP ! For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
+This is the central part of IMHOTEP ! For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
 dependent fresh water flux (in kg/m2/s) given for *ad hoc* grid cells. It also contain a mask where *ad hoc* grid cells have
 the value of 0.5 instead of 0. elsewhere.  The technical details of howto prepare the runoff files are given in [this document](./BUILD/RUNOFF/README_RUNOFF.md). 
 
@@ -171,7 +171,7 @@ These areas are not covered by Jeremie Mouginot work.  With regard to the AGRIF 
 Details of the construction of the calving files are given in this [technical note](./BUILD/CALVING/README_CALVING.md).
 
 #### 2.6.3 Spinup strategy.
-IMOTHEP first run will use climatological (seasonal) input for the runoff (liquid and solid). 
+IMHOTEP first run will use climatological (seasonal) input for the runoff (liquid and solid). 
 
 For ISBA based runoff, the long term 1979-2018 daily climatology will be used.
 

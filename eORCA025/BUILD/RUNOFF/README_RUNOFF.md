@@ -1,7 +1,7 @@
 # Building the runoff file : liquid part
 
 ## 1. Getting the data:
-After a concerted discussion within the IMOTHEP group, and after evaluation of the available data set for river runoff, 
+After a concerted discussion within the IMHOTEP group, and after evaluation of the available data set for river runoff, 
 decision was taken to use the ISBA reanalysis for years 1979-2019,  with daily values.
 
 William Llowel made the original data file available on file_sender. The file was retrieved and copied on our cal1 server:
@@ -19,7 +19,7 @@ range -89.5 to 89.5 degrees. Time counter is using units in days since 1979-01-0
 
 ## 3. Processing the data:
   * Creating a climatology of input data
-In the IMOTHEP project the very first runs are foreseen as forced by climatological runoff. Therefore, the first task is to compute this
+In the IMHOTEP project the very first runs are foreseen as forced by climatological runoff. Therefore, the first task is to compute this
 climatological runoff (daily).  As the original file syteme uses a gregorian calendar, with leap years, we adopt the following processing :
 
 Prepare a file without feb 29, using cdo
@@ -54,6 +54,6 @@ After this step, we have the first guess file for runoff. This file still requir
   * Modifications along Antartica and Greenland: bash script [reset_AA_GR_to_0.sh](./reset_AA_GR_to_0.sh) was written for this purpose, based on cdfvar tool. In this script
 runoff values around Antarctica and Greenland are reset to 0, but the runoff mask (socoefr0) remains unchanged, as somehow ther will be runoff on these points, from other sources.
   * Note that in the actual code, runoff points corresponding to mean annual discharge greater than 2000 m3/s are spread on the 3 nearest points, instead of one. This differs from 
-what we used to do in previous DRAKKAR runs (using Dai and Trenberth runoff dataset), where rivermouths  were widely spread. In IMOTHEP, we use a non-linear free surface, and
+what we used to do in previous DRAKKAR runs (using Dai and Trenberth runoff dataset), where rivermouths  were widely spread. In IMHOTEP, we use a non-linear free surface, and
 runoff are really taken as a fresh water flux (and not a virtual salt flux). We are quite confident that doing so, the fresh water flux on a grid point, can be much higher than in the
 case of virtual salt flux (with negative salinity issues). Nevertheless, we keep in mind the possibilily to spread rivermouths on larger areas, if problems arise.

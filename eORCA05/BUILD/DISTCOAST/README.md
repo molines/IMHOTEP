@@ -7,7 +7,7 @@ resolving small scale coastal features.
 When using this DRAKKAR option of NEMO, SSS restoring is faded out to 0 near the coast. The fading-out 
 typical lenght scale is around 100 km and defined in the namelist.
 
-For IMOTHEP, as the main goal is to investigate the effect of the interannual river runoff, the 
+For IMHOTEP, as the main goal is to investigate the effect of the interannual river runoff, the 
 distance to the coast file is build using all the coastal pointscoming out from the runoff file.
 
 The script [caldist_from_rnf.sh](./caldist_from_rnf.sh) has been used, based on cdfcofdis CDFTOOLS. 

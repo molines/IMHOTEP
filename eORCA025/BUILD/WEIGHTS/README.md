@@ -4,8 +4,8 @@
   * Need to compile the WEIGHTS tools :
 
 ``` 
-   cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMOTHEP00/
-   dcm_mktools -n WEIGHTS -m X64_JEANZAY_jm -c eORCA025.L75-IMOTHEP00
+   cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP00/
+   dcm_mktools -n WEIGHTS -m X64_JEANZAY_jm -c eORCA025.L75-IMHOTEP00
 
 ```  
 
@@ -13,9 +13,9 @@
 
 ```  
    mkdir -p  $WORK/eORCA025.L75/eORCA025.L75-I/WEIGHTS_build
-   cd /gpfswork/rech/cli/rcli002/WeORCA025.L75-IMOTHEP00/tools/WEIGHTS
+   cd /gpfswork/rech/cli/rcli002/WeORCA025.L75-IMHOTEP00/tools/WEIGHTS
    cp namelist.skel mkweight.ksh /gpfswork/rech/cli/rcli002/eORCA025.L75/eORCA025.L75-I/WEIGHT_build 
-   ln -sf /gpfswork/rech/cli/rcli002/WeORCA025.L75-IMOTHEP00/tools/WEIGHTS/BLD/bin/*exe ./
+   ln -sf /gpfswork/rech/cli/rcli002/WeORCA025.L75-IMHOTEP00/tools/WEIGHTS/BLD/bin/*exe ./
 ```  
 
 ## Compute the weight file  for  bilinear and bicubic interpolation

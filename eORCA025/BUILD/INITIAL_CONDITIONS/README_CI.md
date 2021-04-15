@@ -34,7 +34,7 @@ NEMO with `ln_meshmask=.true.` in the namelist. This job will crash almost immed
 
 ### 2.2 producing the NEMO files
 
-For eORCA025.L75-IMOTHEP00 we use :
+For eORCA025.L75-IMHOTEP00 we use :
 |  files        | name                                   |
 | ------------- |:--------------------------------------:|
 | domain_cfg    | eORCA025.L75_domain_cfg_closed_seas.nc |

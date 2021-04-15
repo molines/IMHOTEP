@@ -3,23 +3,23 @@
  1. Getting the DOMAIN_cfg tool ready
 
   ```
-   cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMOTHEP00/
-   dcm_mktool -n DOMAIN_cfg -m X64_JEANZAY_jm  -c eORCA025.L75-IMOTHEP00
+   cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP00/
+   dcm_mktool -n DOMAIN_cfg -m X64_JEANZAY_jm  -c eORCA025.L75-IMHOTEP00
   ```
 
-  The tool is ready to be used in `$WORKDIR/WORCA025.L75-IMOTHEP00/tools/DOMAIN_cfg` directory.
+  The tool is ready to be used in `$WORKDIR/WORCA025.L75-IMHOTEP00/tools/DOMAIN_cfg` directory.
   
  2. Work in `$WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build`:
 
    ```
    mkdir -p $WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build
    cd $WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build
-   ln -sf $WORKDIR/WORCA025.L75-IMOTHEP00/tools/DOMAIN_cfg/*.exe ./
+   ln -sf $WORKDIR/WORCA025.L75-IMHOTEP00/tools/DOMAIN_cfg/*.exe ./
    ```
 Copy the namelists and scripts required by the tool, and get bathy and coordinated from the opendap.
 
    ```
-   cp $DEVGIT/IMOTHEP/eORCA025/BUILD/DOMAIN_cfg/* ./
+   cp $DEVGIT/IMHOTEP/eORCA025/BUILD/DOMAIN_cfg/* ./
    chmod 755 get_bat_coord.sh
    ./get_bat_coord.sh
    ```

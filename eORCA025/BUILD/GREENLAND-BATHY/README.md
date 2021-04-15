@@ -2,7 +2,7 @@
 
 
 ## 1. Context:
-In the IMOTHEP project, the fresh water flux coming from Greenland is one of the topic to be treated, in order to
+In the IMHOTEP project, the fresh water flux coming from Greenland is one of the topic to be treated, in order to
 estimate the impact of the variation of this flux on the ocean circulation and sea level.
 
 The Greenland fresh water flux (GFWF) has a liquid (melted glacial waters, basal melting) and a solid (calving) contribution. Jeremie Mouginot, Pierre

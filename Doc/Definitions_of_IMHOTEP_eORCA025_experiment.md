@@ -1,7 +1,7 @@
-# Definition of IMOTHEP configuration
+# Definition of IMHOTEP configuration
 
 ## Context
-A series of runs are foreseen during the IMOTHEP project.   
+A series of runs are foreseen during the IMHOTEP project.   
 A first set of runs, based on a global eORCA025 configuration, is dedicated on the sensitivity
 of the ocean  circulation to different runoff scenarii. The focus is put on 3 regions : (i) the 
 tropical Atlantic, (ii) Greenland and (iii) the northern part of the indian ocean.  Runs in the 
