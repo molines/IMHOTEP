@@ -4,6 +4,9 @@ PROGRAM GrIS_CreateNemoBis
   !!=====================================================================
   !!  ** Purpose : Read J.Mouginot GrIS file and produce the set of
   !!               file for NEMO; splitted in Calving, Runoff/dep_rnf, ISF
+  !!               This Bis version, tries to separate part the liquid water
+  !!               coming from ice melting in the sea and liquid water coming
+  !!               from inland melting.
   !!
   !!  ** Method  : netcdf
   !!
@@ -134,6 +137,7 @@ PROGRAM GrIS_CreateNemoBis
 
   ! Get GrIS dimensions, allocate and read related variables
   CALL GetGrISInfo(cf_GrIS)  ! variables, npoints, nptim,  nii, nij, dlon, dlat, nitime, drnfdep, drnf, dcalv
+
   ! Get Model Information : dimensions, allocate and read related variables
   CALL GetModelInfo(cf_msh)  ! variables npiglo, npjglo, glamt, gphit, 
 
@@ -163,7 +167,10 @@ PROGRAM GrIS_CreateNemoBis
         IF (  drnfdep (ji ) == 0 ) THEN
            rnf(ii,ij) = rnf(ii,ij) + drnf(jt,ji) * dconv / darea
         ELSE
-           rnfisf(ii,ij) = rnfisf(ii,ij) + drnf(jt,ji) * dconv /darea
+           ! BIS version : rnfisf in only 1/2 of the calving
+           rnfisf(ii,ij) = rnfisf(ii,ij) + 0.5 * dcalv(jt,ji) * dconv /darea 
+           ! BIS version : rnf also take the part of drnf not due to calving.
+           rnf(ii,jj) = rnf(ii,jj) + ( drnf(jt,ji) - 0.5 * dcalv(jt,ji) ) *dconv /darea
            hmax(ii,ij) = MAX( hmax(ii,ij), drnfdep(ji) )
         ENDIF
         rcalv(ii,ij) = rcalv(ii,ij) + dcalv(jt,ji) * 12.d0   ! GT/year
