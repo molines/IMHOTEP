@@ -2,10 +2,10 @@
 
 # This script compute the distance to coast file from runoff file
 
-CF_MESH_HGR=eORCA025.L75_domain_cfg_closed_seas.nc
+CF_MESH_HGR=eORCA025.L75_domain_cfg_closed_seas_greenland.nc
 CF_MESH_MASK=../eORCA025.L75_mesh_mask.nc
 CF_TMASK=$CF_MESH_MASK
-CF_3D_TFILE=eORCA025.L75_5564_WOA18_1y_vosaline.nc
+CF_3D_TFILE=eORCA025.L75_81B0_WOA18_1y_vosaline.nc
 
 CF_DIST_COAST=eORCA025.L75_distcoast_v000.nc
 

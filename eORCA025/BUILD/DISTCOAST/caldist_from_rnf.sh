@@ -5,7 +5,7 @@
 CF_MESH_HGR=eORCA025.L75_domain_cfg_closed_seas.nc
 CF_MESH_MASK=../eORCA025.L75_mesh_mask.nc
 CF_RUNOFF=eORCA025_runoff_ISBA_clim_0.0.nc
-CF_3D_TFILE=eORCA025.L75_5564_WOA18_1y_vosaline.nc
+CF_3D_TFILE=eORCA025.L75_81B0_WOA18_1y_vosaline.nc
 
 CF_DIST_COAST=eORCA025.L75_distcoast_v4.nc
 
