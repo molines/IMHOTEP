@@ -1,19 +1,19 @@
-# Fresh water fluxes from continental Greenland
+# Freshwater fluxes from continental Greenland
 
 
 ## 1. Context:
-In the IMHOTEP project, the fresh water flux coming from Greenland is one of the topic to be treated, in order to
+In the IMHOTEP project, the freshwater flux coming from Greenland is one of the topic to be treated, in order to
 estimate the impact of the variation of this flux on the ocean circulation and sea level.
 
-The Greenland fresh water flux (GFWF) has a liquid (melted glacial waters, basal melting) and a solid (calving) contribution. Jeremie Mouginot, Pierre
+The Greenland freshwater flux (GFWF) has a liquid (melted glacial waters, basal melting) and a solid (calving) contribution. Jeremie Mouginot, Pierre
 Mathiot and Nicolas Jourdain provided a file with 262 points around Greenland (corresponding to eORCA025 model cells), with the monthly liquid 
-and solid discharges.  In addition, a depth corresponding to the base of the glaciar or the the depth of bathymetric sills in the fjords, is given and will
+and solid discharges.  In addition, a depth corresponding to the base of the glacier or the the depth of bathymetric sills in the fjords, is given and will
 be used in NEMO to apply the runoff at depth.
 
 Due to model resolution, most of the Greenland Fjords are not explicitely represented in the configuration. For the solid contribution,
-it is known that a certain amount of the calved iceberg from the glaciar front, just melt in the fjord before reaching the open ocean. 
+it is known that a certain amount of the calved iceberg from the glacier front, just melt in the fjord before reaching the open ocean. 
 There are some estimate (quite few indeed) published in the litterature, giving the proportion of icebergs reaching the oceans over the total
-amount of calved icebergs at the glaciar front.  This proportion is within a range of 30% to 80%.  In order to go ahead, a decision was taken to
+amount of calved icebergs at the glacier front.  This proportion is within a range of 30% to 80%.  In order to go ahead, a decision was taken to
 make a first GFWF data set, assuming that 50% of the calved icebergs melt in the fjords, thus converting the equivalent solid discharge to liquid discharge.
 
 For setting up the GFWF file, a very detailed cartography (150m resolution) of Greenland, giving the elevation of the bed-rock, the thickness of the ice etc...

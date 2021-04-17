@@ -1,6 +1,6 @@
 # Building the Calving input file for NEMO
 ## 1. Context
-We decided to use explicit representation of the fresh water fluxes coming from iceberg melting. This is available in NEMO using the ICB module. In this case
+We decided to use explicit representation of the freshwater fluxes coming from iceberg melting. This is available in NEMO using the ICB module. In this case
 the user needs to specify the calving rate at some  points along the coastline. Data are passed to NEMO through a file, giving this rate for each iceshef taken 
 into consideration in the configuration.
 

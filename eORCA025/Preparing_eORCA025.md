@@ -91,7 +91,7 @@ small islands, in order to have a distance-to-the-coast file that takes into acc
 this [document](./BUILD/DISTCOAST/README_DISTCOAST.md). Note that in the procedure we use a dummy very large value for the distance,
 in some closed seas (Med Sea, Black Sea) in order to maintain SSS restoring even near the coast.
 
-After this first file was build we came to preparing the runoff files, and using ISBA climatology there are several input of fresh water in the indonesian area, so that I think that
+After this first file was build we came to preparing the runoff files, and using ISBA climatology there are several input of freshwater in the indonesian area, so that I think that
 we musk keep the coast line with runoff in the computation of the distance to the coast file...
 
 ### 2.4 Atmospheric forcing files
@@ -142,7 +142,7 @@ ease the tracability of the configuration.
 
 ### 2.6 Runoff files
 This is the central part of IMHOTEP ! For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
-dependent fresh water flux (in kg/m2/s) given for *ad hoc* grid cells. It also contain a mask where *ad hoc* grid cells have
+dependent freshwater flux (in kg/m2/s) given for *ad hoc* grid cells. It also contain a mask where *ad hoc* grid cells have
 the value of 0.5 instead of 0. elsewhere.  The technical details of howto prepare the runoff files are given in [this document](./BUILD/RUNOFF/README_RUNOFF.md). 
 
 #### 2.6.1 Liquid runoff:
@@ -163,7 +163,7 @@ that probably very few may have the tendency to cross the Northern Agrif boundar
 For Antarctica we will use the input files prepared by Pierre Mathiot, using an annual climatology coherent for calving rate and basal iceshelf melting (for liquid contribution).
 
 For Greenland, we will use interannual files prepared by Jeremie Mouginot. Calving around Greenland mainly occurs in fjords which are not well resolved with the eORCA025
-configuration. Therefore some specific treatments are being discussed to convert part of the calving rate at the glaciar front into liquid runoff at the entrance of the fjords.
+configuration. Therefore some specific treatments are being discussed to convert part of the calving rate at the glacier front into liquid runoff at the entrance of the fjords.
 
 We do note that on Pierre Mathiot file, there is also a contribution for the northern hemisphere, around Greenland, but also for very few spots in Svalblard and Canadian Archipelago.
 These areas are not covered by Jeremie Mouginot work.  With regard to the AGRIF strategy  in the second part of the project, it is probably safer to just ignore this (small) contribution

@@ -55,5 +55,5 @@ After this step, we have the first guess file for runoff. This file still requir
 runoff values around Antarctica and Greenland are reset to 0, but the runoff mask (socoefr0) remains unchanged, as somehow ther will be runoff on these points, from other sources.
   * Note that in the actual code, runoff points corresponding to mean annual discharge greater than 2000 m3/s are spread on the 3 nearest points, instead of one. This differs from 
 what we used to do in previous DRAKKAR runs (using Dai and Trenberth runoff dataset), where rivermouths  were widely spread. In IMHOTEP, we use a non-linear free surface, and
-runoff are really taken as a fresh water flux (and not a virtual salt flux). We are quite confident that doing so, the fresh water flux on a grid point, can be much higher than in the
+runoff are really taken as a freshwater flux (and not a virtual salt flux). We are quite confident that doing so, the freshwater flux on a grid point, can be much higher than in the
 case of virtual salt flux (with negative salinity issues). Nevertheless, we keep in mind the possibilily to spread rivermouths on larger areas, if problems arise.
