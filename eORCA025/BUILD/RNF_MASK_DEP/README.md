@@ -1,5 +1,5 @@
 # Auxiliary files for RNF and RNFISF
-## 1.Context
+## 1. Context
 The (liquid) freshwater fluxes are introduced in the configuration via two different NEMO modules: (i) sbcrnf (for surface or river runoff) and (ii) sbcisf (Ice shelf and 
 marine glaciers melting).  Both modules require a depth file giving the depth range on which the freshwater flux is applied. For RNF, depth range always from the surface to a
 typical depth. For ISF, the depth range corresponds to the bottom of the iceshelf edge and the deeper depth of the grounding line. Those depth are maintained constant throughout
@@ -11,7 +11,9 @@ file, rnf_mask file.
 
   
 ## 2. rnf_dep file:
-   This file combine runoff depths coming from ISBA and GrIS, and rnfisf_depht comming from Greenland and Antarctica (3 different sources). There are no overlap (at least it should not) between the data set. So we just combine the 3 sources with the tool.
+   This file combine runoff depths coming from ISBA and GrIS, and rnfisf_depht coming from Greenland and Antarctica (3 different sources). There are no overlap (at least we hope! ) between 
+the data set. So we just combine the 3 sources with the tool.
+
 
 | file name                                      | dep min        |   dep max   |
 | ---------------------------------------------- | -------------- | ----------- |
