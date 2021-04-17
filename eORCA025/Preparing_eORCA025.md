@@ -26,23 +26,26 @@ Among these data files, there are domain configuration file, initial condition f
 least the corresponing weight files), distance to the coast file for SSS restoring, local enhancements in eORCA025 
 (bottom friction, lateral condition free-slip/no-slip), and of course the runoff files, that deserve a detailed work.
 
-### 2.1 Configuration file
+In order to able to rebuild all the input files, and for tracability, an effort is made to document all actions performed in the process of
+producing the input files. For each kind of file there is a corresponding directory in [BUILD](./BUILD/) holding the scripts or dedicated program
+realised for this specific file. In addition, each directory has its own README.md with detailled documentation on every step use for
+the creation of the file.  This preparation document draws the road-map for the actions to perform in view of the building of input files. Clicking on the title of the following chapters, link you directly to the corresponding README file.
+
+### 2.1 [Configuration file](./BUILD/DOMAIN_cfg/README.md)
 This file defines the numerical grid (horizontal and vertical) including the corresponding metrics. In the creation
 process we need a coordinate file (for the horizontal grid), a bathymetric file together with a set of streching coeficients
 in order to define the vertical grid, with partial cells.  
 
 We will take the coordinates and bathymetry files used by Pierre Mathiot when setting up his eORCA025.L121 configuration.
 Vertical stretching parameters will be those of the standard DRAKKAR 75 levels, (as in OCCIPUT, for instance):
-  * Bathymetry : eORCA025_bathymetry_b0.2.nc
+  * Bathymetry : eORCA025_bathymetry_b0.2.nc **update** : bathymetry was modified along Greenland coast and is finally eORCA025_bathymetry_b0.2_closed_seas_greenland.nc. 
   * Coordinates : eORCA025_coord_c3.0.nc 
-  * DOMAIN_cfg tool : from DCM/4.0.5
+  * DOMAIN_cfg tool : from DCM/4.0.5 (identical to DCM/4.0.6)
   * Namelists for make_domain_cfg.exe  are available in [this  directory](./BUILD/DOMAIN_cfg)
   * A description step by step of the build procedure is reported in the [README](./BUILD/DOMAIN_cfg/README.md) file 
 placed in this directory.
 
-
-
-### 2.2 Initial conditions files, and restoring files (if any).
+### 2.2 [Initial conditions files, and restoring files (if any).](./BUILD/INITIAL_CONDITIONS/README_CI.md)
 There are quite a few available data set for T and S climatology. Among them, the World Ocean Atlases (ex-Levitus), with 
 recent releases (last being 2018 release). Also of interest is the EN4 gridded data set, which is probably a bit biased 
 toward recent years. There are also many products based on ARGO float remapping.  A choice must be done.  
@@ -78,7 +81,7 @@ conditions, double checked is a key point for having a smooth simulation... This
 
 The same processing was done for Gouretski monthly climatology, with sosie. Scripts and namelists are available in [this directory](./BUILD/GOURETSKI_18)
 
-### 2.3 Distance-to-the coast file
+### 2.3 [Distance-to-the coast file](./BUILD/DISTCOAST/README_DISTCOAST.md)
 This file is used for the SSS restoring in order to prevent restoring in the vicinity of the coast, letting the  boundary currents
 construct the runoff plumes at the scales allowed by the model resolution (and not present in the restoring data set). 
 
@@ -105,7 +108,7 @@ Prior to interpolation, reanalysis fields must be modified in such a way that la
 of ocean points (so called 'drowning' process). If this is not done, interpolated sea values may feel the influence of 
 (very different) land values.  The 'drowning' process can be performed with the *mask_drown* program of the SOSIE serie.
 
-#### 2.4.2 Building weight files
+#### 2.4.2 [Building weight files](./BUILD/WEIGHTS/README.md)
 NEMO allows the use of atmospheric forcing on their native relatively low resolution grid. Therefore, a set of weight files
 is needed for 'interpolation on the fly' (IOF). For wind components, we use a bicubic interpolation in order to ensure a 
 continuous curl (first derivative). For other fields, a bilinear interpolation is used. 
@@ -154,7 +157,7 @@ Interannual ISBA runoff will be used everywhere in the global ocean except aroun
    * for antarctica we will use the iceshelf parametrization (ISF NEMO module) of Pierre Mathiot with climatological input files
    * for Greenland, Jeremie Mouginot prepare interannual file for the runoff (260 selected points).
 
-#### 2.6.2 Solid runoff ( icebergs calving).
+#### 2.6.2 Solid runoff (icebergs calving).
 Decision was taken to use calving flux and explicit representation of the icebergs (ICB NEMO module). This module is fed by annual calving rate (km3/year)
 applied at specific locations around Antarctica and Greenland.  This information is read in NEMO through the `sn_icb` structure. Note that in the second part of the projet, when
 AGRIF zoom will be deployed in the North Atlantic, we know that icebergs are not crossing the AGRIF boundaries.  We have analysed that most of the icebergs are drifting southward so
