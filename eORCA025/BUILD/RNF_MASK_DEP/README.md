@@ -15,21 +15,21 @@ file, rnf_mask file.
 the data set. So we just combine the 3 sources with the tool.
 
 
-| file name                                      | dep min        |   dep max   |
-| ---------------------------------------------- | -------------- | ----------- |
-| eORCA025_runoff_ISBA_noAA_noGR_clim_366.nc     |    0           |     10      |
-| eORCA025.L75_y1950-2020_1m_greenland_rnfbis.nc |   hmin         |  hmax       |
-|    Antarctic ?                                 |     N/A        |             |
-| result :                                       |                |             |
+| file name                                      |  region    |   dep min        |   dep max   |
+| ---------------------------------------------- |----------- |   -------------- | ----------- |
+| eORCA025_runoff_ISBA_noAA_noGR_clim_366.nc     | World-A-G  |      0           |     10      |
+| eORCA025.L75_y1950-2020_1m_greenland_isfbis.nc | Greenland  |    sozisfmin     | sozisfmax   |
+| eORCA025_rnfisf_b0.2_c3.0_d1.0_v0.0.nc         | Antarctic  |    sozisfmin     | sozisfmax   |
+| **result :** eORCA025_rnf_dep.nc               | World      |    sozisfmin     | sozisfmax   |
 
 ## 3. rnf_mask file:
-  Production of this file is very similar to ref_dep: the same 3 sources information are merged in a single file. The only difference is that in the case of the mask, only one
+  Production of this file is very similar to ref_dep: the same 3 sources of information are merged in a single file. The only difference is that in the case of the mask, only one
 variable is concerned, instead of two.
 
-| file name                                      | variable name  |
-| ---------------------------------------------- | -------------- |
-| eORCA025_runoff_ISBA_noAA_noGR_clim_366.nc     | socoefr        |
-| eORCA025.L75_y1950-2020_1m_greenland_rnfbis.nc | socoefr        |
-|    Antarctic ?                                 |     N/A        |
-| result :                                       |                |
+| file name                                      |  region    | variable name  |
+| ---------------------------------------------- |----------- | -------------- |
+| eORCA025_runoff_ISBA_noAA_noGR_clim_366.nc     | World-A-G  | socoefr        |
+| eORCA025.L75_y1950-2020_1m_greenland_rnfbis.nc | Greenland  | socoefr        |
+| eORCA025_mskisf_b0.2_c3.0_d1.0_v0.0.nc         | Antarctic  | mask_isf_front | In this case, the values are to be transformed to 0.5
+| **result :** eORCA025_rnf_mask.nc              | World      | socoefr        |
 
