@@ -1,4 +1,7 @@
 # Building the distance to the coast file
+## 1. Context
+
+## 2. Building the file:
   The point is first to build a surface mask where only remains big continents, along which runoff are likely to take place.
 For this purpose we use BMGTOOLS interactive editor.
 
