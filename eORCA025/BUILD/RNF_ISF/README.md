@@ -5,9 +5,9 @@ a maximum value corresponding to the depth of the grounding line (where the cont
 latent heat  consumed by the process of ice melting, which make it different from simple runoff.  
 
 The freshwater flux for a given isceshelf is taken from various estimates: For Antarctica, annual climatological estimates from Rignot et Al (2013) are used.  
-For Greenland, we use monthly interannual estimates produced by Mouginot et al (2021). However, for Greenland, the freshwater melting estimates correspond to the very few iceshelves but mainly to marine glaciers that calve icebergs from their front. For the parameterization we consider the freswater flux (liquid) produce by the melting of the icebergs in the fjords, before reaching the
+For Greenland, we use monthly interannual estimates produced by Mouginot et al (2021). However, for Greenland, the freshwater melting estimates correspond to the very few iceshelves but mainly to marine glaciers that calve icebergs from their front. For the parameterization we consider the freswater flux (liquid) produced by the melting of the icebergs in the fjords, before reaching the
 open ocean, or the first ocean point in the model.  This means that we need an estimate of the proportion of the icebergs that melt in the fjord. A review of the sparse litterature on this topics
-gives some estimates between 30% and 80%. We this take a rough estimates of 50%. 
+gives some estimates between 30% and 80%. We thus take a rough estimates of 50%. 
 
 ## 2. Building rnf_isf file for Antarctica
 The starting point for all actions related to antarctic iceshelves is the icedraft. This field is part of the bathymetric file and gives the topography of the base of the iceshelf.
@@ -46,9 +46,9 @@ contribution of the icebergs that melt into the fjords, fixed as 50% of the tota
 
 The final file in this process hold the 71 years on monthly data: `eORCA025.L75_y1950-2020_1m_greenland_isfbis.nc`. For use in NEMO, it must be splitted into yearly files. This is done with the script [GrIS_Annual_Split.sh](../GREENLAND-RUNOFF/GrIS_Annual_Split.sh), producing files such as `eORCA025.L75_1m_greenland_isfbis_y1997.nc` for instance.
 
-From this set of annual file, a long term monthly climatology (1950-1972) was computed, to be used in the climatological run ([mk_clim_50-72.sh](../GREENLAND-RUNOFF/mk_clim_50-72.sh)).
+From this set of annual file, a long term monthly climatology (1950-1972) was computed, to be used in the climatological run ([mk_clim_50-72.sh](../GREENLAND-RUNOFF/mk_clim_50-72.sh)). Note that we decided to compute the climatology over years where the Greenland icesheet was almost in equilibrium. For experiment using the interannual dataset, a trend in the freshwater fluxes will show up.
 
-Depths related variable are  reprocessed to form a unique (Greenland, Antarctic) depth dataset.
+Depths related variable are  reprocessed to form a unique (Greenland, Antarctic) depth dataset. (see [RNF_MASK_DEP](../RNF_MASK_DEP/README.md) for details).
 
 
 ## 4. Nemo adaptation to deal with various input data for rnf_isf
