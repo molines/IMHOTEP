@@ -9,7 +9,7 @@ Preparation of this file is a long process: From one side we have published valu
 comm. for Greenland). And on the other side we must distribute this rate along the iceshelves. 
 
 For Greenland, Jeremie Mouginot and Pierre Mathiot directly provided the points of the NEMO grid corresponding to calving sources (and corresponding calving rates).
-Data from Jeremie are monthly data. (See comments in [this document](../GREENLAND-RUNOFF/README.md)).
+Data from Jeremie are monthly data. (See comments in [this document](../RUNOFF_GREENLAND/README.md)).
 
 For Antarctica, we took the file prepared by Pierre Mathiot, in which a clever algorithm was used to randomly distribute the  calving rate: for each iceshelf a single integral value is provided; at every point along the iceshelf break, a calving point is set with a calving rate beeing a random fraction of the global rate for this shelf. Of course, a scaling is applied in order to recover the global rate when summing up all individual points.
 

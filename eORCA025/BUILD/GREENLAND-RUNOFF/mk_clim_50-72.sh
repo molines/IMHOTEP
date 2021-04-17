@@ -5,7 +5,7 @@ y1=1950
 y2=1972
 freq=1m
 
-cd  $WORK/${CONFIG}/${CONFIG}-I/GREENLAND-RUNOFF-build/ANNUAL_BIS
+cd  $WORK/${CONFIG}/${CONFIG}-I/RUNOFF_GREENLAND-build/ANNUAL_BIS
 
 for typ in calvingbis isfbis rnfbis ; do
   lst=''

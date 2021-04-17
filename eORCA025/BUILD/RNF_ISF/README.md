@@ -37,18 +37,18 @@ of the cdfisf_rnf tool.
 For Greenland, we start from the GrIS file `eORCA025_GrIS_forcing_50percent_solid.nc`  produced by Mouginot et Al, giving the liquid and solid freshwater fluxes and 
 the associated depth, corresponding to 262 sources around Greenland. The file already gives the (I,J) coordinates of the coastal model point (eORCA025). This file is
 available on ige-meom-cal1.u-ga.fr:/mnt/meom/DATA_SET/RUNOFF_GrIS/. A detailed description of issues raised when using this data set (in particular concerning the coastal bathymetry
-of the model, is given in [this document](../GREENLAND-RUNOFF/README.md). As far as only rnf_isf is concerned here, we should say that the rnf_isf file for Greenland was produced together
-with the rnf and calving file, using the dedicated program [GrIS_CreateNemoBis](../GREENLAND-RUNOFF/GrIS_CreateNemoBis.f90). After long discussion, we decided to put in this file, only the
+of the model, is given in [this document](../RUNOFF_GREENLAND/README.md). As far as only rnf_isf is concerned here, we should say that the rnf_isf file for Greenland was produced together
+with the rnf and calving file, using the dedicated program [GrIS_CreateNemoBis](../RUNOFF_GREENLAND/GrIS_CreateNemoBis.f90). After long discussion, we decided to put in this file, only the
 contribution of the icebergs that melt into the fjords, fixed as 50% of the total calved icebergs.  This is because, associated to this freshwater flux, there is a latent heat flux that extract heat from the sea water when ice is melting. In the GrIS file, liquid contribution comes from coastal rivers and deep injection (below) the glacier) of melted and percolated waters, where the melting process occurs with heat exchange with the atmosphere, and not the ocean.  The final rnf_isf file for Greenland has the following variables:
   * sozisfmax : depth in meter of the maximum depth for rnf_isf. This depth possibly takes into account the depth of fjords sill that prevent deep waters in the fjords to connect to the open ocean.
   * sozidfmin : depth in meter of the minimum depth for rnf_isf. As this depth is also used for coastal runoff, it is set to 0m (surface). 
   * sornfisf :  monthly interannual liquid discharge (kg/m2/s) due to ice melting in the ocean.
 
-The final file in this process hold the 71 years on monthly data: `eORCA025.L75_y1950-2020_1m_greenland_isfbis.nc`. For use in NEMO, it must be splitted into yearly files. This is done with the script [GrIS_Annual_Split.sh](../GREENLAND-RUNOFF/GrIS_Annual_Split.sh), producing files such as `eORCA025.L75_1m_greenland_isfbis_y1997.nc` for instance.
+The final file in this process hold the 71 years on monthly data: `eORCA025.L75_y1950-2020_1m_greenland_isfbis.nc`. For use in NEMO, it must be splitted into yearly files. This is done with the script [GrIS_Annual_Split.sh](../RUNOFF_GREENLAND/GrIS_Annual_Split.sh), producing files such as `eORCA025.L75_1m_greenland_isfbis_y1997.nc` for instance.
 
-From this set of annual file, a long term monthly climatology (1950-1972) was computed, to be used in the climatological run ([mk_clim_50-72.sh](../GREENLAND-RUNOFF/mk_clim_50-72.sh)). Note that we decided to compute the climatology over years where the Greenland icesheet was almost in equilibrium. For experiment using the interannual dataset, a trend in the freshwater fluxes will show up.
+From this set of annual file, a long term monthly climatology (1950-1972) was computed, to be used in the climatological run ([mk_clim_50-72.sh](../RUNOFF_GREENLAND/mk_clim_50-72.sh)). Note that we decided to compute the climatology over years where the Greenland icesheet was almost in equilibrium. For experiment using the interannual dataset, a trend in the freshwater fluxes will show up.
 
-Depths related variable are  reprocessed to form a unique (Greenland, Antarctic) depth dataset. (see [RNF_MASK_DEP](../RNF_MASK_DEP/README.md) for details).
+Depths related variable are  reprocessed to form a unique (Greenland, Antarctic) depth dataset. (see [RUNOFF_MASK_DEP](../RUNOFF_MASK_DEP/README.md) for details).
 
 
 ## 4. Nemo adaptation to deal with various input data for rnf_isf

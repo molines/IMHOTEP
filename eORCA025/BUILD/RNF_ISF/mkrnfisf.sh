@@ -2,7 +2,7 @@
 
 CONFIG=eORCA025.L75
 
-cd $WORK/${CONFIG}/${CONFIG}-I/RNF_ISF-build
+cd $WORK/${CONFIG}/${CONFIG}-I/RUNOFF_ANTARCTIC-build
 OPENDAP=https://ige-meom-opendap.univ-grenoble-alpes.fr/thredds/fileServer/meomopendap/extract/eORCA025.L121/eORCA025.L121-BLD/ISF/eORCA025_mskisf_b0.2_c3.0_d1.0_v0.0
 
 MESH_MASK=$WORK/${CONFIG}/${CONFIG}-I/${CONFIG}_mesh_mask_closed_seas_greenland.nc
