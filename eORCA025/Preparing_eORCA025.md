@@ -45,7 +45,7 @@ Vertical stretching parameters will be those of the standard DRAKKAR 75 levels, 
   * A description step by step of the build procedure is reported in the [README](./BUILD/DOMAIN_cfg/README.md) file 
 placed in this directory.
 
-### 2.2 [Initial conditions files, and restoring files (if any).](./BUILD/INITIAL_CONDITIONS/README_CI.md)
+### 2.2 [Initial conditions files, and restoring files (if any).](./BUILD/INITIAL_CONDITIONS/README.md)
 There are quite a few available data set for T and S climatology. Among them, the World Ocean Atlases (ex-Levitus), with 
 recent releases (last being 2018 release). Also of interest is the EN4 gridded data set, which is probably a bit biased 
 toward recent years. There are also many products based on ARGO float remapping.  A choice must be done.  
@@ -76,7 +76,7 @@ in a density framework. But this is now a rather old dataset... ).
 We prepared initial conditions from WOA18. In fact I prepared 3 sets : first one from 1955-1964 decade climatology, available in WOA18,
 another from 1981-2010 climatology, and a last one with 1955-2017 long term monthly climatology.  Details and comments regarding this preparation are described in a [technical note](./BUILD/WOA2018/WOA18_processing.md). 
 
-The creation of the NEMO files is described in this other [document](./BUILD/INITIAL_CONDITIONS/README_CI.md). From our experience, having good and clean initial
+The creation of the NEMO files is described in this other [document](./BUILD/INITIAL_CONDITIONS/README.md). From our experience, having good and clean initial
 conditions, double checked is a key point for having a smooth simulation... This is the reason for which I prefer initial conditions on the model grid rather than on a regular grid with '3D interpolation on the fly' and weight files.
 
 The same processing was done for Gouretski monthly climatology, with sosie. Scripts and namelists are available in [this directory](./BUILD/GOURETSKI_18)
