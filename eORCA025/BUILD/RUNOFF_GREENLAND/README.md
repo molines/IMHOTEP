@@ -10,8 +10,7 @@ depending on the glacier thickness). One of the main problem for forcing an ocea
 width) the first sea-point off the model coastline is far from the actual position of the glacier front or the river mouth. More over, a bathymetric sill is very often 
 observed downstream fjords. In addition, part of the calved icebergs melt in the fjord before reaching the first model sea point !  Considering all these details, some 
 choices have to be made to provide NEMO with liquid discharge, deptht of the discharge, and calving rate.  There is a big uncertainty on the amount of freshwater released by 
-icebergs that are melting in the fjords.  The litterature on this point (very few indeed), gives for some fjords, melted estimates ranging from 30% to 80%  of the calved icebergs.Pragmatically, a conservative choice of 50% have been made so far, so that half of the calved iceberg mass is converted to liquid discharge (associated to the glacier depth),
-and the remnant half is used as a calving source at NEMO first sea-point.
+icebergs that are melting in the fjords.  The litterature on this point (very few indeed), gives for some fjords, melted estimates ranging from 30% to 80%  of the calved icebergs. Pragmatically, a conservative choice of 50% have been made so far, so that half of the calved iceberg mass is converted to liquid discharge (associated to the glacier depth), and the remnant half is used as a calving source at NEMO first sea-point.
 
 
 ## 2. Programs
