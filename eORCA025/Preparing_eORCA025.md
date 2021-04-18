@@ -171,7 +171,7 @@ configuration. Therefore some specific treatments are being discussed to convert
 We do note that on Pierre Mathiot file, there is also a contribution for the northern hemisphere, around Greenland, but also for very few spots in Svalblard and Canadian Archipelago.
 These areas are not covered by Jeremie Mouginot work.  With regard to the AGRIF strategy  in the second part of the project, it is probably safer to just ignore this (small) contribution
 
-Details of the construction of the calving files are given in this [technical note](./BUILD/CALVING/README_CALVING.md).
+Details of the construction of the calving files are given in this [technical note](./BUILD/CALVING/README.md).
 
 #### 2.6.3 Spinup strategy.
 IMHOTEP first run will use climatological (seasonal) input for the runoff (liquid and solid). 
