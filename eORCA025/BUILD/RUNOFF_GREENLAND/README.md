@@ -1,6 +1,8 @@
 # Making of the Greenland runoff and calving files
 ## 1. Context
-Greenland runoff (liquid and solid) were infered from .... and provided to the project by Jeremie Mouginot, Pierre Mathiot and Nicolas Jourdain. 
+Greenland runoff (liquid and solid) were infered from a mass balance model of the Greenland icesheet (see for example Mouginot et Al, 2019) and provided to 
+the project by Jeremie Mouginot, Pierre Mathiot and Nicolas Jourdain. 
+
 Main sources of liquid and solid runoff are the glaciers and ice sheets. Some glacier have  a terrestrial end, with all the melted waters forming 
 a river that arrives to the Sea. Other glacier have a marine end, with a floating ice tongue.  These latter glaciers contribute to both solid 
 (calving of iceberg at the glacier front) and liquid (with surface waters and melted water being released  at the bottom of the glacier tongue, at a depth 
@@ -20,3 +22,8 @@ and the remnant half is used as a calving source at NEMO first sea-point.
   * **GrIS_chk_bat.f90** : This program only perform the bathymetry comparison, taking the depths from a new test bathymetric file. It allows the correction of some remnant problems in an
 iterative way.  Once no more problems are reported the bathymetry is OK and can be merged with the global one.
   * **GrIS_chk_double.f90** : In the GrIS file provides by Jeremie Mouginot et Al., a single NEMO point can receive different runoff/calving contribution. This program detect and list the NEMO points receiving more than one contribution. Decision is to be taken on how the case of multiple source on a single point is treated for the simulation.
+
+## *References*
+Jérémie Mouginot, Eric Rignot, Anders A. Bjørk, Michiel van den Broeke, Romain Millan, Mathieu Morlighem, Brice Noël, Bernd Scheuchl, Michael Wood (2019):
+Forty-six years of Greenland Ice Sheet mass balance from 1972 to 2018. Proceedings of the National Academy of Sciences May 2019, 116 (19) 9239-9244; DOI: 10.1073/pnas.1904242116
+
