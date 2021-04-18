@@ -24,6 +24,6 @@ iterative way.  Once no more problems are reported the bathymetry is OK and can 
   * **GrIS_chk_double.f90** : In the GrIS file provides by Jeremie Mouginot et Al., a single NEMO point can receive different runoff/calving contribution. This program detect and list the NEMO points receiving more than one contribution. Decision is to be taken on how the case of multiple source on a single point is treated for the simulation.
 
 ## *References*
-Jérémie Mouginot, Eric Rignot, Anders A. Bjørk, Michiel van den Broeke, Romain Millan, Mathieu Morlighem, Brice Noël, Bernd Scheuchl, Michael Wood (2019):
-Forty-six years of Greenland Ice Sheet mass balance from 1972 to 2018. Proceedings of the National Academy of Sciences May 2019, 116 (19) 9239-9244; DOI: 10.1073/pnas.1904242116
+**Jérémie Mouginot, Eric Rignot, Anders A. Bjørk, Michiel van den Broeke, Romain Millan, Mathieu Morlighem, Brice Noël, Bernd Scheuchl, Michael Wood (2019)**:
+Forty-six years of Greenland Ice Sheet mass balance from 1972 to 2018. *Proceedings of the National Academy of Sciences* May 2019, 116 (19) 9239-9244; DOI: 10.1073/pnas.1904242116
 
