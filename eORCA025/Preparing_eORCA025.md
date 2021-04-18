@@ -81,7 +81,7 @@ conditions, double checked is a key point for having a smooth simulation... This
 
 The same processing was done for Gouretski monthly climatology, with sosie. Scripts and namelists are available in [this directory](./BUILD/GOURETSKI_18)
 
-### 2.3 [Distance-to-the coast file](./BUILD/DISTCOAST/README_DISTCOAST.md)
+### 2.3 [Distance-to-the coast file](./BUILD/DISTCOAST/README.md)
 This file is used for the SSS restoring in order to prevent restoring in the vicinity of the coast, letting the  boundary currents
 construct the runoff plumes at the scales allowed by the model resolution (and not present in the restoring data set). 
 
@@ -91,7 +91,7 @@ this constellation of islands does not have SSS restoring, which is really bad, 
 efficient to counter balance poorly represented precipitations !  Hence, the surface *tmask* must be carefully edited, drowning
 small islands, in order to have a distance-to-the-coast file that takes into account only main continental land. This is done using
 **BMGTOOLS**, an interactive java-based program initially dedicated  to tunning the bathymetry. Detailed procedure is discribed in
-this [document](./BUILD/DISTCOAST/README_DISTCOAST.md). Note that in the procedure we use a dummy very large value for the distance,
+this [document](./BUILD/DISTCOAST/README.md). Note that in the procedure we use a dummy very large value for the distance,
 in some closed seas (Med Sea, Black Sea) in order to maintain SSS restoring even near the coast.
 
 After this first file was build we came to preparing the runoff files, and using ISBA climatology there are several input of freshwater in the indonesian area, so that I think that
