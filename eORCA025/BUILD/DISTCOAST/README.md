@@ -11,7 +11,7 @@ model-climatology difference, (ii) the SSS restoring is faded out in coastal are
 fluxes) coastal current.  For this second point, we need a file giving the distance to the coast, or better the distance to runoff points. This is the object of this
 technical note.
 
-## 2. Building the file:
+## 2. Building the file from tmask.
   The point is first to build a surface mask where only remains big continents, along which runoff are likely to take place.
 For this purpose we use BMGTOOLS interactive editor.
 
@@ -50,7 +50,9 @@ we do not want any fading of the restoring near the coast (as this will almost c
  # mask the resulting file (restoring islands, but not a pb)
  cdfmltmask -f  eORCA025.L75_distcoast_v2.nc.02 -m ../eORCA025.L75_mesh_mask.nc  -v Tcoast -p T 
  mv eORCA025.L75_distcoast_v2.nc.02_masked eORCA025.L75_distcoast_v2.nc
-
 ```
 
   6.  File eORCA025.L75_distcoast_v2.nc is ready for use, with Tcoast variable
+
+
+## 3. Building the file from runoff mask.
