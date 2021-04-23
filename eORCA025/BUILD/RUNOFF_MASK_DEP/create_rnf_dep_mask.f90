@@ -24,12 +24,17 @@ PROGRAM create_rnf_dep_mask
   INTEGER(KIND=4) :: ncidd, idd1,idd2 , idxd, idyd, idlond, idlatd
   INTEGER(KIND=4) :: ncidm, idm,        idxm, idym
   INTEGER(KIND=4) :: npiglo, npjglo 
+  INTEGER(KIND=4) :: narg, ijarg, iargc
 
   REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE :: rlon, rlat
   REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE :: rdepmin, rdepmax, rmsk
   REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE :: rdepISBAmin, rdepISBAmax, rmskISBA
   REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE :: rdepGrISmin, rdepGrISmax, rmskGrIS
   REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE :: rdepAntamin, rdepAntamax, rmskAnta
+
+  LOGICAL :: ll_use_namelist = .FALSE.
+
+  CHARACTER(LEN=80) :: cldum, cf_namelist='create_rnf_dep_mask.namelist'
 
   CHARACTER(LEN=80) :: cf_rnfGrIs_dep = 'eORCA025.L75_y1950-2020_1m_greenland_isfbis.nc'
   CHARACTER(LEN=80) ::    cv_rnfGrIs_depmin = 'sozisfmin'
@@ -58,7 +63,67 @@ PROGRAM create_rnf_dep_mask
   ! Dimensions name :
   CHARACTER(LEN=80) :: cl_x='x' , cl_y='y'
   CHARACTER(LEN=80) :: cv_lon='nav_lon' , cv_lat='nav_lat'
+
+  NAMELIST /namcrdm/ cf_rnfGrIs_dep, cv_rnfGrIs_depmin, cv_rnfGrIs_depmax, &
+                     cf_rnfISBA_dep, cv_rnfISBA_depmin, cv_rnfISBA_depmax, &
+                     cf_rnfAnta_dep, cv_rnfAnta_depmin, cv_rnfAnta_depmax, &
+                     cf_rnf_dep    , cv_rnf_depmin    , cv_rnf_depmax,     &
+                     cf_rnfGrIs_msk, cv_rnfGrIs_msk,                       &
+                     cf_rnfISBA_msk, cv_rnfISBA_msk,                       &
+                     cf_rnfAnta_msk, cv_rnfAnta_msk,                       &
+                     cf_rnf_msk    , cv_rnf_msk,                           &
+                     cl_x          , cv_lon,                               &
+                     cl_y          , cv_lat
+
   ! -----------------------------------------------------------------------------------------
+  narg = iargc()
+  IF ( narg == 0 ) THEN
+     PRINT *,' usage : create_rnf_dep_mask.x -f NAMELIST-name '
+     PRINT *,'      '
+     PRINT *,'     PURPOSE :'
+     PRINT *,'       Create rnf_dep and rnf_mask files from various sources:' 
+     PRINT *,'          ISBA : for river runoff (except antarctica and Greenland)'
+     PRINT *,'          GrIS : for river runoff, glacier and isf melting, calving'
+     PRINT *,'          Anta : for iceshelf melting parametrisation (Rignot)'
+     PRINT *,'        depth are given in meters, and runoff mask is 0 everuwhere, except'
+     PRINT *,'        on grid points where runoff (or isf runoff) is applied. For those'
+     PRINT *,'        latter points, runoff mask takes the value 0.5 (for historical reasons)'
+     PRINT *,'      '
+     PRINT *,'     ARGUMENTS :'
+     PRINT *,'       -f NAMELIST-name : If this file does not exist, takes the default values'
+     PRINT *,'              which corresponds to eORCA025-IMHOTEP configuration (2021)' 
+     PRINT *,'      '
+     PRINT *,'     OPTIONS :'
+     PRINT *,'       none' 
+     PRINT *,'      '
+     PRINT *,'     REQUIRED FILES :'
+     PRINT *,'        none'
+     PRINT *,'      '
+     PRINT *,'     OUTPUT : '
+     PRINT *,'           If not changed in the namelist :'
+     PRINT *,'       netcdf file : ', TRIM(cf_rnf_msk),' and ',TRIM(cf_rnf_dep)
+     PRINT *,'         variables : ', TRIM(cv_rnf_msk),' and ', TRIM(cv_rnf_depmin),', ',TRIM(cv_rnf_depmax)
+     PRINT *,'      '
+     PRINT *,'      '
+     STOP
+  ENDIF
+
+  ijarg = 1 
+  DO WHILE ( ijarg <= narg )
+     CALL getarg(ijarg, cldum ) ; ijarg=ijarg+1
+     SELECT CASE ( cldum )
+     CASE ( '-f'   ) ; CALL getarg(ijarg, cf_namelist ) ; ijarg=ijarg+1
+     END SELECT
+  ENDDO
+
+ INQUIRE(file=cf_namelist, exist= ll_use_namelist ) 
+ IF (ll_use_namelist) THEN
+   PRINT *,' Reading namelist ', TRIM(cf_namelist)
+   OPEN(inum,file=cf_namelist)
+   READ(inum,namcrdm)
+   CLOSE (inum)
+ ENDIF
+
   ! GrIS msk
   !=====
   ierr = NF90_OPEN(cf_rnfGrIS_msk,NF90_NOWRITE, ncid)

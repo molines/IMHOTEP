@@ -1,0 +1,42 @@
+&namcrdm
+  ! RUNOFF depth files
+  !-------------------
+  cf_rnfGrIs_dep      = 'eORCA025.L75_y1950-2020_1m_greenland_isfbis.nc'
+    cv_rnfGrIs_depmin = 'sozisfmin'
+   cv_rnfGrIs_depmax  = 'sozisfmax'
+
+  cf_rnfISBA_dep      = 'eORCA025_runoff_ISBA_noAA_noGR_clim_366.nc'
+    cv_rnfISBA_depmin = 'N/A'
+    cv_rnfISBA_depmax = 'N/A'
+
+  cf_rnfAnta_dep      = 'eORCA025_rnfisf_b0.2_c3.0_d1.0_v0.0.nc'
+    cv_rnfAnta_depmin = 'sozisfmin'
+    cv_rnfAnta_depmax = 'sozisfmax'
+
+  ! Output file and variable
+  cf_rnf_dep          = 'eORCA025.L75_rnf_dep.nc'
+    cv_rnf_depmin     = 'sozisfmin'
+    cv_rnf_depmax     = 'sozisfmax'
+
+  ! RUNOFF mask files
+  !------------------
+  cf_rnfGrIs_msk      = 'eORCA025.L75_y1950-2020_1m_greenland_rnfbis.nc'
+    cv_rnfGrIs_msk    = 'socoefr'
+
+  cf_rnfISBA_msk      = 'eORCA025_runoff_ISBA_noAA_noGR_clim_366.nc'
+    cv_rnfISBA_msk    = 'socoefr'
+
+  cf_rnfAnta_msk      = 'eORCA025_mskisf_b0.2_c3.0_d1.0_v0.0.nc'
+    cv_rnfAnta_msk    = 'mask_isf_front'
+
+  ! Output file and variables
+  cf_rnf_msk          = 'eORCA025.L75_rnf_msk.nc'
+    cv_rnf_msk        = 'socoefr'
+
+  ! Grid information on file ( corresponding to cf_rnfGrIs_msk )
+  cl_x   = 'x'          ! x- dimension name
+  cl_y   = 'y'          ! y-dimension name
+  cv_lon = 'nav_lon'    ! longitude (2D) variable name
+  cv_lat = 'nav_lat'    ! latitude (2D) variable name
+/
+
