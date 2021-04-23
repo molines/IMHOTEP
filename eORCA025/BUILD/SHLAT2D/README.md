@@ -1,14 +1,18 @@
 # Lateral boundary condition enhancement : shlat2D
 ## 1. Context
-Lateral boundary conditions are dealing with the `no-slip`  vs `free-slip` condition. This represents the assumption whether the tangential coastal velocity vanish at the coast (no-slip) or is
-unaffected (free-slip).  This is a way to define the lateral boundary layer, which obviously depends on the model resolution.  In NEMO, we can define  lateral boundary condition from strong-slip 
-to free-slip (passing through no-slip). In fact, on the C-grid, there are no 'tangential velocity point on the coast line. If we take the example of a N-S coast, there are U velocity points on 
-the coastal mask (set to 0, normal velocity). The V points are located half a grid cell off the coast.  The lateral boundary condition is implemented in the way the vorticity component 
-dV/dx is computed at the coastal F-point: In case of free-slip, dv/dx=0 meaning no variation of V when getting near the coast. In case of no-slip, V@F-points should be 0 (which can be represented 
-if the mirror V-point in land (symetric to F-point) has -V value, giving a 0 value at the middle F-point. Thus, in this case, the vorticity component is (V - (-V))/dx = 2 V/dx. NEMO implementation
-use a namelist coefficient `shlat` which  is used in the computation of the vorticity component : dv/dx=  shlat * V /dx (V being the first in sea, tangential velocity point). Hence, shlat=0
-corresponds to free-slip and shlat= 2 corresponds to no-slip. But the concept of strong slip (shlat > 2) can be imagined: it just increase the vorticity at the coast (in order to mimic a 
-thinner lateral boundary layer).
+Lateral boundary conditions are dealing with the `no-slip`  vs `free-slip` condition. This represents the assumption whether the tangential coastal velocity vanish at the coast (no-slip) or is unaffected (free-slip).  This is a way to define the lateral boundary layer, which obviously depends on the model resolution. 
+In NEMO, we can define  lateral boundary condition from strong-slip to free-slip (passing through no-slip). 
+
+In fact, on the C-grid, there are no 'tangential' velocity point on the coast line. If we take the example of a N-S coast, there are U velocity points on 
+the coastal mask (set to 0, normal velocity). The V points are located half a grid cell off the coast.  The lateral boundary condition is implemented in the way the
+vorticity component  dV/dx is computed at the coastal F-point: In case of free-slip, dv/dx=0 meaning no variation of V when getting near the coast. In case of no-slip,
+V@F-points should be 0 (which can be represented if the mirror V-point in land (symetric to F-point) has -V value, giving a 0 value at the middle F-point. 
+Thus, in this case, the vorticity component is (V - (-V))/dx = 2 V/dx.
+
+NEMO implementation introduces a namelist coefficient `shlat` which  is used in the computation of the vorticity component : dv/dx=  shlat * V /dx (V being the first 
+in sea, tangential velocity point). Hence, shlat=0 corresponds to free-slip and shlat= 2 corresponds to no-slip. But the concept of strong slip (shlat > 2) can be
+imagined: it just increases the vorticity at the 
+coast (in order to mimic a thinner lateral boundary layer).
 
 In the DRAKKAR version of NEMO, we decided to use a 2D field for the shlat coefficient, because we want to use localized no-slip or strong-slip lateral boundary conditions.  The 2D coefficient
 is stored in the file whose building is decribed here.
