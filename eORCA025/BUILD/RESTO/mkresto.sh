@@ -11,7 +11,7 @@ cdfmaskdmp -t  ${CONFIG}_GOU18_1y_votemper.nc -s ${CONFIG}_GOU18_1y_vosaline.nc 
          -refdep 2000 -dens 37.16 0.025 -dep 1000 100 -lat -20 2 -nc4 -o ${CONFIG}_AABW_dmpmsk.nc
 
 cdfmaskdmp -t  ${CONFIG}_GOU18_1y_votemper.nc -s ${CONFIG}_GOU18_1y_vosaline.nc \
-         -refdep 2000 -dens 37.16 0.025 -dep 1000 100 -lat -20 2 -nc4 -tau 720 -o ${CONFIG}_AABW_resto.nc
+         -refdep 2000 -dens 37.16 0.025 -dep 1000 100 -lat -20 2 -nc4 -tau 730 -o ${CONFIG}_AABW_resto.nc
 
 # Then add restoring zone (drakkar like)
 cat << eof > drakkar_restoring.txt
