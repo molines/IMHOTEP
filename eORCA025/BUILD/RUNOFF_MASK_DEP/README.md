@@ -12,7 +12,7 @@ file, rnf_mask file.
   
 ## 2. rnf_dep file:
    This file combine runoff depths coming from ISBA and GrIS, and rnfisf_depht coming from Greenland and Antarctica (3 different sources). There are no overlap (at least we hope! ) between 
-the data set. So we just combine the 3 sources with the tool.
+the data set. So we just combine the 3 sources with the tool. For river runoff, we choose to use a 10m depth.  This value is choosen pragmatically. It must not have a great impact.
 
 
 | file name                                      |  region    |   dep min        |   dep max   |
@@ -24,7 +24,7 @@ the data set. So we just combine the 3 sources with the tool.
 
 ## 3. rnf_mask file:
   Production of this file is very similar to ref_dep: the same 3 sources of information are merged in a single file. The only difference is that in the case of the mask, only one
-variable is concerned, instead of two.
+variable is concerned, instead of two. (For historical reason, the value of the mask is 0 everywhere except on runoff point where it is 0.5).
 
 | file name                                      |  region    | variable name  |
 | ---------------------------------------------- |----------- | -------------- |
@@ -32,4 +32,56 @@ variable is concerned, instead of two.
 | eORCA025.L75_y1950-2020_1m_greenland_rnfbis.nc | Greenland  | socoefr        |
 | eORCA025_mskisf_b0.2_c3.0_d1.0_v0.0.nc         | Antarctic  | mask_isf_front | In this case, the values are to be transformed to 0.5
 | **result :** eORCA025_rnf_mask.nc              | World      | socoefr        |
+
+## 4. create_rnf_dep_mask.f90
+This program was written in order to perform the merging between the various files reported above. Information about the files and variables name is hard coded.
+It corresponds to the actual eORCA025 case.  A namelist can be provided to alter the default names. 
+
+```fortran
+&namcrdm
+  ! RUNOFF depth files
+  !-------------------
+  cf_rnfGrIs_dep      = 'eORCA025.L75_y1950-2020_1m_greenland_isfbis.nc'
+    cv_rnfGrIs_depmin = 'sozisfmin'
+   cv_rnfGrIs_depmax  = 'sozisfmax'
+
+  cf_rnfISBA_dep      = 'eORCA025_runoff_ISBA_noAA_noGR_clim_366.nc'
+    cv_rnfISBA_depmin = 'N/A'
+    cv_rnfISBA_depmax = 'N/A'
+
+  cf_rnfAnta_dep      = 'eORCA025_rnfisf_b0.2_c3.0_d1.0_v0.0.nc'
+    cv_rnfAnta_depmin = 'sozisfmin'
+    cv_rnfAnta_depmax = 'sozisfmax'
+
+  ! Output file and variable
+  cf_rnf_dep          = 'eORCA025.L75_rnf_dep.nc'
+    cv_rnf_depmin     = 'sozisfmin'
+    cv_rnf_depmax     = 'sozisfmax'
+
+  ! RUNOFF mask files
+  !------------------
+  cf_rnfGrIs_msk      = 'eORCA025.L75_y1950-2020_1m_greenland_rnfbis.nc'
+    cv_rnfGrIs_msk    = 'socoefr'
+
+  cf_rnfISBA_msk      = 'eORCA025_runoff_ISBA_noAA_noGR_clim_366.nc'
+    cv_rnfISBA_msk    = 'socoefr'
+
+  cf_rnfAnta_msk      = 'eORCA025_mskisf_b0.2_c3.0_d1.0_v0.0.nc'
+    cv_rnfAnta_msk    = 'mask_isf_front'
+
+  ! Output file and variables
+  cf_rnf_msk          = 'eORCA025.L75_rnf_msk.nc'
+    cv_rnf_msk        = 'socoefr'
+
+  ! Grid information on file ( corresponding to cf_rnfGrIs_msk )
+  cl_x   = 'x'          ! x- dimension name
+  cl_y   = 'y'          ! y-dimension name
+  cv_lon = 'nav_lon'    ! longitude (2D) variable name
+  cv_lat = 'nav_lat'    ! latitude (2D) variable name
+/
+
+```
+
+Note that for Antarctica, we use `mask_isf_front` to infer the runoff mask. We just test for a non zero value.
+
 
