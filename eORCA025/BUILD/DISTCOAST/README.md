@@ -1,5 +1,15 @@
 # Building the distance to the coast file
-## 1. Context
+## 1. Context: SSS restoring strategy.
+In  ocean modelisation, we almost always use a Sea Surface Salinity (SSS) restoring toward some climatology. This is mainly because in forced mode (atmosphere
+is prescribed) we miss a feedback. And the SSS can present some strong trends, that we reduce with restoring.  The used piston velocity  is set in the 
+namelist `rn_deds` and we choose 166.67 mm/day which correspond, in term of time scale to 60 days for 10m, considered as a medium range restoring (according 
+to Griffies 20.. ).  
+
+The point is that the SSS climatology present very smooth, large scale fields compared to the eddying small scale model's SSS. 
+In DRAKKARized NEMO, we try to deal with this scale difference in two ways :(i) the model SSS is spatially filtered (Shapiro filter) before computing the 
+model-climatology difference, (ii) the SSS restoring is faded out in coastal areas in order to let the model build its narrow, fresher (due to continental freshwater
+fluxes) coastal current.  For this second point, we need a file giving the distance to the coast, or better the distance to runoff points. This is the object of this
+technical note.
 
 ## 2. Building the file:
   The point is first to build a surface mask where only remains big continents, along which runoff are likely to take place.
