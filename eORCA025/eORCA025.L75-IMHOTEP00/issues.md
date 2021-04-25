@@ -49,18 +49,26 @@ kt 13 Sal   max   40.81     at i j k 1360  787 11 MPI rank 105
   * Explosion at step 1120 very robust. Disappear when tradmp not used....
   * ==> change restoring dataset from gouretski to WOA18 : OK !
 Gouretski, month 2 has probably a problem with spurious bad values ....
+    *  Need to rework this data set if we really see an advantage to use it ! I remember that the  original data set has a time dependent land-sea mask
+in ice covered areas. I use specific option in SOSIE to deal with this particular case, but it might be possible that the drowning was not satisfactory for those areas (quite large) in
+the Wedell sea for instance, at the east of the Antarctic peninsula. 
 
 ### 2.4 adding icebergs on the fly
-  * with standard code, not possible to start iceberg  in a restart segment: looking for iceberg restart file.
+  * With standard code, not possible to start iceberg  in a restart segment: looking for iceberg restart file.
   *  ==> key_drakkar : add  ln_rstart_icb in namberg_drk and replace ln_rstart by ln_rstart_icb in icb_ini.F90
 
 ### 2.5 adding iwm (internal wave mixing (Casimir Delavergne ) : `ln_zdfiwm = .true.` in namzdf
+  * seems OK so far
 
-### 2.6 adding BFR2D : `ln_boost = .true.` in namdrg_bot
+### 2.6  All smaller secondary parameterisation (added all at once):
+  * adding BFR2D : `ln_boost = .true.` in namdrg_bot
+  * adding BBC   : `ln_trabbc = .true.` in nambbc
+  * adding BBL   : `ln_trabbl = .true.` in nambbl
 
-### 2.7 adding BBC   : `ln_trabbc = .true.`in nambbc
-
-### 2.8 adding BBL   : `ln_trabbl = .true.`in nambbl
+## 3. Checking the xml file and prepare a DMP (data management plan).
+  * which variable ?
+  * which frequency  ?
+  * non standard output ? 
 
 
 
