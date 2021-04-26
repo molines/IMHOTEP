@@ -146,7 +146,7 @@ ease the tracability of the configuration.
 ### 2.6 Runoff files
 This is the central part of IMHOTEP ! For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
 dependent freshwater flux (in kg/m2/s) given for *ad hoc* grid cells. It also contain a mask where *ad hoc* grid cells have
-the value of 0.5 instead of 0. elsewhere.  The technical details of howto prepare the runoff files are given in [this document](./BUILD/RUNOFF_ISBA/README_RUNOFF.md). 
+the value of 0.5 instead of 0. elsewhere.  The technical details of howto prepare the runoff files are given in [this document](./BUILD/RUNOFF_ISBA/README.md). 
 
 #### 2.6.1 Liquid runoff:
 After several comparision between available data set, decision was take to use the global ISBA reanalysis giving river discharge 
