@@ -180,9 +180,9 @@ depths, (and I have check up to 6 contributions for a single point), there shoul
 runoff depth.  This will be done in the preparation of the file, and the change in NEMO in this case will be very similar to the calving case, playing with multiple
 dataset.
 
-> The question of using ISF param for the glaciar runoff around greenland is raised. The difference being in the latent heat flux corresponding to icemelt, in case of
+> The question of using ISF param for the glacier runoff around greenland is raised. The difference being in the latent heat flux corresponding to icemelt, in case of
 the ISF parameterization. ISF parametrization take a range of depths corresponding the the depths of the grounding line (max) and to the depth of the ice at the 
-iceshelf edge (min).
+iceshelf edge (min). **UPDATE:** choice was made (after discussion with P. Mathiot) to put only the contribution of the iceberg melting into the fjords into the ISF parametrization
 
 ### 4.2 Implementation in NEMO
 As a starting point, we choose to add multiple files capability only for the runoff dataset, and this is primarily done for having different frequencies and data type 
