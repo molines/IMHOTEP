@@ -33,7 +33,7 @@ variable is concerned, instead of two. (For historical reason, the value of the 
 | eORCA025_mskisf_b0.2_c3.0_d1.0_v0.0.nc         | Antarctic  | mask_isf_front | In this case, the values are to be transformed to 0.5
 | **result :** eORCA025_rnf_mask.nc              | World      | socoefr        |
 
-## 4. create_rnf_dep_mask.f90
+## 4. Program [create_rnf_dep_mask.f90](./create_rnf_dep_mask.f90)
 This program was written in order to perform the merging between the various files reported above. Information about the files and variables name is hard coded.
 It corresponds to the actual eORCA025 case.  A namelist can be provided to alter the default names. 
 
