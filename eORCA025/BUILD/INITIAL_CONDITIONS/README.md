@@ -1,4 +1,14 @@
-# Building Initial condition step by step
+# Building Initial condition
+## 1. Context:
+For a realistic configuration, initial conditions on T and S are of primary importance. The density field derived from this initial state, spins up the model very
+quickly by  geostrophic response. That's why we use only initial state for T and S and start from rest concerning the ocean currents.  However, during the first 
+few hours or days of the simulation, the initial shock is rather violent and triggers waves that travel accross the oceanic basins, before calming down.  The quality
+of the initial state  is a key point for a quiet start up. In particular, it is very important to avoid singular values (such as 0 salinity, or even worse, 
+negative salinities) in the ocean domain, which often occurs in the deep ocean, where data are sparse: the model grid being different from the dataset grid, 
+interpolation may produce spurious values that must be tracked carefully.
+
+## 2. Building Initial conditions, step by step
+### 2.1 Prerequisite
 The building of initial conditions suppose that you already have :
   * domain_cfg file for the configuration (see [how to build this file](BUILD/DOMAIN_cfg/README.md) ).
   * mesh_mask files for the configuration: Once the domain_cfg file is OK, the best way to obtain a `mesh_mask.nc` file is to run 
@@ -6,19 +16,19 @@ NEMO with `ln_meshmask=.true.` in the namelist. This job will crash almost immed
   * TS 3D-data set that will be interpolated to the model grid. See below how we manage to get a valid data set.
   * A last version of [SOSIE3](https://github.com/brodeau/SOSIE), ready to be used. 
 
-## 1. Getting the climatological data
-### 1.1 Recent version of World Ocean Atlas : WOA2018
+### 2.2. Getting the climatological data
+#### 2.2.1 Recent version of World Ocean Atlas : WOA2018
   * We took the TS climatology from the NOAA data center. 
   * This raw data set requires some adaptation before using it for interpolation.
   * See details of the preparation in this [report](../WOA2018/WOA18_processing.md)
-### 1.2 Other data set that can be considered
+#### 2.2.2 Other data set that can be considered
   * EN4
   * older WOA atlas
   * Gouretsky
   * ARGO based data set.
 
-## 2. Interpolation with  SOSIE3
-### 2.1 Get a recent version of SOSIE3  and compile
+### 2.3 Interpolation with  SOSIE3
+#### 2.3.1 Get a recent version of SOSIE3  and compile
 
 ```
      cd YOUR_FAVORITE_DEV_DIRECTORY
@@ -32,7 +42,7 @@ NEMO with `ln_meshmask=.true.` in the namelist. This job will crash almost immed
      
 ```
 
-### 2.2 producing the NEMO files
+#### 2.3.2 Producing the NEMO files
 
 For eORCA025.L75-IMHOTEP00 we use :
 |  files        | name                                   |
@@ -48,7 +58,7 @@ Namelists used for the initial conditions production are gathered [here](./).
 [namelist_theta_1deg](./namelist_theta_1deg) : namelist for potential temperature interpolation
 [namelist_san_1deg](./namelist_san_1deg) : namelist for relative salinity interpolation
 
-### 2.3 extra cleaning of the NEMO files
+### 2.4 extra cleaning of the NEMO files
 Although not mandatory, I like to have initial condition files following almost exactly the nomenclatura of the NEMO output. So far, I take care of having dimensions named
 x,y,deptht, time_counter as well as the 'coordinates' variables nav_lon, nav_lat, deptht, time_counter. 
 
