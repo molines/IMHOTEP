@@ -1,6 +1,12 @@
-# Making of weight files for forcing
+# Making of weight files for Interpolation On the Fly (IOF)
+## 1. Context
+Interpolation on the fly is a very clever process introduced in NEMO 2.4. It allows the use of data set on their original grid, which are interpolated on the
+model grid when needed.  This is particularly usefull for atmospheric forcing for instance.  The interpolation can be performed by either a bilinear approach or a
+bicubic approach.  For the atmospheric forcing field, we adopt bilinear interpolation for all fields except for wind velocity component, where we prefer bicubic 
+interpolation. This is basically because, one important quantity is the curl of the wind stress, and with a bilinear interpolation, this field is not continuous and
+shows step values corresponding to the atmospheric grid resolution (coarse). Here, we describe the procedure used to produce the weight files.
 
-## Preparation
+## 2. Preparation
   * Need to compile the WEIGHTS tools :
 
 ``` 
@@ -18,7 +24,7 @@
    ln -sf /gpfswork/rech/cli/rcli002/WeORCA025.L75-IMHOTEP00/tools/WEIGHTS/BLD/bin/*exe ./
 ```  
 
-## Compute the weight file  for  bilinear and bicubic interpolation
+## 3. Compute the weight file  for  bilinear and bicubic interpolation (for forcing fields)
   * need the horizontal grid (in eORCA025.L75_mesh_mask.nc)
   * need a forcing file for the atmospheric grid (e.g. drowned_psl_JRA55_y2000.nc) (of course if we are to use JRA55).
   * use the mkweight script :
@@ -32,7 +38,7 @@
 ```
 > Tip : in the mkweight.ksh script, I set BINDIR=./ 
 
-## compute the weight file for the geothermal flux (Goutorbe)
+## 4. Compute the weight file for the geothermal flux (Goutorbe)
   * need the Geothermal flux file ( ghflux_v2.0.nc  )
   * use the mkweight script
 
