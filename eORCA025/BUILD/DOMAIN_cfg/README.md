@@ -1,28 +1,38 @@
-# Building domain_cfg file, step by step
+# Building domain_cfg file
+## 1. Context
+Since NEMO4, all the parameters concerning the computational grid of a configuration (horizontal **and** vertical) are read from a `domain_cfg`file. In previous
+NEMO version, only the horizontal part was externalized (in coordinates.nc file). The bathymetry was read from a file, and the vertical grid was built during
+NEMO initialisation, taking relevant information from the namelist.  In NEMO4, the construction of the vertical grid is done off-line with the help of a NEMO tool
+called DOMAIN_cfg, taking the grid information from a NEMO_3.6 like namelist. In particular, the coefficient for the vertical grid (in namdom) should be carefully set,
+including parameters for the partial cells definition.  The drawback of this new procedure is that any change in bathymetry implies a rebuild of the domain_cfg file.
+The advantage is in the simplification of the NEMO code where configuration related information is read in an input file.  Therefore, this file hold key information
+for a configuration, and the building of this file must be carefully documented, for tracability.  A DRAKKAR improvement, is the inclusion of the used namelist, together with the name of all input files (bathymetry, coordinates) in the domain_cfg file.
 
- 1. Getting the DOMAIN_cfg tool ready
+## 2. Step by step
+  1. Getting the DOMAIN_cfg tool ready
 
-  ```
-   cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP00/
-   dcm_mktool -n DOMAIN_cfg -m X64_JEANZAY_jm  -c eORCA025.L75-IMHOTEP00
-  ```
-
-  The tool is ready to be used in `$WORKDIR/WORCA025.L75-IMHOTEP00/tools/DOMAIN_cfg` directory.
+    ```
+    cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP00/
+    dcm_mktool -n DOMAIN_cfg -m X64_JEANZAY_jm  -c eORCA025.L75-IMHOTEP00
+    ```
+ 
+    The tool is ready to be used in `$WORKDIR/WORCA025.L75-IMHOTEP00/tools/DOMAIN_cfg` directory.
   
- 2. Work in `$WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build`:
+  2. Work in `$WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build`:
 
-   ```
-   mkdir -p $WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build
-   cd $WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build
-   ln -sf $WORKDIR/WORCA025.L75-IMHOTEP00/tools/DOMAIN_cfg/*.exe ./
-   ```
-Copy the namelists and scripts required by the tool, and get bathy and coordinated from the opendap.
+    ```
+    mkdir -p $WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build
+    cd $WORKDIR/eORCA025.L75/eORCA025.L75-I/DOMAIN_cfg_build
+    ln -sf $WORKDIR/WORCA025.L75-IMHOTEP00/tools/DOMAIN_cfg/*.exe ./
+    ```
+   
+    Copy the namelists and scripts required by the tool, and get bathy and coordinated from the opendap.
 
-   ```
-   cp $DEVGIT/IMHOTEP/eORCA025/BUILD/DOMAIN_cfg/* ./
-   chmod 755 get_bat_coord.sh
-   ./get_bat_coord.sh
-   ```
+  ```
+  cp $DEVGIT/IMHOTEP/eORCA025/BUILD/DOMAIN_cfg/* ./
+  chmod 755 get_bat_coord.sh
+  ./get_bat_coord.sh
+  ```
 
 > update 09/04/2021: In the final process original bathymetry has been modified around Greenland. New bathymetry is `eORCA025_bathymetry_b0.2_closed_seas_greenland.nc`
 
