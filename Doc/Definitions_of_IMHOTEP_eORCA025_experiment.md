@@ -2,7 +2,7 @@
 
 ## 1. Context
 A series of runs are foreseen during the IMHOTEP project.   
-A first set of runs, based on a global eORCA025 configuration, is dedicated on the sensitivity
+A first set of runs, based on a global eORCA025 configuration, is dedicated to the sensitivity
 of the ocean  circulation to different runoff scenarii. The focus is put on 3 regions : (i) the 
 tropical Atlantic, (ii) Greenland and (iii) the northern part of the indian ocean.  Runs in the 
 first set are single member runs.   
@@ -64,9 +64,9 @@ Just to mention these files,  needed for running the configuration:
 #### 3.3.5 Runoff files (specific to this project).
 We used 3 sources for building the runoff files:
   * ISBA : daily runoff from 1979-2018. Only liquid runoff. For the climatological run, we computed the daily climatology and eliminate the runoff corresponding to Greenland and Antarctica.  
-Data provided by Fabrice Papa, William LLowel. Projected on the NEMO grid with Julien Jouanno python tool.
+Data provided by Fabrice Papa, William Llowel. Projected on the NEMO grid with Julien Jouanno python tool.
   * GrIS : Greenland freshwater discharge provided by Jeremie Mouginot, Pierre Mathiot et Nicolas Jourdain. A climatology for the period  1950-1972 has been computed. The data are given on the *ad-hoc* NEMO
-points, in the vicinity of 262 locations around Greenland were estimates of liquid and solid freshwater discharges  are computed from a mass-balance model.  The main problem is that most of the glaciers 
+points, in the vicinity of 262 locations around Greenland where estimates of liquid and solid freshwater discharges  are computed from a mass-balance model.  The main problem is that most of the glaciers 
 that feed the freshwater discharge had their termination upstream narrow fjords, not representend within the eORCA025 grid.  Another specific problem is also that there are bathymetric sills that prevent deep
 fjords waters to connect to the open ocean. A consequence of these problems, is that part of the icebergs calving from the glacier termination melt into the fjords before reaching the NEMO point. An estimate
 of 50% of melting of the icebergs in the fjords was taken.  Therefore GrIS data provide:
@@ -92,4 +92,11 @@ I introduce some changes in NEMO in order to deal with multiple dataset (differe
 
 
 ## 4. eORCA05 configuration
- 
+
+This configuration is not standard. I created eORCA05.L75 using eORCA025 horizontal grid. Once the grid is created, all configuration files where also created, using the same data sources than for eORCA025.
+We start this action very early in the project in order to evaluate the feasability. In particular, AGRIF nests that are foreseen in the second stage of the project, cross the periodic line in the Indian Ocean. We wanted to implement an old idea, to shift the eORCA05 grid by 180 degree, so that the E-W periodic line stands in the Eastern Pacific, away from AGRIF nests ! 
+
+I wrote a program to perform the shift on all configuration files and ... **IT WORKS !**  The shifted eORCA05 configuration was named eCAOR05.L75 (it is important to change the name, in order to avoid
+confusions).
+
+## 5. eCAOR05 configuration.
