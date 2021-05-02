@@ -97,7 +97,13 @@ Modifications in NEMO were necessary in order to deal with multiple dataset (dif
 In our setting, NEMO model output are managed by the XIOS server, running asynchronously with NEMO. This provides a very flexible choice for the variables we want to output as well as for the
 output frequency. Furthermore, subdomains or sections can be output by theirself.  All the choices are passed to XIOS via the file `iodef.xml` that must be edited to fit our needs.
 
+Data are saved using netcdf4/HDF5 format with chunking and deflation (level 1). For eORCA025, typical size for one 3D field is 200 Mb and one 2D field is 2.6 Mb. Note that the VVL paradigm, used in the simulation, may add systematically an e3_now 3D fields in all 3D files. This can be discussed. 
+
 *TO BE DISCUSSED*
+
+A proposition: Basic output always involves 
+  * 3D:  T, S U V W kz
+  * 2D : SSH, heat fluxes (*details?* ), freshwater fluxes( evap, precip, runoff, rnfisf, calving, sss restoring ... )
 
 ### 3.6 Scalability experiment.
 A scalability experiment was perfomed on jean-zay, from 240 cores (6 nodes) to 2400 cores (60 nodes). For this experiment, we choose to use 4 xios servers, running on a separated
