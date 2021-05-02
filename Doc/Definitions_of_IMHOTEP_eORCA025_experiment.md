@@ -80,7 +80,7 @@ associated with a particular depth range. Latent heat flux will be taken into ac
 
   * Runoff depths for NEMO paramerizations are provided in a single file, obtained by merging all the data sources (fix in time!).
 
-I introduce some changes in NEMO in order to deal with multiple dataset (different frequency, different type --climatological or interanual--). This was done for runoff, calving and iceshelf data set.
+Modifications in NEMO were necessary in order to deal with multiple dataset (different frequency, different type --climatological or interanual--). This was done for runoff, calving and iceshelf data set.
     
 
 ### 3.4 namelists
@@ -88,8 +88,24 @@ I introduce some changes in NEMO in order to deal with multiple dataset (differe
   * Ice : [namelist_ice.eORCA025.L75-IMHOTEP00](../eORCA025/eORCA025.L75-IMHOTEP00/CTL/namelist_ice.eORCA025.L75-IMHOTEP00)
 
 ### 3.5 XML files where model output are fixed:
+In our setting, NEMO model output are managed by the XIOS server, running asynchronously with NEMO. This provides a very flexible choice for the variables we want to output as well as the
+output frequency. Furthermore, subdomains or sections can be output by theirself.  All the choices are passed to XIOS via the file `iodef.xml` that must be edited to fit our needs.
+
 *TO BE DISCUSSED*
 
+### 3.6 Scalability experiment.
+A scalability experiment was perfomed on jean-zay, from 240 cores (6 nodes) to 2400 cores (60 nodes). For this experiment, we choose to use 4 xios server, running on a separated
+computing node. 3 days runs (216 time steps of 1200 sec) were used, and we took the last day for evaluating the performance (measured as step/mn). On figure 1 we present the scalability diagram.
+
+<img src=./Figures/scalability.png  width=130% />
+
+On this busy picture, X-axis  corresponds to the number of cores used for NEMO.  Blue points, corresponds the actual performance (step/mn, left Y-axis), and red points 
+are the equivalent, assuming a perfect scalability (with reference to the 280 core case). Brown points show the efficiency (%, left Y-axis), which is the ratio between actual and theoretical performances.  Except for some outliers, the efficiency is very close to (or above) 100%, until 1800 cores, but still very good up to 2400 cores, (85%). According to these
+performances, yellow points indicates the elapsed time for 1yr of simulation (hours, right Y-axis), and green points the CPU hours for 1 year (hoursx10, left Y-axis). Due to the 
+good scalability, the CPU hours are very stable (except for the outliers), around 2500 hours/years. In general, the performance decreases somehow when the model spins-up and when
+the number of icebergs is stabilized. So, regarding this experiment, we can estimate  that 1year of eORCA025 experiment should not cost more than 3250 hours (taking a margin of 30%).
+
+The sweet spot for this experiment is probably around 1500 cores, considering the trade off between queue wait-time and elapsed time. 
 
 ## 4. eORCA05 configuration
 
