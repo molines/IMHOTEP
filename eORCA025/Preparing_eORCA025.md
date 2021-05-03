@@ -199,5 +199,17 @@ set of xml files describing the I/O strategy in term of data output for XIOS.
 ### 3.3 XIOS control files (xml files)
 
 ## 4. Performance optimisation:
+A scalability experiment was perfomed on jean-zay, from 240 cores (6 nodes) to 2400 cores (60 nodes). For this experiment, we choose to use 4 xios servers, running on a separated
+computing node. Three-days runs (216 time steps of 1200 sec) were used, and  the last day was taken for evaluating the performance (measured as step/mn). On figure 1 we present the scalability diagram.
+
+<img src=../Doc/Figures/scalability.png  width=130% />
+
+On this busy picture, X-axis  corresponds to the number of cores used for NEMO.  Blue points, corresponds to the actual performance (step/mn, left Y-axis), and red points 
+are the equivalent, assuming a perfect scalability (with reference to the 280 cores case). Brown points show the efficiency (%, left Y-axis), which is the ratio between actual and theoretical performances.  Except for some outliers, the efficiency is very close to (or above) 100%, until 1800 cores, but still very good up to 2400 cores, (85%). According to these
+performances, yellow points indicates the elapsed time for 1yr of simulation (hours, right Y-axis), and green points the CPU hours for 1 year (hoursx10, left Y-axis). Due to the 
+good scalability, the CPU hours are very stable (except for the outliers), around 2500 hours/years. In general, the performance decreases somehow when the model spins-up and when
+the number of icebergs is stabilized. So, regarding this experiment, we can estimate  that 1year of eORCA025 experiment should not cost more than 3250 hours (taking a margin of 30%).
+
+The sweet spot for this experiment is probably around 1500 cores, considering the trade off between queue waiting-time and elapsed time. 
 
 
