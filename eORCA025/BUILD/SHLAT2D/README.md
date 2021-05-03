@@ -17,12 +17,13 @@ in sea, tangential velocity point). Hence, shlat=0 corresponds to free-slip and 
 imagined: it just increases the vorticity at the 
 coast (in order to mimic a thinner lateral boundary layer).
 
-In the DRAKKAR version of NEMO, we decided to use a 2D field for the shlat coefficient, because we want to use localized no-slip or strong-slip lateral boundary conditions.  The 2D coefficient
-is stored in the file whose building is decribed here.
+In the DRAKKAR version of NEMO, we decided to use a 2D field for the shlat coefficient, because we want to use localized no-slip or strong-slip 
+lateral boundary conditions.  The 2D coefficient is stored in the file whose building is decribed here.
 
 
 ## 2. Realisation
 The shlat2d  file is built using cdfmkresto CDFTOOL. [mkshlat2d.sh](./mkshlat2d.sh) bash script was written as a wrapper of cdfmkresto. This is also a good way to ensure tracability.
+Note that shlat2d grid corresponds to F-points. 
 
 The main lines  are : free-slip everywhere except 
   * Bering Strait : we implement no-slip in order to reduce the inflow in the Arctic
@@ -30,3 +31,5 @@ The main lines  are : free-slip everywhere except
 the Alboran gyres. 
   * Along West Greenland coast: Setting a stripe of no-slip condition, helps the destabilization of Western Greenland Current (WGC), and the shedding of eddies at Cape Desolation, which is
 observed (for instance on EKE derived from satelite altimetry). 
+  * In historical DRAKKAR configurations, shlat was modified in some indonesian straits (Lombok and Ombai). We add this customization in the SHLAT2D file.  For this customization,
+cdfmkresto was slightly modified in order to deal with rectangular shape patch (I) given with the I,J coordinates of the horizontal grid.
