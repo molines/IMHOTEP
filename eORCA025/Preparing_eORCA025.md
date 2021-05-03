@@ -72,6 +72,8 @@ in a density framework. But this is now a rather old dataset... ).
 
 **Decision : use Gouretski monthly climatology for restoring.**
 
+> **UPDATE** : unstability problem starting the simulation when restoring toward Gouretski climatology, *to be insvestigated*.
+
 
 We prepared initial conditions from WOA18. In fact I prepared 3 sets : first one from 1955-1964 decade climatology, available in WOA18,
 another from 1981-2010 climatology, and a last one with 1955-2017 long term monthly climatology.  Details and comments regarding this preparation are described in a [technical note](./BUILD/WOA2018/WOA18_processing.md). 
@@ -120,12 +122,12 @@ Although not atmospheric forcing, we decided to use geothermal heating from the 
 proposed on a regular 1 degree grid. Weight files for bilinear interpolation were also built in the same way.
 
 ### 2.5 Enhancement files
-#### 2.5.1 Bottom friction
+#### 2.5.1 [Bottom friction](./BUILD/BFR2D/README.md)
 For eORCA025, we use a locally enhanced bottom friction, in order to control the flow across some specific straits:
 Torres Strait, Bering Strait, Gibraltar Strait. This is done through a kind of mask file that defines the areas
 where enhancement is applied.
 
-#### 2.5.2 Lateral friction ( shlat2D)
+#### 2.5.2 [Lateral friction ( shlat2D)](./BUILD/SHLAT2D/README.md)
 NEMO offers a wide range of lateral boundary conditions from free-slip to 'strong' slip. In NEMO, the lateral condition is 
 controlled by the so-called *shlat* coefficient, which can be defined as a 2D field, read in an external file. We use
 to have lateral friction modification in some specific straits, (with the same will to reduce the flow, just as we do with 
@@ -134,14 +136,19 @@ in the Labrador Sea, along the West Greenland coast.  Playing with this conditio
 many years of model tunning in the communauty. No strict rationale can be provided (intent of defining lateral rugosity
 did not lead to convincing results... ). 
 
-#### 2.5.3 3D restoring file:
+#### 2.5.3 [3D restoring coefficient file:](./BUILD/RESTO/README.md)
 We decided to create the so called `resto.nc` file out of NEMO, in order to use the standard tradmp NEMO code. This will
 ease the tracability of the configuration.
-##### Overflow regions
-
+#### Overflow regions:
+  * Gulf of Cadix, downstream Gibraltar strait, between 600 and 1300 m depth
+  * Gulf of Aden, downstream Bab-el-Mandeb, output of the Red Sea
+  * Arabian Gulf, downstream Ormuz strait, output of the Persian Gulf
 ##### Semi-enclosed seas
-
+  * Black Sea
+  * Red Sea
+  * Persian Gulf
 ##### Deep waters in the Southern Ocean.
+  * Restoring of the AABW in the southern ocean, defined by density sigma-2 > 34.16 (Rintoul classification)
 
 ### 2.6 Runoff files
 This is the central part of IMHOTEP ! For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
@@ -178,18 +185,19 @@ IMHOTEP first run will use climatological (seasonal) input for the runoff (liqui
 
 For ISBA based runoff, the long term 1979-2018 daily climatology will be used.
 
-For Greenland,  both liquid and solid contributions are pretty stable in the period 1959-1990 and then (from 1990 to present) show strong trends and variations. Therefore,
-we decided to use the 'stable' climatology (based on 1959-1990 period) for the spinup run.  Sensitivity run, with interannual runoff/calving variability will start in 1980, hence from a stabilized pre-90's state.
+For Greenland,  both liquid and solid contributions are pretty stable in the period 1959-1990 and then (from 1990 to present) show strong trends 
+and variations. Therefore, we decided to use the 'stable' climatology (based on 1959-1990 period) for the spinup run.  Sensitivity run, with 
+interannual runoff/calving variability will start in 1980, hence from a stabilized pre-90's state.
+
+For Antarctica, we only have annual climatology that will be used through the whole project.
 
 ## 3. Preparing run time files: NEMO version dependent.
 At run time, NEMO requires control input files such as namelists for the ocean and the sea-ice, as well as a
 set of xml files describing the I/O strategy in term of data output for XIOS.
-### 3.1 Ocean namelist
-### 3.2 Sea-ice namelist
-### 3.3 XIOS control files
+### 3.1 [Ocean namelist](eORCA025.L75-IMHOTEP00/CTL/namelist.eORCA025.L75-IMHOTEP00)
+### 3.2 [Sea-ice namelist](eORCA025.L75-IMHOTEP00/CTL/namelist_ice.eORCA025.L75-IMHOTEP00)
+### 3.3 XIOS control files (xml files)
 
 ## 4. Performance optimisation:
-Before running a long experiment, it is advisable to perform some scalability tests, in order to decide the number of core 
-to be used once in the production phase. These scalability experiments also provide important material to sustain the
-HPC proposal to be written every year.  These experiments can be performed before having the correct runoff file.
+
 
