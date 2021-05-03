@@ -150,8 +150,9 @@ ease the tracability of the configuration.
 ##### Deep waters in the Southern Ocean.
   * Restoring of the AABW in the southern ocean, defined by density sigma-2 > 37.16 (Rintoul classification)
 
-### 2.6 Runoff files
-This is the central part of IMHOTEP ! For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
+### 2.6 Continental freshwater fluxes files
+This is the central part of IMHOTEP, and a particular attention is brought to the building of input files used in NEMO for introducing these freshwater fluxes. 
+For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
 dependent freshwater flux (in kg/m2/s) given for *ad hoc* grid cells. It also contain a mask where *ad hoc* grid cells have
 the value of 0.5 instead of 0. elsewhere.  The technical details of howto prepare the runoff files are given in [this document](./BUILD/RUNOFF_ISBA/README.md). 
 
