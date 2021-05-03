@@ -148,7 +148,7 @@ ease the tracability of the configuration.
   * Red Sea
   * Persian Gulf
 ##### Deep waters in the Southern Ocean.
-  * Restoring of the AABW in the southern ocean, defined by density sigma-2 > 34.16 (Rintoul classification)
+  * Restoring of the AABW in the southern ocean, defined by density sigma-2 > 37.16 (Rintoul classification)
 
 ### 2.6 Runoff files
 This is the central part of IMHOTEP ! For NEMO, the runoff file is a netcdf file on the model grid, with values of the time 
