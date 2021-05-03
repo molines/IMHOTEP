@@ -121,7 +121,7 @@ and preparing atmospheric fields is described in this [document](./BUILD/WEIGHTS
 Although not atmospheric forcing, we decided to use geothermal heating from the bottom of the ocean, using the Goutorbe data set,
 proposed on a regular 1 degree grid. Weight files for bilinear interpolation were also built in the same way.
 
-### 2.5 Enhancement files
+### 2.5 Auxiliary Enhancement files
 #### 2.5.1 [Bottom friction](./BUILD/BFR2D/README.md)
 For eORCA025, we use a locally enhanced bottom friction, in order to control the flow across some specific straits:
 Torres Strait, Bering Strait, Gibraltar Strait. This is done through a kind of mask file that defines the areas
