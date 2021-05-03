@@ -29,7 +29,8 @@ least the corresponing weight files), distance to the coast file for SSS restori
 In order to able to rebuild all the input files, and for tracability, an effort is made to document all actions performed in the process of
 producing the input files. For each kind of file there is a corresponding directory in [BUILD](./BUILD/) holding the scripts or dedicated program
 realised for this specific file. In addition, each directory has its own README.md with detailled documentation on every step use for
-the creation of the file.  This preparation document draws the road-map for the actions to perform in view of the building of input files. Clicking on the title of the following chapters, link you directly to the corresponding README file.
+the creation of the file.  This preparation document draws the road-map for the actions to perform in view of the building of input files. Clicking 
+on the title of the following chapters, link you directly to the corresponding README file.
 
 ### 2.1 [Configuration file](./BUILD/DOMAIN_cfg/README.md)
 This file defines the numerical grid (horizontal and vertical) including the corresponding metrics. In the creation
@@ -96,8 +97,8 @@ small islands, in order to have a distance-to-the-coast file that takes into acc
 this [document](./BUILD/DISTCOAST/README.md). Note that in the procedure we use a dummy very large value for the distance,
 in some closed seas (Med Sea, Black Sea) in order to maintain SSS restoring even near the coast.
 
-After this first file was build we came to preparing the runoff files, and using ISBA climatology there are several input of freshwater in the indonesian area, so that I think that
-we musk keep the coast line with runoff in the computation of the distance to the coast file...
+After this first file was build we came to preparing the runoff files, and using ISBA climatology there are several input of freshwater in the indonesian 
+area, so that I think that we musk keep the coast line with runoff in the computation of the distance to the coast file.
 
 ### 2.4 Atmospheric forcing files
 Decision is to be made on the forcing data set. Candidates are : DFS5.2, JRA55, ERA5. 
@@ -124,7 +125,7 @@ proposed on a regular 1 degree grid. Weight files for bilinear interpolation wer
 ### 2.5 Auxiliary Enhancement files
 #### 2.5.1 [Bottom friction](./BUILD/BFR2D/README.md)
 For eORCA025, we use a locally enhanced bottom friction, in order to control the flow across some specific straits:
-Torres Strait, Bering Strait, Gibraltar Strait. This is done through a kind of mask file that defines the areas
+Torres Strait, Bering Strait, Gibraltar Strait. This is done through a specific mask file that defines the areas
 where enhancement is applied.
 
 #### 2.5.2 [Lateral friction ( shlat2D)](./BUILD/SHLAT2D/README.md)
@@ -134,12 +135,12 @@ to have lateral friction modification in some specific straits, (with the same w
 bottom friction), but also for full sub-areas such as the Mediterranean Sea, along the Antarctic Coast, and for some spots
 in the Labrador Sea, along the West Greenland coast.  Playing with this condition is rather empirical, and results from 
 many years of model tunning in the communauty. No strict rationale can be provided (intent of defining lateral rugosity
-did not lead to convincing results... ). 
+did not lead to convincing results...). 
 
 #### 2.5.3 [3D restoring coefficient file:](./BUILD/RESTO/README.md)
 We decided to create the so called `resto.nc` file out of NEMO, in order to use the standard tradmp NEMO code. This will
 ease the tracability of the configuration.
-#### Overflow regions:
+##### Overflow regions:
   * Gulf of Cadix, downstream Gibraltar strait, between 600 and 1300 m depth
   * Gulf of Aden, downstream Bab-el-Mandeb, output of the Red Sea
   * Arabian Gulf, downstream Ormuz strait, output of the Persian Gulf
@@ -200,17 +201,19 @@ set of xml files describing the I/O strategy in term of data output for XIOS.
 ### 3.3 XIOS control files (xml files)
 
 ## 4. Performance optimisation:
-A scalability experiment was perfomed on jean-zay, from 240 cores (6 nodes) to 2400 cores (60 nodes). For this experiment, we choose to use 4 xios servers, running on a separated
-computing node. Three-days runs (216 time steps of 1200 sec) were used, and  the last day was taken for evaluating the performance (measured as step/mn). On figure 1 we present the scalability diagram.
+A scalability experiment was perfomed on jean-zay, from 240 cores (6 nodes) to 2400 cores (60 nodes). For this experiment, we choose to use 4 xios servers, 
+running on a separated computing node. Three-days runs (216 time steps of 1200 sec) were used, and  the last day was taken for evaluating the performance 
+(measured as step/mn). On next figure we present the scalability diagram.
 
 <img src=../Doc/Figures/scalability.png  width=130% />
 
-On this busy picture, X-axis  corresponds to the number of cores used for NEMO.  Blue points, corresponds to the actual performance (step/mn, left Y-axis), and red points 
-are the equivalent, assuming a perfect scalability (with reference to the 280 cores case). Brown points show the efficiency (%, left Y-axis), which is the ratio between actual and theoretical performances.  Except for some outliers, the efficiency is very close to (or above) 100%, until 1800 cores, but still very good up to 2400 cores, (85%). According to these
-performances, yellow points indicates the elapsed time for 1yr of simulation (hours, right Y-axis), and green points the CPU hours for 1 year (hoursx10, left Y-axis). Due to the 
-good scalability, the CPU hours are very stable (except for the outliers), around 2500 hours/years. In general, the performance decreases somehow when the model spins-up and when
-the number of icebergs is stabilized. So, regarding this experiment, we can estimate  that 1year of eORCA025 experiment should not cost more than 3250 hours (taking a margin of 30%).
+On this busy picture, X-axis  corresponds to the number of cores used for NEMO.  Blue points, corresponds to the actual performance (step/mn, left Y-axis), 
+and red points are the equivalent, assuming a perfect scalability (with reference to the 280 cores case). Brown points show the efficiency (%, left Y-axis), 
+which is the ratio between actual and theoretical performances.  Except for some outliers, the efficiency is very close to (or above) 100%, until 1800 cores, 
+but still very good up to 2400 cores, (85%). According to these performances, yellow points indicates the elapsed time for 1yr of simulation (hours, right 
+Y-axis), and green points the CPU hours for 1 year (hoursx10, left Y-axis). Due to the good scalability, the CPU hours are very stable (except for the 
+outliers), around 2500 hours/years. In general, the performance decreases somehow when the model spins-up and when the number of icebergs is stabilized. So, 
+regarding this experiment, we can estimate  that 1 year of eORCA025 experiment should not cost more than 3250 hours (taking a margin of 30%).
 
 The sweet spot for this experiment is probably around 1500 cores, considering the trade off between queue waiting-time and elapsed time. 
-
 
