@@ -1,29 +1,22 @@
-# Freshwater fluxes from continental Greenland
+# Improved Bathymetry around Greenland
 
 
 ## 1. Context:
-In the IMHOTEP project, the freshwater flux coming from Greenland is one of the topic to be treated, in order to
+In IMHOTEP, the freshwater flux coming from Greenland is one of the topic to be treated, in order to
 estimate the impact of the variation of this flux on the ocean circulation and sea level.
 
 The Greenland freshwater flux (GFWF) has a liquid (melted glacial waters, basal melting) and a solid (calving) contribution. Jeremie Mouginot, Pierre
 Mathiot and Nicolas Jourdain provided a file with 262 points around Greenland (corresponding to eORCA025 model cells), with the monthly liquid 
-and solid discharges.  In addition, a depth corresponding to the base of the glacier or the the depth of bathymetric sills in the fjords, is given and will
-be used in NEMO to apply the runoff at depth.
+and solid discharges.  In addition, a depth corresponding to the base of the glacier or the the depth of bathymetric sills in the fjords, is given 
+and will be used in NEMO to apply the runoff at depth.
 
-Due to model resolution, most of the Greenland Fjords are not explicitely represented in the configuration. For the solid contribution,
-it is known that a certain amount of the calved iceberg from the glacier front, just melt in the fjord before reaching the open ocean. 
-There are some estimate (quite few indeed) published in the litterature, giving the proportion of icebergs reaching the oceans over the total
-amount of calved icebergs at the glacier front.  This proportion is within a range of 30% to 80%.  In order to go ahead, a decision was taken to
-make a first GFWF data set, assuming that 50% of the calved icebergs melt in the fjords, thus converting the equivalent solid discharge to liquid discharge.
-
-For setting up the GFWF file, a very detailed cartography (150m resolution) of Greenland, giving the elevation of the bed-rock, the thickness of the ice etc...
-This is the BedmachineGreenland data base.  Jeremie used the last version (2020.04.10), not yet published of this file. On the other hand, the eORCA025.L75 
-NEMO configuration has already a bathymetric file.  Comparing the runoff depths given in the GFWF data-set (infered from BedMachine) and the actual eORCA025.L75
-bathymetry, large discrepancies were encountered, whith 127 model points having a depth much smaller than the runoff depth. For coherancy, we decided to review
-the model bathymetry around Greenland, using the BedMachineGreenland-2020-04-10.nc file.
+For setting up the GFWF file, a very detailed cartography (150m resolution) of Greenland, giving the elevation of the bed-rock, the thickness 
+of the ice etc... This is the BedmachineGreenland data base.  Jeremie used the last version (2020.04.10), not yet published of this file. On 
+the other hand, the eORCA025.L75 NEMO configuration has already a bathymetric file.  Comparing the runoff depths given in the GFWF data-set 
+(infered from BedMachine) and the actual eORCA025.L75 bathymetry, large discrepancies were encountered, whith 127 model points having a depth 
+much smaller than the runoff depth. For coherancy, we decided to review the model bathymetry around Greenland, using the BedMachineGreenland-2020-04-10.nc file.
 
 ## 2. Procedure used for building a new improved bathymetry around Greenland
-
 ### 2.0  Required software: 
   * [NEMOBAT](https://github.com/molines/NEMOBAT.git) and in particular: 
     * [NSDIC_map_trf.f90](https://github.com/molines/NEMOBAT/blob/master/INPUT_UTILITIES/NSIDC_map_trf.f90), used for transforming stereo graphic polar
