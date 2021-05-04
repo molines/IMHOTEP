@@ -1,4 +1,4 @@
-# Building the runoff file : liquid part
+# Building the river runoff file from ISBA land system
 
 ## 1. Getting the data:
 After a concerted discussion within the IMHOTEP group, and after evaluation of the available data set for river runoff, 
