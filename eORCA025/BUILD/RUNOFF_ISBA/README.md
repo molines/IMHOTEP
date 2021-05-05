@@ -34,8 +34,8 @@ Then we prepare the daily climatology, still with nco:
     cdo -z zip_1 ydaymean    sfxcm6_05d_erai_gpcc_daily_rivdis_mouth_1979-2019_noleap.nc sfxcm6_05d_erai_gpcc_daily_rivdis_mouth_ydaymean.nc
   ``` 
 
-## 3. Preparing the NEMO runoff data file.
-### 3.1 Projection of ISBA climatology on the coastal points of eORCA025
+## 4. Preparing the NEMO runoff data file.
+### 4.1 Projection of ISBA climatology on the coastal points of eORCA025
 Julien Jouanno kindly gives us the [python script](./build_runoff_fromISBA.py) he set up for creating NEMO runoff file from ISBA reanalysis. We
 used it after adaptation to our global domain. See the [modified script](./build_ORCA025_runoff_fromISBA.py),  with the following modifications: 
   * adapt file names
@@ -44,12 +44,12 @@ used it after adaptation to our global domain. See the [modified script](./build
   * add diagnostics on the ISBA river discharge not taken into account in NEMO (too far from NEMO littoral points).
   * add one file output (on ISBA grid) showing the points not taken into account (for check). Values of this file correspond to the climatological mean of the river discharge. Looking at this map, we see that missing points are essentially located along Antarctica and around closed seas or lakes (e.g. Caspian sea, Great US lake etc... ), which is very acceptable.
 
-### 3.2 Projection of ISBA interannual dataset  on the coastal points of eORCA025
+### 4.2 Projection of ISBA interannual dataset  on the coastal points of eORCA025
 We use a variant of the former python script where the only real change is the loop over years 1979-2018, and the name of the input ISBA file. See 
 [modified python script](./build_ORCA025_runoff_inerannual_fromISBA.py) .
   * This script produce a set of yearly files, with daily runoff, in suitable units for NEMO (kg/m2/s).
 
-### 3.3 Verification and modifications.
+### 4.3 Verification and modifications.
 After this step, we have the first guess file for runoff. This file still requires some adjustment for use in the project:
   * Modifications along Antartica and Greenland: bash script [reset_AA_GR_to_0.sh](./reset_AA_GR_to_0.sh) was written for this purpose, based on cdfvar tool. In this script
 runoff values around Antarctica and Greenland are reset to 0, but the runoff mask (socoefr0) remains unchanged, as somehow ther will be runoff on these points, from other sources.
