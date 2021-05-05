@@ -1,13 +1,11 @@
 # eORCA025 configuration setup
 ## 1. Numerical Code
- Decision is to be made on the NEMO release that will be used in the project. There is a trade-off between 
-stability and novelty when choosing the NEMO release for the projetct.  
-Two options are on the table:
-  * NEMO r4.0.5 : this is  the last stable version of NEMO 4.0.
+The choice of NEMO version to use in the project is based on the following with 2 options on the table:
+  * NEMO r4.0.6 : this is  the last stable version of NEMO 4.0.
     * Advantage : stability, other run already performed with this release, well debugued.
-    * Disadvantages : For the project, the concern is mainly about AGRIF development. 4.0.5 do not have the 
+    * Disadvantages : For the project, the concern is mainly about AGRIF development. 4.0.6 do not have the 
 recent AGRIF developpement, that can me usefull for the second part of the project.
- * NEMO trunk : this is the sharp edge of NEMO on going developpent, that will lead to a the 4.2_RC (Release Candidate) 
+  * NEMO trunk : this is the sharp edge of NEMO on going developpent, that will lead to a the 4.2_RC (Release Candidate) 
 in June or July 2021.
    * Advantage : this 4.2_RC, have various AGRIF enhancement, of interest for IMHOTEP:
      * AGRIF nests across the periodic boundary
@@ -17,32 +15,31 @@ the community !
    * Disadvantages : unstable version till the 4.2_RC. And avalanche of bug fixes foreseen during the first 
 few month of 4.2_RC.
 
-
-**Decision : Use of NEMO at release 4.0.5** (update : actually minor release **4.0.6** )
+**Decision : Use of NEMO at release 4.0.6**
 
 ## 2. Preparing Input files
 A big part of setting up a configuration consists in creating the input data files for NEMO.
-Among these data files, there are domain configuration file, T-S initial conditions files, SSS files for restoring,  atmospheric forcing file (or at 
-least the corresponing weight files), distance to the coast file for SSS restoring, local enhancements in eORCA025 
-(bottom friction, lateral condition free-slip/no-slip, 3D restoring coefficient file), and of course the freshwater fluxes  files, that deserve a detailed work.
+Among these data files, there are domain configuration files, T-S initial conditions files, SSS files for restoring, atmospheric forcing file (or at 
+least the corresponding weight files), distance to the coast file for SSS restoring, local enhancements in eORCA025 
+(bottom friction, lateral condition free-slip/no-slip, 3D restoring coefficient file), and of course the freshwater fluxes files, that deserve a detailed work.
 
-In order to able to rebuild all the input files, and for tracability, an effort is made to document all actions performed in the process of
-producing the input files. For each kind of file there is a corresponding directory in [BUILD](./BUILD/) holding the scripts or dedicated program
+In order to able to rebuild all the input files, and for tracability, an effort is made to document all actions carried out for
+producing the input files. For each kind of file there is a corresponding directory in [BUILD](./BUILD/) holding the scripts or dedicated programs
 realised for this specific file. In addition, each directory has its own README.md with detailled documentation on every step use for
 the creation of the file.  This preparation document draws the road-map for the actions to perform in view of building input files. Clicking 
 on the title of the following paragraphs, link you directly to the corresponding README file.
 
-### 2.1 [Configuration file](./BUILD/DOMAIN_cfg/README.md)
+### 2.1 [Domain configuration file](./BUILD/DOMAIN_cfg/README.md)
 This file defines the numerical grid (horizontal and vertical) including the corresponding metrics. In the creation
-process we need a coordinate file (for the horizontal grid), a bathymetric file together with a set of streching coeficients
-in order to define the vertical grid, with partial cells.  
+process we need a coordinate file (for the horizontal grid), a bathymetric file and a set of streching coeficients
+defining the vertical grid, with partial cells.  
 
 Coordinates and bathymetry files used by Pierre Mathiot when setting up his eORCA025.L121 configuration, are taken as a starting point.
 Vertical stretching parameters will be those of the standard DRAKKAR 75 levels, (as in OCCIPUT, for instance):
   * Bathymetry : eORCA025_bathymetry_b0.2.nc **update** : bathymetry was modified along Greenland coast and is finally eORCA025_bathymetry_b0.2_closed_seas_greenland.nc. 
   * Coordinates : eORCA025_coord_c3.0.nc 
-  * DOMAIN_cfg tool : from DCM/4.0.5 (identical to DCM/4.0.6)
-  * [Namelists](./BUILD/DOMAIN_cfg/namelist_cfg) for make_domain_cfg.exe  are available in [this  directory](./BUILD/DOMAIN_cfg)
+  * DOMAIN_cfg tool :  DCM/4.0.6  provides `make_domain_cfg.exe`
+  * [Namelists](./BUILD/DOMAIN_cfg/namelist_cfg) for `make_domain_cfg.exe`  are available in [this  directory](./BUILD/DOMAIN_cfg)
 
 ### 2.2 [Initial conditions files, and restoring files (if any).](./BUILD/INITIAL_CONDITIONS/README.md)
 There are quite a few available data set for T and S climatology. Among them, the World Ocean Atlases (ex-Levitus), with 
@@ -51,14 +48,13 @@ toward recent years. There are also many products based on ARGO float remapping.
 
 **Decision : use of WOA2018 1981-2010 climatology  for initial conditions.**
 
-
 Also worth to be mentioned is the 3D T-S restoring to be used in some areas. In NEMO (with DRAKKAR enhancement),
 initial conditions on T-S and the restoring data set can be different. Traditionnally, in DRAKKAR-like runs, we use to
 have restoring on TS, in a very small patch downstream of Gibraltar Strait (in order to restore the Med sea water at
-the right depht), but also on a much wider area in the southern Ocean, in the bottom layer corresponding to AABW, south of
-30 South (which is defined by a sigma-2 surface from a climatology).  This latter restoring (in the southern ocean) maintains
-the AABW which otherwise tend to disappear by vertical mixing and because they are not well alimented by the dense water
-overflow off antarctica continental shelf. The consequence of AABW disparition is the spining down of the ACC, which  can be
+the right depht), but also on a much wider area in the Southern Ocean, in the bottom layer corresponding to AABW, south of
+30 South (which is defined by a sigma-2 surface from a climatology).  This latter restoring  maintains
+the AABW which otherwise tends to disappear by vertical mixing and because they are not well alimented by the dense water
+overflow off antarctica continental shelf. The consequence of AABW disparition is the decrease of the ACC transport, which  can be
 as low as 95 Sv at Drake passage, after 50 years of run.  If the decision is to keep the AABW restoring we may think about the
 data set to use, for this particular restoring. (In the past, we used the Gouretski annual climatology, which was computed
 in a density framework. But this is now a rather old dataset... ). 
@@ -84,13 +80,13 @@ In order to evaluate the differences, 3 set of data were prepared, corresponding
 climatology and the 1955-2017. Comparison between those different periods are shown on the DRAKKAR 
 [monitoring site](https://ige-meom-drakkar.u-ga.fr/DRAKKAR/A_WOA2018_CLIMATO/), in a very raw way (work under progress ...).
 
-Decision was taken to use the 30-year climatology (1981-2010) for building the initial conditions, with the idea that the period of
+Decision was taken to use the 30-years climatology (1981-2010) for building the initial conditions, with the idea that the period of
 sensitivity experiments in IMOTHEP starts in 1980. The period 1958-1979 is a spin-up period.
 
 Details and comments regarding this preparation are described in a [technical note](./BUILD/WOA2018/WOA18_processing.md) while  
 the creation of the NEMO files is described in this other [document](./BUILD/INITIAL_CONDITIONS/README.md). 
 
-From our experience, having good and clean initial conditions, double checked is a key point for having a smooth simulation. 
+From our experience, having good, clean and double checked initial conditions, is a key point for having a smooth simulation. 
 This is the reason why initial conditions are projected (and checked) on the model grid instead of keeping the original dataset
 with '3D interpolation on the fly', providing weight files.
 
@@ -145,16 +141,16 @@ The details of how to prepare this file is given in the corresponding [README](.
 #### 2.5.2 [Lateral friction ( shlat2D)](./BUILD/SHLAT2D/README.md)
 NEMO offers a wide range of lateral boundary conditions from free-slip to 'strong' slip. In NEMO, the lateral condition is 
 controlled by the so-called *shlat* coefficient, which can be defined as a 2D field, read in an external file.  Lateral 
-friction modification in some specific straits, is classically used in our simulations, with the same will to reduce the 
-flow, just as we do with bottom friction, but also for full sub-areas such as the Mediterranean Sea, along the Antarctic 
-Coast, and for some spots in the Labrador Sea, along the West Greenland coast.  Playing with this condition is rather 
+friction modification in some specific straits, is classically used in our simulations, also in order to reduce the 
+flow, just as we do with bottom friction, but also for full sub-areas such as the Mediterranean Sea 
+and for some spots in the Labrador Sea, along the West Greenland coast.  Playing with this condition is rather 
 empirical, and results from many years of model tuning in the community. No strict rationale can be provided (intent of 
 defining lateral rugosity did not lead to convincing results...). 
 
 #### 2.5.3 [3D restoring coefficient file:](./BUILD/RESTO/README.md)
 Standard NEMO code use a so called `resto.nc` holding a 3D relaxation coefficient (sec^-1). Restoring is done where this
 coefficient is non-zero. For the sake of tracability, `resto.nc` is now fully built during the preparation of the configuration.
-In DRAKKAR, is was partially built 'on the fly', for flexibility but it turns out that it makes the control difficult. 
+(In DRAKKAR, is was partially built 'on the fly', for flexibility but it turns out that it makes the control difficult.)
 
 Regions where 3D restoring is used are:
 ##### Overflow regions:
@@ -169,9 +165,9 @@ Regions where 3D restoring is used are:
   * Restoring of the AABW in the southern ocean, defined by density sigma-2 > 37.16 (Rintoul classification)
 
 ### 2.6 Continental freshwater fluxes files
-This is the central part of IMHOTEP, and a particular attention is brought to the building of input files used in NEMO 
+This is the central part of IMHOTEP, and a particular attention is paid to the building of input files used in NEMO 
 for introducing these freshwater fluxes. 
-
+#### 2.6.1 NEMO modules:
 Basically, NEMO offer three different modules to take the continental freshwater flux into account: (i) the river runoff
 module (RNF), (ii) the ice-shelf module (ISF) and (iii) the iceberg module (ICB).
   * In **RNF**, the river discharges (kg/m2/s) are introduced in coastal model cells, in the vicinity of the river mouths. Among
@@ -187,74 +183,52 @@ accumulated over 5 icebergs categories (small to big). For each category, a thre
 reached, one or several (depending on the category) icebergs  calve, and are treated as lagragian floats afterward.
 They travel in the ocean under the influence of ocean currents and atmospheric winds. As soon as they calve, icebergs
 start to melt and the resulting freshwater flux is applied at the cells occupied by the icebergs at a given instant. A latent
-heat flux is also applied. 
+heat flux is also applied. Decision was taken to use this approach to deal with solid freshwater flux, at least for the runs
+performed in the first phase of the project (ICB is not compatible with AGRIF nests).
   * In addition to the freshwater discharge files (liquid of solid) associated to the 3 NEMO modules, depth information for RNF and
 ISF is also required, in two separated files.
-
-Several data base are being used for preparing the fresh-water discharge files:
+#### 2.6.2 Data set:
+Several data base are being used for preparing the fresh-water discharge files, and they have different frequencies. Some developpments 
+were done in NEMO in order to deal with multi-dataset. (Details can be found in this [technical note](../Doc/Multiple_frequency_runoff.md)). 
+This allow to have as many NEMO input files as data set, taking care of not having overlap between different files. Data set are:
   * **ISBA** land surface system provides **daily** (1979-2018) river discharge for the global ocean. Specific analysis were carried out for the 
 biggest rivers, whose impact are being studied in IMHOTEP : Amazon, Orinoco, Niger, Congo, Brahmaputra, Ganges, Irriwady. ISBA
 data are in general very consistent with observations, and the interannual variability is well captured. Decision was taken to use this data
-set for all the rivers, except for Greenland and Antarctica. F.Papa, W. Llowel provide the data. (See the [preparation](./BUILD/RUNOFF_ISBA/README.md)
-of the corresponding file).
+set for all the rivers, except for Greenland and Antarctica. They will be used in **RNF** module. F.Papa, W. Llowel provide the data. 
+(See the [preparation](./BUILD/RUNOFF_ISBA/README.md) of the corresponding file).
   * **GrIS** (Greenland Ice Sheet mass balance) data set is used for all freshwater discharges (solid and liquid) around Greenland.
 It provides **monthly** discharges (1950-2018) for 262 points around the island. Unfortunatly, eORCA025 model grid is too coarse to
-take into account the narrow fjords where most of the Greenland Glaciers, and the surface runoff reach the sea.  
+take into account the narrow fjords where most of the Greenland glaciers, and the surface runoff reach the sea.  
 However, data provided by J. Mouginot, P. Mathiot and N. Jourdain consists in both solid and liquid freshwater discharges, at 
 the coastal model grid points corresponding to the 262 original points. For each source a depth is associated, taking into 
-account both the depth of glacier toungs and the depth of bathymetric sills in the fjords. Comparing this depths to the 
-first-guess model depths clearly shows big discrepancies.  Hence, a new bathymetry for the model was derived from the 
+account both the depth of glacier tongues and the depth of bathymetric sills in the fjords. Comparison of these  depths with the 
+first-guess model depths clearly points out big discrepancies.  Hence, a new bathymetry for the model was derived from the 
 BedMachineGreenland, high resolution bathymetric data, around Greenland and merged with the general eORCA025 bathymetry. 
 See [details](./BUILD/GREENLAND-BATHY/README.md).  
-For the solid contribution, it is known that a certain amount of the calved iceberg from the glacier front, just melt in the 
+For the solid contribution, it is known that a certain amount of the calved icebergs from the glacier front, just melt in the 
 fjord before reaching the open ocean.  There are some estimate (quite few indeed) published in the litterature, giving the 
 proportion of icebergs reaching the oceans over the total amount of calved icebergs at the glacier front.  This proportion 
-is within a range of 30% to 80%.  In order to go ahead, a decision was taken to make a first GFWF data set, assuming that 50% of 
+is within a range of 30% to 80%.  In order to go ahead, a decision was taken to make a first  data set, assuming that 50% of 
 the calved icebergs melt in the fjords, thus converting the equivalent solid discharge to liquid discharge.  
-In summary : GrIS provides (1) FW fluxes for RNF (surface freshwater reaching the sea by coastal rivers or percolating through the glaciers),
-(2) FW fluxes for ISF (50% of the iceberg mass melted in the fjords) and (3) calving rate (50% of the icebergs not melted in the fjords).  
+In summary : GrIS provides (1) FW fluxes for **RNF** (surface freshwater reaching the sea by coastal rivers or percolating through the glaciers),
+(2) FW fluxes for **ISF** (50% of the iceberg mass melted in the fjords) and (3) calving rate for **ICB** (50% of the icebergs not melted in the fjords).  
 See related details for [RNF and ICB](./BUILD/RUNOFF_GREENLAND/README.md) and for [ISF](./BUILD/RUNOFF_ISF_AA_GR/README.md) Greenland contributions.
   * **Rignot et al (2013)**  **annual climatological** data are used for Antarctica fresh water fluxes. Only iceshelf basal melting
-and iceshelf calving rate are used. For eORCA025, data files were prepared by P. Mathiot, using specific CDFTOOLS that he 
-develops for this purpose. There are many tricks in this preparation.
-
-*TBD : rnf and rnfisf depth files, comment on climatology, comment on multiple data set adaptation, finish RUNOFF_GREENLAND README with GrIS_Create explanation*
-
-#### 2.6.1 Liquid runoff:
-After several comparision between available data set, decision was take to use the global ISBA reanalysis giving river discharge 
-on 1/2 degree regular grid.  Comparision with observations, for the main rivers (Amazon, Orinoco, Mississipi, Congo, Niger, Gange, Bramhapoutre, Irriwady)
-showed that the reanalysis well captures the interannual variability which indicated that is is suitable for the goal of the project.
-
-Interannual ISBA runoff will be used everywhere in the global ocean except around Antarctica and Greenland. 
-   * for antarctica we will use the iceshelf parametrization (ISF NEMO module) of Pierre Mathiot with climatological input files
-   * for Greenland, Jeremie Mouginot prepare interannual file for the runoff (260 selected points).
-
-#### 2.6.2 Solid runoff (icebergs calving).
-Decision was taken to use calving flux and explicit representation of the icebergs (ICB NEMO module). This module is fed by annual calving rate (km3/year)
-applied at specific locations around Antarctica and Greenland.  This information is read in NEMO through the `sn_icb` structure. Note that in the second part of the projet, when
-AGRIF zoom will be deployed in the North Atlantic, we know that icebergs are not crossing the AGRIF boundaries.  We have analysed that most of the icebergs are drifting southward so
-that probably very few may have the tendency to cross the Northern Agrif boundary.
-
-For Antarctica we will use the input files prepared by Pierre Mathiot, using an annual climatology coherent for calving rate and basal iceshelf melting (for liquid contribution).
-
-For Greenland, we will use interannual files prepared by Jeremie Mouginot. Calving around Greenland mainly occurs in fjords which are not well resolved with the eORCA025
-configuration. Therefore some specific treatments are being discussed to convert part of the calving rate at the glacier front into liquid runoff at the entrance of the fjords.
-
-We do note that on Pierre Mathiot file, there is also a contribution for the northern hemisphere, around Greenland, but also for very few spots in Svalblard and Canadian Archipelago.
-These areas are not covered by Jeremie Mouginot work.  With regard to the AGRIF strategy  in the second part of the project, it is probably safer to just ignore this (small) contribution
-
-Details of the construction of the calving files are given in this [technical note](./BUILD/CALVING/README.md).
+and iceshelf calving rate are used (**ISF** and **ICB**). For eORCA025, data files were prepared by P. Mathiot, using specific CDFTOOLS that he 
+developped for this purpose. (See Technical details for [ICB](./BUILD/CALVING/README.md) and [ISF](./BUILD/RUNOFF_ISF_AA_GR/README.md).  
+    * It is worth to be noted that Pierre's file have some calving points in the Northern hemisphere. We just skip all these point, as far as
+GrIS data set is used. Doing so, we skip very small calving contribution from Svalblard and Canadian Archipelago. In fact, in view of the second part
+of the project, where AGRIF nest will be used in this are we want to avoid icebergs drifting toward the Arctic.
+  * Depth files for RNF and ISF: Although there are mutiple data set with different frequencies, depths where freshwater fluxes are applied are centralized in 2 files,
+one for each parameterisation. The files are created by merging the information of the data set with the program [create_rnf_dep_mask.f90](./BUILD/RUNOFF_MASK_DEP/create_rnf_dep_mask.f90). This program also creates a runoff mask where RNF or ISF model points are identified. (See details in this [document](./BUILD/RUNOFF_MASK_DEP/README.md).)
 
 #### 2.6.3 Spinup strategy.
 IMHOTEP first run will use climatological (seasonal) input for the runoff (liquid and solid). 
-
-For ISBA based runoff, the long term 1979-2018 daily climatology will be used.
-
-For Greenland,  both liquid and solid contributions are pretty stable in the period 1959-1990 and then (from 1990 to present) show strong trends 
+  * For ISBA based runoff, the long term 1979-2018 daily climatology will be used.
+  * For Greenland,  both liquid and solid contributions are pretty stable in the period 1959-1990 and then (from 1990 to present) show strong trends 
 and variations. Therefore, we decided to use the 'stable' climatology (based on 1959-1990 period) for the spinup run.  Sensitivity run, with 
 interannual runoff/calving variability will start in 1980, hence from a stabilized pre-90's state.
-
-For Antarctica, we only have annual climatology that will be used through the whole project.
+  * For Antarctica, we only have annual climatology that will be used through the whole project.
 
 ## 3. Preparing run time files: NEMO version dependent.
 At run time, NEMO requires control input files such as namelists for the ocean and the sea-ice, as well as a
