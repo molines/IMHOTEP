@@ -635,7 +635,7 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_icb     =  'eORCA025_calving_b0.2_v2.3' , -12.         ,'soicbclv' ,  .false.    , .true. , 'yearly'  , ''               , ''       , ''
+   sn_icb     =  'eORCA025_calving_b0.2_v2.3_ANTARCTIC' , -12.         ,'soicbclv' ,  .false.    , .true. , 'yearly'  , ''               , ''       , ''
 /
 !-----------------------------------------------------------------------
 &namberg_drk      !   drakkar iceberg parameters 
