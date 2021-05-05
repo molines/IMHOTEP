@@ -15,7 +15,14 @@ calving sources (and corresponding calving rates).  Data from Jeremie are monthl
 [this document](../RUNOFF_GREENLAND/README.md)).
 
 **For Antarctica**, we took the file prepared by Pierre Mathiot, in which a clever algorithm was used to randomly distribute 
-the  calving rate: for each iceshelf a single integral value is provided; at every point along the iceshelf break, a calving point is set with a calving rate being a random fraction of the global rate for this shelf. Of course, a scaling is applied in order to recover the global rate when summing up all individual points. Data consist in an annual climatology.
+the  calving rate: for each iceshelf a single integral value is provided; at every point along the iceshelf break, a calving 
+point is set with a calving rate being a random fraction of the global rate for this shelf. Of course, a scaling is applied 
+in order to recover the global rate when summing up all individual points. Data consist in an annual climatology. A bash
+[script](./get_calving_file_pm.sh), carry out the following task:
+  * retrieve original file from MEOM-OPENDAP.
+  * add nav_lon, nav_lat, time_counter variable in order to be CDFTOOL complient.
+  * Set to 0 all data in the northern hemisphere.
+  * Compress and rename file to its final name.
 
 ## 3. Dealing with data with different frequency.
 We are faced to the problem of different frequencies for calving data in the southern and northern hemisphere. A straight forward workaround is to replicate
