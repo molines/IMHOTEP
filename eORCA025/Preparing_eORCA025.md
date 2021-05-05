@@ -7,12 +7,12 @@ The choice of NEMO version to use in the project is based on the following with 
 recent AGRIF developpement, that can me usefull for the second part of the project.
   * NEMO trunk : this is the sharp edge of NEMO on going developpent, that will lead to a the 4.2_RC (Release Candidate) 
 in June or July 2021.
-   * Advantage : this 4.2_RC, have various AGRIF enhancement, of interest for IMHOTEP:
-     * AGRIF nests across the periodic boundary
-     * AGRIF parallelism for various nests at the same level
-     * On the side of advantages, the fact of using a pionnering new version and receive the aknowledgment of 
+    * Advantage : this 4.2_RC, have various AGRIF enhancement, of interest for IMHOTEP:
+      * AGRIF nests across the periodic boundary
+      * AGRIF parallelism for various nests at the same level
+      * On the side of advantages, the fact of using a pionnering new version and receive the aknowledgment of 
 the community ! 
-   * Disadvantages : unstable version till the 4.2_RC. And avalanche of bug fixes foreseen during the first 
+    * Disadvantages : unstable version till the 4.2_RC. And avalanche of bug fixes foreseen during the first 
 few month of 4.2_RC.
 
 **Decision : Use of NEMO at release 4.0.6**
@@ -23,9 +23,9 @@ Among these data files, there are domain configuration files, T-S initial condit
 least the corresponding weight files), distance to the coast file for SSS restoring, local enhancements in eORCA025 
 (bottom friction, lateral condition free-slip/no-slip, 3D restoring coefficient file), and of course the freshwater fluxes files, that deserve a detailed work.
 
-In order to able to rebuild all the input files, and for tracability, an effort is made to document all actions carried out for
+In order to be able to rebuild all the input files, and for tracability, an effort is made to document all actions carried out for
 producing the input files. For each kind of file there is a corresponding directory in [BUILD](./BUILD/) holding the scripts or dedicated programs
-realised for this specific file. In addition, each directory has its own README.md with detailled documentation on every step use for
+realised for this specific file. In addition, each directory has its own README.md with detailled documentation on every step used for
 the creation of the file.  This preparation document draws the road-map for the actions to perform in view of building input files. Clicking 
 on the title of the following paragraphs, link you directly to the corresponding README file.
 
@@ -228,7 +228,7 @@ IMHOTEP first run will use climatological (seasonal) input for the runoff (liqui
   * For Greenland,  both liquid and solid contributions are pretty stable in the period 1959-1990 and then (from 1990 to present) show strong trends 
 and variations. Therefore, we decided to use the 'stable' climatology (based on 1959-1990 period) for the spinup run.  Sensitivity run, with 
 interannual runoff/calving variability will start in 1980, hence from a stabilized pre-90's state.
-  * For Antarctica, we only have annual climatology that will be used through the whole project.
+  * For Antarctica, we only have annual climatology that will be used throughout the whole project.
 
 ## 3. Preparing run time files: NEMO version dependent.
 At run time, NEMO requires control input files such as namelists for the ocean and the sea-ice, as well as a
