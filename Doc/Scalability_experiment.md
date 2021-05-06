@@ -28,9 +28,9 @@ nodes have 40 cores available. Therefore, the scalability experiment will explor
 With NEMO/DCM the way of launching a standard segment of run is quite simple: each configuration is associated to a control directory (CTL)
 in which template namelists (ocean and ice), template xml files (for XIOS), path definition file (include_file.sh), and the 
 script file to be launched (eORCA025.L75-IMHOTHEP00_jean-zay.sh).  An extra file (eORCA025.L75-IMHOTHEP00.db) is used to manage the 
-time steps to perform in a segment.  Once all thses file are set up, launching a segment is done  with `run_nemo.sh`. 
+time steps to perform in a segment.  Once all these files are set up, launching a segment is done  with `run_nemo.sh`. 
 
-For scalability experiment, the procedure is very similar, but there more templates files in order to let the number of cores for NEMO
+For scalability experiment, the procedure is very similar, but there are more templates files in order to let the number of cores for NEMO
 being a variable. In order to ease the post-processing, and also in  order to be able to run different cases (number of cores) simultaneously,
 all input files and scripts have a unique ID indicating the corresponding case.   A bash script ([run_nemo.scal.sh](....)) is used as  a
 wrapper to launch each case:
@@ -98,13 +98,6 @@ Thu May  6 11:09:23 CEST 2021
       11 2021   5   6 120  11  11   5 227
       12 2021   5   6 120  11  11   5 691
       13 2021   5   6 120  11  11   6 155
-      14 2021   5   6 120  11  11   6 621
-      15 2021   5   6 120  11  11   7  78
-      16 2021   5   6 120  11  11   7 610
-      17 2021   5   6 120  11  11   8  73
-      18 2021   5   6 120  11  11   8 548
-      19 2021   5   6 120  11  11   9  19
-      20 2021   5   6 120  11  11   9 502
 ....
      205 2021   5   6 120  11  12  50 825
      206 2021   5   6 120  11  12  51 300
@@ -121,17 +114,17 @@ Thu May  6 11:13:58 CEST 2021
 ```
 
 In DCM toolkit, script are developped to screen this time information (as usual, usage message is issued using the tool with -h option).
-  * dcmtk_timeevol : display a graph showing  the number of steps performed as a function of elapsed time.  
+  * **dcmtk_timeevol** : display a graph showing  the number of steps performed as a function of elapsed time.  
 Example: `dcmtk_timeevol nemo_jean-zay_50_20_680.o1295227 5 250` gives the following plot:  
 
-   <img src=./Figures/nemo_jean-zay_50_20_680_scal.gif />
-
-On this plot, corresponding to the case 680 cores, there are 216 time steps, corresponding to 3x72 steps, says 3 days. During the first day, initialization of NEMO and XIOS
-clearly dramaticallu pull down the performances. Then around step 72, the impact of the fisrt XIOS write on file is visible. It is much smoother at the end of the second
-day (step 144). Performance of the experiment will be evaluated as the slope of the curve for the last 72 steps (last day).
-
-  * dcmtk_rate is the script that analyse the above curve and gives evaluation on the performance. Note that this script skip the first and last 10 points in a segment, in
-order to avoid side effects of initialisation and completion of a segment.  
+   <img src=./Figures/nemo_jean-zay_50_20_680_scal.gif />   
+   
+On this plot, corresponding to the case 680 cores, there are 216 time steps, corresponding to 3x72 steps, 
+says 3 days. During the first day, initialization of NEMO and XIOS clearly dramatically pull down the performances. 
+Then around step 72, the impact of the fisrt XIOS write on file is visible. It is much smoother at the end of the 
+second day (step 144). Performance of the experiment will be evaluated as the slope of the curve for the last 72 steps (last day).
+  * **dcmtk_rate** is the script that analyse the above curve and gives evaluation on the performance. Note that this script skip the    
+first and last 10 points in a segment, in order to avoid side effects of initialisation and completion of a segment.  
 Example: `dcmtk_rate -s 72 -b 3 -f nemo_jean-zay_50_20_680.o1295227` gives :
 
   ```
@@ -141,7 +134,7 @@ Example: `dcmtk_rate -s 72 -b 3 -f nemo_jean-zay_50_20_680.o1295227` gives :
    3 RATE :   122.47403083569577      step/min
   ```
 
-  * dcmtk_chkrate_scal is a wrapper for the dcmtk_rate script that scans all the nemo-jean-zay_xxx.oxxx file in the current directory and output
+  * **dcmtk_chkrate_scal** is a wrapper for the dcmtk_rate script that scans all the nemo-jean-zay_xxx.oxxx file in the current directory and output
 a table with the 4 columns : jpni jpnj jpnij peformance (step/min). This table is the result of the scalability experiment.  
 Example: `dcmtk_chkrate_scal  go`
 
