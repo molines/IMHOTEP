@@ -121,13 +121,20 @@ ENACT-ENSEMBLE consists in monthly files and JASON-2 consists in yearly files.
 In our setting, NEMO model output are managed by the XIOS server, running asynchronously with NEMO. This provides a very flexible choice for the variables we want to output as well as for the
 output frequency. Furthermore, subdomains or sections can be output by theirself.  All the choices are passed to XIOS via the file `iodef.xml` that must be edited to fit our needs.
 
-Data are saved using netcdf4/HDF5 format with chunking and deflation (level 1). For eORCA025, typical size for one 3D field is 200 Mb and one 2D field is 2.6 Mb. Note that the VVL paradigm, used in the simulation, may add systematically an e3_now 3D fields in all 3D files. This can be discussed. 
+Data are saved using netcdf4/HDF5 format with chunking and deflation (level 1). For eORCA025, typical size for one 3D field is 200 Mb and one 2D field is 2.6 Mb. Note that the VVL paradigm, 
+used in the simulation, may add systematically a e3_now 3D fields in all 3D files. A consensus regarding the ouput frequency has been found : daily output, monthly output and yearly output. This
+is possible because we plan to have 1-year segments (about 2h elapsed). In general, monthly mean and yearly mean are computed from the high frequency output, off-line. As far as we are using XIOS,
+having the monthly mean and yearly mean directly does not cost more.
 
-*TO BE DISCUSSED*
+#### 3.5.1 Basic output
+  * 3D ocean state: ocean temperature and salinity (T,S), ocean velocity components (U, V, W) and vertical mixing coefficient (Kz).
+  * 2D ocean state: Surface field (SSH, SST, SSS, SSU, SSV) (*may be saved at hourly frequency for some years, for making movies, for instance*)
+#### 3.5.2 Second order moments
+  * 3D fields : second order moments (UT US VT VS U2 V2 UV )
+  * Output of these fields is coded in NEMO in the diaprod.F90 module (courtesy of UKMO). 
+#### 3.5.3 Heat flux 
 
-A proposition: Basic output always involves 
-  * 3D:  T, S U V W kz
-  * 2D : SSH, heat fluxes (*details?* ), freshwater fluxes( evap, precip, runoff, rnfisf, calving, sss restoring ... )
+#### 3.5.3 Freshwater flux 
 
 ### 3.6 Scalability experiment.
 A scalability experiment was perfomed on jean-zay, from 240 cores (6 nodes) to 2400 cores (60 nodes). For this experiment, we choose to use 4 xios servers, running on a separated
