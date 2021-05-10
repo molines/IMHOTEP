@@ -1499,6 +1499,12 @@
    nn_profdavtypes = -1              ! Profile daily average types - array
 /
 !-----------------------------------------------------------------------
+&namobs_drk       !  observation DCM extension
+!-----------------------------------------------------------------------
+   cn_dir='<CN_DIAOBS>'
+/
+
+!-----------------------------------------------------------------------
 &nam_asminc    !   assimilation increments                              ('key_asminc')
 !-----------------------------------------------------------------------
     ln_bkgwri  = .false.   !  Logical switch for writing out background state
