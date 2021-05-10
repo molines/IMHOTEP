@@ -49,7 +49,20 @@ we choose the standard DRAKKAR's 75-levels.
 bathymetry around Greenland is adjusted using BedMachineGreenland-2020-04-10.nc file (see details [here](../eORCA025/BUILD/GREENLAND-BATHY/README.md)).
   * Coordinates :  eORCA025_coord_c3.0.nc
 #### 3.3.2 Initial conditions and SSS restoring:
-World Ocean Atlas 2018 monthly climatology corresponding to the period 1981-2010 was choosen to compute the initial conditions. It gives in-situ 3D temperature and relative salinity.  For NEMO, potential temperature (theta-0) was computed from original temperature and salinity.
+World Ocean Atlas 2018 monthly climatology corresponding to the period 1981-2010 was choosen to compute the initial conditions. It gives 
+in-situ 3D temperature and relative salinity.  For NEMO, potential temperature (theta-0) was computed from original temperature and salinity.
+
+Decision was taken to use EOS-10 equation of state. Hence, potential temperature and relative salinity will be converted to conservative temperature
+and absolute salinity.
+
+For SSS restoring, Surface W0A18 absolute salinity will be used. Note that SSS restoring will be used only in the spinup run. 
+A monthly climatology of the restoring term will be computed and in the sensitivity runs, this climatology will be used  as a correction 
+to the E-P field. In the spinup run, SSS restoring will be used with a piston velocity of 186 mm/day (corresponding to a time scale of 60 days per 10m). 
+In addition, with NEMO/DCM, two additional features are used : (i) the restoring is faded out in the vicinity of the coast line and (ii) the model 
+Sea Surface Salinity is smoothed (many passes of a shapiro filter), before computing the model/climatology mismatch, in order to restore only the large scale features.
+
+These last 2 points are very important for IMHOTEP, as it will help coastal currents system to carry fresh water from continental origin.
+
 #### 3.3.3 Forcing files (except runoff)
 JRA55 forcing data set was prefered to DFS5.2 (which is discontinued in 2017).
   * This data set has the great advantage to cover the period 1958-present (updated each year).
@@ -87,8 +100,19 @@ introduded in NEMO as :
   * Runoff depths for NEMO paramerizations are provided in two files (one for RNF and one for ISF), obtained by merging all the data sources (fixed in time!).
 
 Modifications in NEMO were necessary in order to deal with multiple dataset (different frequency, different type --climatological or interanual--). This was done for runoff, calving and iceshelf data set.
-    
 
+#### 3.3.6 Observations:
+A late decision was taken to use the NEMO OBS operator, for the simulations being performed.  With this OBS operator,  observations dataset 
+(ENACT-Ensemble TS profiles, JASON-2 SSH) are used to produce the colocalized (time and space) equivalent data-set. 
+
+Activation of the OBS operator is done in the configuration namelist. We introduced some modifications in NEMO/DCM, inherited from OCCIPUT: output
+OBS file (netcdf feedback format), are saved in a specific directory, whose name is passed in the namelist.
+
+OBS data set, are the same used in OCCIPUT. For ENACT-ENSEMBLE, ENS3 for the period 1950-2012, then ENS4 for the period 2013-2015 (*to be updated ?*). For
+JASON-2, period from 2008 to 2015 (*to be updated ?*).
+
+ENACT-ENSEMBLE consists in monthly files and JASON-2 consists in yearly files.
+    
 ### 3.4 namelists
   * Ocean : [namelist.eORCA025.L75-IMHOTEP00](../eORCA025/eORCA025.L75-IMHOTEP00/CTL/namelist.eORCA025.L75-IMHOTEP00)
   * Ice : [namelist_ice.eORCA025.L75-IMHOTEP00](../eORCA025/eORCA025.L75-IMHOTEP00/CTL/namelist_ice.eORCA025.L75-IMHOTEP00)
