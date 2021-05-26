@@ -3,7 +3,7 @@
    All temperature and salinity input files must be given with conservative temperatures and absolute salinity, as far as we are using TEOS-10 equation of state.
 
 ## 2. Conversion
-### 2.1 pt_sp_to_ct-sa program
+### 2.1 pt_sp_to_ct_sa program
 This program was written to perform conversion from potential temperature, practical salinity file to  conservative temperature, absolute salinity. It is based on the
 gsw [toolbox](http://www.teos-10.org/software.htm). This program is developped in the frame of the [DATA_TOOLS](https://github.com/molines/JMMTOOLS/tree/master/DATA_TOOLS).
 
