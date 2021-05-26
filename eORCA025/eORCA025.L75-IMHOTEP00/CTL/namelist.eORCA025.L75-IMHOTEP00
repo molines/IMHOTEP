@@ -136,15 +136,11 @@
    !           !  file name                          ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights     ! rotation ! land/sea mask !
    !           !                                     !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !   filename  ! pairing  !    filename   !
    ! data used for initial condition (istate)
-   sn_tem_ini  = 'eORCA025.L75_81B0_WOA18_1m_votemper'  , -1.            , 'votemper',  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
-   sn_sal_ini  = 'eORCA025.L75_81B0_WOA18_1m_vosaline'  , -1.            , 'vosaline',  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
-!  sn_tem_ini  = 'eORCA025.L75_GOU18_1m_votemper'  , -1.            , 'votemper',  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
-!  sn_sal_ini  = 'eORCA025.L75_GOU18_1m_vosaline'  , -1.            , 'vosaline',  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
+   sn_tem_ini  = 'eORCA025.L75_81B0_WOA18_1m_CT_checked'  , -1.          , 'CT'      ,  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
+   sn_sal_ini  = 'eORCA025.L75_81B0_WOA18_1m_SA_checked'  , -1.          , 'SA'      ,  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
    ! data used for damping ( tradmp)
-   sn_tem_dmp  = 'eORCA025.L75_81B0_WOA18_1m_votemper'  , -1.            , 'votemper',  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
-   sn_sal_dmp  = 'eORCA025.L75_81B0_WOA18_1m_vosaline'  , -1.            , 'vosaline',  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
-!  sn_tem_dmp  = 'eORCA025.L75_GOU18_1m_votemper'    , -1.               , 'votemper',  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
-!  sn_sal_dmp  = 'eORCA025.L75_GOU18_1m_vosaline'    , -1.               , 'vosaline',  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
+   sn_tem_dmp  = 'eORCA025.L75_81B0_WOA18_1m_CT_checked'  , -1.          , 'CT'      ,  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
+   sn_sal_dmp  = 'eORCA025.L75_81B0_WOA18_1m_SA_checked'  , -1.          , 'SA'      ,  .true.     , .true., 'yearly'   ,  ''         , ' '      , ' '
    !
 /
 !-----------------------------------------------------------------------
@@ -250,7 +246,7 @@
    ln_traqsr   = .true.    !  Light penetration in the ocean            (T => fill namtra_qsr)
    ln_dm2dc    = .true.    !  daily mean to diurnal cycle on short wave
    ln_ssr      = .true.    !  Sea Surface Restoring on T and/or S       (T => fill namsbc_ssr)
-   nn_fwb      = 0         !  FreshWater Budget: =0 unchecked
+   nn_fwb      = 1         !  FreshWater Budget: =0 unchecked
       !                    !     =1 global mean of e-p-r set to zero at each time step
       !                    !     =2 annual global mean of e-p-r set to zero
    ln_rnf      = .true.    !  runoffs                                   (T => fill namsbc_rnf)
@@ -465,7 +461,7 @@
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights e ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !  filename ! pairing  !    filename   !
    sn_sst      = 'sst_data'              ,        24.        ,  'sst'    ,    .false.  , .false., 'yearly'  ,    ''     ,    ''    ,     ''
-   sn_sss      = 'eORCA025.L75_81B0_WOA18_1m_SSS' , -1.      , 'vosaline' , .true.     , .true. , 'yearly'  ,    ''     ,    ''    ,     ''
+   sn_sss      = 'eORCA025.L75_81B0_WOA18_1m_SSSA' , -1.     , 'SA'      , .true.     , .true. , 'yearly'  ,    ''     ,    ''    ,     ''
 /
 !-----------------------------------------------------------------------
 &namsbc_ssr_drk !   surface boundary condition : sea surface restoring   (ln_ssr =T)
@@ -891,8 +887,8 @@
 !-----------------------------------------------------------------------
 &nameos        !   ocean Equation Of Seawater                           (default: NO selection)
 !-----------------------------------------------------------------------
-   ln_teos10   = .false.         !  = Use TEOS-10
-   ln_eos80    = .true.          !  = Use EOS80
+   ln_teos10   = .true.         !  = Use TEOS-10
+   ln_eos80    = .false.        !  = Use EOS80
    ln_seos     = .false.         !  = Use S-EOS (simplified Eq.)
                                  !
    !                     ! S-EOS coefficients (ln_seos=T):
