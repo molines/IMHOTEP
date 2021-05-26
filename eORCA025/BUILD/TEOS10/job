@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=40
+#SBATCH --threads-per-core=1
+#SBATCH -A cli@cpu
+#SBATCH --hint=nomultithread
+#SBATCH -J JOB_
+#SBATCH -e zjob.e%j
+#SBATCH -o zjob.o%j
+#SBATCH --time=02:00:00
+
+
+cd /gpfswork/rech/cli/rcli002/eORCA025.L75/eORCA025.L75-I/TEOS-10_build
+
+
+ ncks -O -x -v vosaline eORCA025.L75_81B0_WOA18_1m_TSchecked.nc eORCA025.L75_81B0_WOA18_1m_votemper_checked.nc
+ ncks -O -x -v votemper eORCA025.L75_81B0_WOA18_1m_TSchecked.nc eORCA025.L75_81B0_WOA18_1m_vosaline_checked.nc
