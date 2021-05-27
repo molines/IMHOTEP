@@ -1419,6 +1419,17 @@
    ln_dia25h   = .false.   ! Choose 25h mean output or not
 /
 !-----------------------------------------------------------------------
+&nam_diaar5_drk  !     diaar5 drakkar                                   (key_drakkar)
+!-----------------------------------------------------------------------
+   cn_dir      = './'
+   !___________!____________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
+   !           !  file name         ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
+   !           !                    !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
+   sn_sref = 'eORCA025.L75_SA_ref' , -1.                , 'SA'      , .false.     , .true. , 'yearly' , ''               , ''       , ''
+   sn_tref = 'eORCA025.L75_CT_ref' , -1.                , 'CT'      , .false.     , .true. , 'yearly' , ''               , ''       , ''
+/
+
+!-----------------------------------------------------------------------
 &namnc4        !   netcdf4 chunking and compression settings            ("key_netcdf4")
 !-----------------------------------------------------------------------
    nn_nchunks_i =   4       !  number of chunks in i-dimension

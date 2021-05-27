@@ -12,7 +12,7 @@
  <file_definition type="multiple_file" name="<OUTDIR>/@expname@_@freq@" sync_freq="1d" min_digits="4">
 
    
-   <file_group id="5d" output_freq="5d"  split_freq="5d" output_level="10" enabled=".TRUE.">  <!-- 5d files -->   	
+   <file_group id="1d" output_freq="1d"  split_freq="1d" output_level="10" enabled=".TRUE.">  <!-- 5d files -->   	
      <file id="file21" name_suffix="_icemod" description="ice variables" enabled=".true." >
 
        <!-- ice mask -->
@@ -91,7 +91,7 @@
        
        <!-- global attributes -->
        <variable name="start_date"       type="int"><NDATE0>    </variable>
-       <variable name="output_frequency" type="string">5h       </variable>
+       <variable name="output_frequency" type="string">1d       </variable>
        <variable name="CONFIG"           type="string"><CONFIG> </variable>
        <variable name="CASE"             type="string"><CASE>   </variable>
 
@@ -123,7 +123,7 @@
 
        <!-- global attributes -->
        <variable name="start_date"       type="int"><NDATE0>    </variable>
-       <variable name="output_frequency" type="string">5h       </variable>
+       <variable name="output_frequency" type="string">1d       </variable>
        <variable name="CONFIG"           type="string"><CONFIG> </variable>
        <variable name="CASE"             type="string"><CASE>   </variable>
 
