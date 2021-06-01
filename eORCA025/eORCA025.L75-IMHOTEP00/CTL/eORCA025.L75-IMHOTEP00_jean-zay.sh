@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --nodes=6
-#SBATCH --ntasks=204
+#SBATCH --nodes=36
+#SBATCH --ntasks=1364
 #SBATCH --ntasks-per-node=40
 #SBATCH --threads-per-core=1
 #SBATCH --hint=nomultithread
@@ -8,7 +8,7 @@
 #SBATCH -e nemo_jean-zay.e%j
 #SBATCH -o nemo_jean-zay.o%j
 #SBATCH -A cli@cpu
-#SBATCH --time=1:00:00
+#SBATCH --time=5:00:00
 #SBATCH --exclusive
 
 set -x
@@ -24,8 +24,8 @@ export  FORT_FMT_RECL=255
 
 
 # Following numbers must be consistant with the header of this job
-export NB_NPROC=200     # number of cores used for NEMO
-export NB_NPROC_IOS=4  # number of cores used for xios (number of xios_server.exe)
+export NB_NPROC=1360   # number of cores used for NEMO
+export NB_NPROC_IOS=8  # number of cores used for xios (number of xios_server.exe)
 export NB_NCORE_DP=4   # activate depopulated core computation for XIOS. If not 0, RUN_DP is
                        # the number of cores used by XIOS on each exclusive node.
 # Rebuild process 
