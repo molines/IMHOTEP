@@ -461,7 +461,7 @@
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights e ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !  filename ! pairing  !    filename   !
    sn_sst      = 'sst_data'              ,        24.        ,  'sst'    ,    .false.  , .false., 'yearly'  ,    ''     ,    ''    ,     ''
-   sn_sss      = 'eORCA025.L75_81B0_WOA18_1m_SSSA' , -1.     , 'SA'      , .true.     , .true. , 'yearly'  ,    ''     ,    ''    ,     ''
+   sn_sss      = 'eORCA025.L75_81B0_WOA18_1m_SSSA_checked' , -1.     , 'SA'      , .true.     , .true. , 'yearly'  ,    ''     ,    ''    ,     ''
 /
 !-----------------------------------------------------------------------
 &namsbc_ssr_drk !   surface boundary condition : sea surface restoring   (ln_ssr =T)
@@ -602,7 +602,7 @@
    ln_bergdia        = .true.        ! Calculate budgets
    nn_verbose_level  = 0             ! Turn on more verbose output if level > 0
    nn_verbose_write  = 15            ! Timesteps between verbose messages
-   nn_sample_rate    = 1             ! Timesteps between sampling for trajectory storage
+   nn_sample_rate    = 72             ! Timesteps between sampling for trajectory storage
    !
    !                          ! iceberg setting:
    !                                 ! Initial mass required for an iceberg of each class
