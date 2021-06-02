@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --nodes=36
-#SBATCH --ntasks=1364
+#SBATCH --ntasks=1368
 #SBATCH --ntasks-per-node=40
 #SBATCH --threads-per-core=1
 #SBATCH --hint=nomultithread
