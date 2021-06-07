@@ -61,8 +61,8 @@ F_INI_DIR=${SDIR}/${CONFIG}/${CONFIG}-I/
 F_WEI_DIR=$SDIR/DATA_FORCING/ERAinterim/ALL
 
 F_OBS_DIR=/ccc/work/cont003/drakkar/drakkar      # for OBS operator
-  F_ENA_DIR=${P_OBS_DIR}/ENACT-ENS
-  F_SLA_DIR=${P_OBS_DIR}/j2
+  F_ENA_DIR=${F_OBS_DIR}/ENACT-ENS3
+  F_SLA_DIR=${F_OBS_DIR}/j2
 
 # Directories on the production machine (P_xxx)
 P_S_DIR=$WORKDIR/${CONFIG}/${CONFIG_CASE}-S
@@ -78,10 +78,10 @@ P_CTL_DIR=${PDIR}/RUN_${CONFIG}/${CONFIG_CASE}/CTL      # directory from which t
 P_CDF_DIR=${PDIR}/RUN_${CONFIG}/${CONFIG_CASE}/CTL/CDF  # directory from which the diags are launched
 P_EXE_DIR=${PDIR}/RUN_${CONFIG}/${CONFIG_CASE}/EXE      # directory where to find opa
 P_UTL_DIR=${WORKDIR}                                    # root directory of the build_nc programs (under bin )
-P_XIOS_DIR=$DEVDIR/xios-2.5-HEAD                              # root directory of the XIOS library and xios_server.exe
+P_XIOS_DIR=$DEVDIR/xios-2.5-HEAD                        # root directory of the XIOS library and xios_server.exe
 
-P_OBS_DIR=/ccc/work/cont003/drakkar/drakkar     # for OBS operation
-  P_ENA_DIR=${P_OBS_DIR}/ENACT-ENS
+P_OBS_DIR=${WORKDIR}/DATA_SET/OBS/                      # for OBS operation
+  P_ENA_DIR=${P_OBS_DIR}/ENACT-ENS3
   P_SLA_DIR=${P_OBS_DIR}/j2
 
 # RUNTOOLS environment is set together with HOMEDCM when installing DCM
