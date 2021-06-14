@@ -81,7 +81,7 @@ P_UTL_DIR=${WORKDIR}                                    # root directory of the 
 P_XIOS_DIR=$DEVDIR/xios-2.5-HEAD                        # root directory of the XIOS library and xios_server.exe
 
 P_OBS_DIR=${WORKDIR}/DATA_SET/OBS/                      # for OBS operation
-  P_ENA_DIR=${P_OBS_DIR}/ENACT-ENS3
+  P_ENA_DIR=${P_OBS_DIR}/ENACT-ENS4.2.1-l09
   P_SLA_DIR=${P_OBS_DIR}/j2
 
 # RUNTOOLS environment is set together with HOMEDCM when installing DCM
