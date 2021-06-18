@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -x
+
+CONFIG=eORCA025.L75
+CASE=IMHOTEP01
+
+CONFCASE=${CONFIG}-${CASE}
+OBSDIR=$SDIR/${CONFIG}/${CONFCASE}-S/OBS
+DBfile=$PDIR/RUN_${CONFIG}/${CONFCASE}/CTL/${CONFCASE}.db
+
+mkdir -p $OBSDIR
+
+
+for n in {1..4} ; do
+  tmp=$(head -$n $DBfile | tail -1 | awk '{print $4}')
+  year=${tmp:0:4}
+  echo $year
+  cd $DDIR/${CONFCASE}-DIAOBS.$n
+  fbcomb.exe $OBSDIR/${CONFCASE}_y${year}_enact4_fdbk.$n.nc profb_fdbk_????.nc
+  cd ../
+done
+

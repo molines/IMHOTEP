@@ -600,9 +600,9 @@
    !
    !                          ! diagnostics:
    ln_bergdia        = .true.        ! Calculate budgets
-   nn_verbose_level  = 4             ! Turn on more verbose output if level > 0
-   nn_verbose_write  = 1             ! Timesteps between verbose messages
-   nn_sample_rate    = 72             ! Timesteps between sampling for trajectory storage
+   nn_verbose_level  = 1             ! Turn on more verbose output if level > 0
+   nn_verbose_write  = 72            ! Timesteps between verbose messages
+   nn_sample_rate    = 72            ! Timesteps between sampling for trajectory storage
    !
    !                          ! iceberg setting:
    !                                 ! Initial mass required for an iceberg of each class
@@ -1098,9 +1098,9 @@
 &namdyn_ldf    !   lateral diffusion on momentum                        (default: NO selection)
 !-----------------------------------------------------------------------
    !                       !  Type of the operator :
-   ln_dynldf_OFF = .true.      !  No operator (i.e. no explicit diffusion)
+   ln_dynldf_OFF = .false.      !  No operator (i.e. no explicit diffusion)
    ln_dynldf_lap = .false.     !    laplacian operator
-   ln_dynldf_blp = .false.      !  bilaplacian operator
+   ln_dynldf_blp = .true.      !  bilaplacian operator
    !                       !  Direction of action  :
    ln_dynldf_lev = .false.     !  iso-level
    ln_dynldf_hor = .true.      !  horizontal  (geopotential)
