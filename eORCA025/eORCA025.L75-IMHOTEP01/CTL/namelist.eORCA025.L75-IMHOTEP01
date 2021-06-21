@@ -427,11 +427,11 @@
 &namtra_qsr    !   penetrative solar radiation                          (ln_traqsr =T)
 !-----------------------------------------------------------------------
    !                       !  type of penetration                        (default: NO selection)
-   ln_qsr_rgb  = .false.      !  RGB light penetration (Red-Green-Blue)
-   ln_qsr_2bd  = .true.       !  2BD light penetration (two bands)
+   ln_qsr_rgb  = .true.       !  RGB light penetration (Red-Green-Blue)
+   ln_qsr_2bd  = .false.      !  2BD light penetration (two bands)
    ln_qsr_bio  = .false.      !  bio-model light penetration
    !                       !  RGB & 2BD choices:
-   rn_abs      =   0.58       !  RGB & 2BD: fraction absorbed in the very near surface
+   rn_abs      =   0.53       !  RGB & 2BD: fraction absorbed in the very near surface  ! defaul is 0.58. 0.53 = RBB
    rn_si0      =   0.35       !  RGB & 2BD: shortess depth of extinction
    nn_chldta   =      1       !  RGB : Chl data (=1) or cst value (=0)
    rn_si1      =   23.0       !  2BD : longest depth of extinction
@@ -440,7 +440,7 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' ! filename ! pairing  !    filename   !
-   sn_chl      = 'BSAS12_chlaseawifs_c1m-99-05_smooth' , -1. , 'CHLA'    ,   .true.    , .true. , 'yearly'  , ''       , ''       , ''
+   sn_chl      = 'chlorophyl_v0.0'       , -1.               , 'CHLA'    ,   .true.    , .true. , 'yearly'  , 'wght_chlorophyl_eORCA025_bilin.nc'       , ''       , ''
 /
 !-----------------------------------------------------------------------
 &namsbc_ssr    !   surface boundary condition : sea surface restoring   (ln_ssr =T)
@@ -1204,8 +1204,10 @@
    ln_zdfswm   = .false.      ! surface  wave-induced mixing            (T => ln_wave=ln_sdw=T )
    !
    !                       ! coefficients
-   rn_avm0     =   1.2e-4     !  vertical eddy viscosity   [m2/s]       (background Kz if ln_zdfcst=F)
-   rn_avt0     =   1.2e-5     !  vertical eddy diffusivity [m2/s]       (background Kz if ln_zdfcst=F)
+!  rn_avm0     =   1.2e-4     !  vertical eddy viscosity   [m2/s]       (background Kz if ln_zdfcst=F)
+!  rn_avt0     =   1.2e-5     !  vertical eddy diffusivity [m2/s]       (background Kz if ln_zdfcst=F)
+   rn_avm0     =   1.4e-6     !  modification from default because ln_zdfiwm = T
+   rn_avt0     =   1.0e-10    !  modification from default because ln_zdfiwm = T  (CdL)
    nn_avb      =    0         !  profile for background avt & avm (=1) or not (=0)
    nn_havtb    =    1         !  horizontal shape for avtb (=1) or not (=0)
 /
@@ -1228,7 +1230,8 @@
    rn_ediff    =   0.1     !  coef. for vertical eddy coef. (avt=rn_ediff*mxl*sqrt(e) )
    rn_ediss    =   0.7     !  coef. of the Kolmogoroff dissipation
    rn_ebb      =  67.83    !  coef. of the surface input of tke (=67.83 suggested when ln_mxl0=T)
-   rn_emin     =   1.e-6   !  minimum value of tke [m2/s2]
+!  rn_emin     =   1.e-6   !  minimum value of tke [m2/s2]
+   rn_emin     =   1.e-10  !  modification due to ln_zdfiwm = T (CdL)
    rn_emin0    =   1.e-4   !  surface minimum value of tke [m2/s2]
    rn_bshear   =   1.e-20  ! background shear (>0) currently a numerical threshold (do not change it)
    nn_pdl      =   1       !  Prandtl number function of richarson number (=1, avt=pdl(Ri)*avm) or not (=0, avt=avm)
