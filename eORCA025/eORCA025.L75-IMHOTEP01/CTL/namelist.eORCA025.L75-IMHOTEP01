@@ -325,9 +325,9 @@
    sn_kati     =     'katamask'     ,      -1.          , 'katamaskx',    .false.  , .true.  , 'yearly'  , ''               , ''       ,  ''
    sn_katj     =     'katamask'     ,      -1.          , 'katamasky',    .false.  , .true.  , 'yearly'  , ''               , ''       ,  ''
 !-----------------------------------------------------------------------
-   ln_LR         = .false.    ! Lionel Renault current feedback parameterization
+   ln_LR         = .true.    ! Lionel Renault current feedback parameterization
                               ! alpha and beta coefficient recommended by L. Renault are -2.0e-3 and 0.008
-     rn_lra      = -2.0e-3    ! alpha coefficient in Stau equation  !   Stau = alpha*Ua + beta
+     rn_lra      = -2.9e-3    ! alpha coefficient in Stau equation  !   Stau = alpha*Ua + beta
      rn_lrb      =  0.008     ! beta coefficient in Stau equation   !   Tau = Tau_a + Stau*Uo
 !-----------------------------------------------------------------------
    ln_clim_forcing  = .false.  ! Climatological forcing : T else interannual forcing
