@@ -193,6 +193,13 @@
            <variable name="CONFIG"           type="string"><CONFIG> </variable>
            <variable name="CASE"             type="string"><CASE>   </variable>
         </file>
+        <file id="file17" name_suffix="_FWB_scalar" description="scalar variables" enabled=".true." >
+           <field field_ref="fwprv"          name="fwprv"  />
+           <variable name="start_date"       type="int"><NDATE0>    </variable>
+           <variable name="output_frequency" type="string">1d       </variable>
+           <variable name="CONFIG"           type="string"><CONFIG> </variable>
+           <variable name="CASE"             type="string"><CASE>   </variable>
+        </file>
       </file_group>
 
       <file_group id="1m" output_freq="1mo"  split_freq="1mo"  output_level="10" enabled=".TRUE."> <!-- 1d files -->
@@ -342,6 +349,7 @@
            <field field_ref="ut"             name="vout"  >  @ut_e3u / @e3u </field>
            <field field_ref="us"             name="vous"  >  @us_e3u / @e3u </field>
            <field field_ref="urhop"          name="vourho"  enabled=".false." > @urhop_e3u / @e3u  </field> 
+           <field field_ref="uu"             name="vozocrtx_sqd" > @uu_e3u / @e3u  </field> 
 
            <variable name="start_date"       type="int"><NDATE0>    </variable>
            <variable name="output_frequency" type="string">1m       </variable>
@@ -353,6 +361,7 @@
            <field field_ref="vt"             name="vovt"  > @vt_e3v / @e3v </field>
            <field field_ref="vs"             name="vovs"  > @vs_e3v / @e3v </field>
            <field field_ref="vrhop"          name="vovrho"  enabled=".false."  > @vrhop_e3u / @e3v  </field> 
+           <field field_ref="vv"             name="vomecrty_sqd" > @vv_e3v / @e3v  </field> 
 
            <variable name="start_date"       type="int"><NDATE0>    </variable>
            <variable name="output_frequency" type="string">1m       </variable>
@@ -518,6 +527,7 @@
            <field field_ref="ut"             name="vout"  >  @ut_e3u / @e3u </field>
            <field field_ref="us"             name="vous"  >  @us_e3u / @e3u </field>
            <field field_ref="urhop"          name="vourho"  enabled=".false." > @urhop_e3u / @e3u  </field> 
+           <field field_ref="uu"             name="vozocrtx_sqd" > @uu_e3u / @e3u  </field> 
 
            <variable name="start_date"       type="int"><NDATE0>    </variable>
            <variable name="output_frequency" type="string">1y       </variable>
@@ -529,6 +539,7 @@
            <field field_ref="vt"             name="vovt"  > @vt_e3v / @e3v </field>
            <field field_ref="vs"             name="vovs"  > @vs_e3v / @e3v </field>
            <field field_ref="vrhop"          name="vovrho"  enabled=".false."  > @vrhop_e3u / @e3v  </field> 
+           <field field_ref="vv"             name="vomecrty_sqd" > @vv_e3v / @e3v  </field> 
 
            <variable name="start_date"       type="int"><NDATE0>    </variable>
            <variable name="output_frequency" type="string">1y       </variable>
