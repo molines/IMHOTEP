@@ -13,7 +13,7 @@ for a configuration, and the building of this file must be carefully documented,
 
   ```
   cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP00/
-  dcm_mktool -n DOMAIN_cfg -m X64_JEANZAY_jm  -c eORCA025.L75-IMHOTEP00
+  dcm_mktools -n DOMAIN_cfg -m X64_JEANZAY_jm  -c eORCA025.L75-IMHOTEP00
   ```
  
  The tool is ready to be used in `$WORKDIR/WORCA025.L75-IMHOTEP00/tools/DOMAIN_cfg` directory.
