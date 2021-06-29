@@ -11,8 +11,8 @@
 
 set -x 
 
-n1=1
-n2=4
+n1=10
+n2=10
 nproc=1360
 CONFIG=eORCA025.L75
 CASE=IMHOTEP01
@@ -37,9 +37,9 @@ for n in $(seq $n1 $n2)  ; do
   cd $rootdir/${CONFCASE}-DIAOBS.$n
   fbcomb.exe $OBSDIR/${CONFCASE}_y${year}_enact4_fdbk.$n.nc profb_fdbk_????.nc
 
-#  #  copy  model results to STORE ( almost 2h per year ! )
-#  cd $rootdir/${CONFCASE}-XIOS.$n
-#  ../dcmtk_mvnc2s_bbcp
+  #  copy  model results to STORE ( almost 2h per year ! )
+  cd $rootdir/${CONFCASE}-XIOS.$n
+  ../dcmtk_mvnc2s_bbcp
 
   # Iceberg trajectories:
   cd $rootdir/${CONFCASE}-ICB.$n
