@@ -6,23 +6,26 @@ This configuration is build with DCM/4.0.6
 Most of the modifications developped in this configuration were committed and pushed to DCM.
 ### DIA modules
   * **diaar5.F90** : Modification for saving thermosteric and halosteric 2D SSH
-  * **diaprod.F90** : New module for saving second order moments.
+  * **diaprod.F90** : New module for saving second order moments. It is used only if 2nd order moments are to be output (xml files).
 
 ### ICB modules
-  * **icb_oce.F90**:
-  * **icbclv.F90** :
-  * **icbini.F90** :
-  * **icbrst.F90** :
-  * **icbstp.F90** :
-  * **icbtrj.F90** :
+  * **icb_oce.F90**: Declaration of character variables for ICB restart files (in/out) and trajectories.
+  * **icbclv.F90** : Optimisation in the computation of `berg_grid%stored_ice`. Standard version produce wrong results on jean-zay with -03 compiler optimization (no clear reason).
+  * **icbini.F90** : Allow use of multiple input files for ICB. Allow start of ICB after the first segment.
+  * **icbrst.F90** : Allow specification of a directories (in/out) for ICB restart files.
+  * **icbstp.F90** : Implementation of multiple input files
+  * **icbtrj.F90** : Implement specific directory for ICB trajectory files.
+
+### LBC modules
+  * **lib_mpp.F90** : Change in `ctl_opn` for passing optional output directory
 
 ### OBS modules
   * **diaobs.F90** : Allow specification of output directory. Bug fix for rn_dobsini, rn_dobsend initialization. (Ticket to NEMO ST to
-be done).
-  * **obs_profiles_def.F90** :
-  * **obs_readmdt.F90** :
-  * **obs_surf_def.F90** :
-  * **obs_write.F90** :
+be done). Note that this initialization assumes that time step is not changed since the begining of the run (ndate0 !) 
+  * **obs_profiles_def.F90** : Define output directory for profile OBS files
+  * **obs_readmdt.F90** : Set reference level to 0.
+  * **obs_surf_def.F90** :  Define output directory for surface OBS files
+  * **obs_write.F90** : Implement output directory for OBS files
 
 ### SBC modules
   * **sbcblk.F90** : Mask tair and humidity in iom_put
@@ -32,6 +35,9 @@ be done).
 
 ### ZDF modules
   * **zdfiwm.F90** : Modification to read input filenames in the namelist
+
+### ICE modules
+  * **icedia.F90** : Change the code for the case ln_hsm=T : bypass reading restart file if the diag activated after the first segment.
 
 ## Customization  for IMHOTEP01 configuration:
   * **mppini.F90** : Domain decomposition is done on the base of a  *new* variable `mppmask`, instead of `bottom_level`. These
