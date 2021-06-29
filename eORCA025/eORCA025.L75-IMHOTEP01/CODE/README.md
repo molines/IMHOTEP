@@ -41,3 +41,50 @@ zonal stripes on the global domain.  If we use the `bottom_level` variables, the
 NEMO domain in the southern most XIOS stripe.
 
   * **obs_prep.F90** : comment out too much information in ocean.output (many tenths of thousand lines!)
+
+## How to build IMOTHEP01 configuration ?
+We assume that you have DCM/4.0.6 operational.
+
+### Create Configuration directories:
+
+```
+dcm_mkconfdir_local eORCA025.L75-IMHOTEP01
+```
+
+### Populate configuration directory with IMHOTEP code
+
+```
+cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP01
+rsync -arv $DEVGIT/IMHOTEP/eORCA025/eORCA025.L75-IMHOTEP01/CODE/* ./
+```
+
+### Install and compile the code
+If you are on jean-zay, too easy :
+
+```
+cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP01
+make install
+make
+```
+
+If you are on another machine you need to adapt the arch file to the machine and set it in `makefile`
+
+
+### Prepare the CTL directory
+
+```
+cd $PDIR/RUN_eORCA025.L75/eORCA025.L75-IMHOTEP01/CTL
+rsync -arv $DEVGIT/IMHOTEP/eORCA025/eORCA025.L75-IMHOTEP01/CTL/* ./
+```
+
+### Run the code on jean-zay
+  * edit `eORCA025.L75-IMHOTEP01.db` file in order to set the first segment, in CTL directory
+  * check the PATHs in includefile.sh
+  * check that you have the input data in `$WORK/eORCA025.L75/eORCA025.L75-I`
+  * Run the script :
+
+```
+./run_nemo.sh
+```
+
+In this task list, no doubt that the crucial point is to have the input data ready.
