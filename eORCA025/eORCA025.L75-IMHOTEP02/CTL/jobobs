@@ -1,0 +1,66 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -A bcn@cpu
+##SBATCH --partition=archive
+#SBATCH --hint=nomultithread
+#SBATCH -J JOB_OBS
+#SBATCH -e zjobobs.e%j
+#SBATCH -o zjobobs.o%j
+#SBATCH --time=01:15:00
+#SBATCH --exclusive
+
+
+set -x 
+ulimit -s unlimited
+
+n1=258
+n2=269
+nproc=1360
+CONFIG=eORCA025.L75
+CASE=IMHOTEP02
+#==========================================
+
+CONFCASE=${CONFIG}-${CASE}
+rootdir=$DDIR
+OBSDIR=$DDIR/${CONFIG}/${CONFCASE}-S/OBS
+SOBSDIR=$SDIR/${CONFIG}/${CONFCASE}-S/OBS
+
+TRJDIR=$DDIR/${CONFIG}/${CONFCASE}-S/ICBTRJ
+STRJDIR=$SDIR/${CONFIG}/${CONFCASE}-S/ICBTRJ
+
+CTLDIR=$PDIR/RUN_${CONFIG}/${CONFCASE}/CTL/
+DBfile=${CTLDIR}/${CONFCASE}.db
+
+mkdir -p $OBSDIR
+mkdir -p $SOBSDIR
+
+mkdir -p $TRJDIR
+mkdir -p $STRJDIR
+
+for n in $(seq $n1 $n2)  ; do
+  tmp=$(head -$n $DBfile | tail -1 | awk '{print $4}')
+  year=${tmp:0:4}
+  mont=${tmp:4:2}
+  dayf=${tmp:6:2}
+  echo $year
+
+  #  recombine OBS file in yearly fdbk format
+  cd $rootdir/${CONFCASE}-DIAOBS.$n
+  fbcomb.exe $OBSDIR/${CONFCASE}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc profb_fdbk_????.nc
+  dd bs=50M if=$OBSDIR/${CONFCASE}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc of=$SOBSDIR/${CONFCASE}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc
+
+
+  #  copy  model results to STORE ( almost 2h per year ! )
+# cd $rootdir/${CONFCASE}-XIOS.$n
+# ../dcmtk_mvnc2s_bbcp
+
+  # Iceberg trajectories:
+# cd $rootdir/${CONFCASE}-ICB.$n
+# cp $CTLDIR/icb_pp.py ./
+# tmp=$( ls trajectory_icebergs*_0000.nc )
+# pattern=${tmp%0000.nc}
+
+# python icb_pp.py -t $pattern -n $nproc -o $TRJDIR/${CONFCASE}_y${year}_trajectory_icebergs.$n.nc
+
+done
