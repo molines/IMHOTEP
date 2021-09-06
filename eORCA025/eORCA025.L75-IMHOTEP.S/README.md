@@ -141,6 +141,17 @@ This is the only difference with IMHOTEP02 run. As for all sensitivity experimen
    sn_depmax_isf ='eORCA025.L75_rnf_dep' ,                -12. ,'sozisfmax',  .false.    , .true.  , 'yearly'  ,    ''    ,   ''     ,    ''
    sn_depmin_isf ='eORCA025.L75_rnf_dep' ,                -12. ,'sozisfmin',  .false.    , .true.  , 'yearly'  ,    ''    ,   ''     ,    ''
 /
+!-----------------------------------------------------------------------
+&namsbc_isf_drk    !  Top boundary layer (ISF) drakkar                   (ln_isfcav =T : read (ln_read_cfg=T) + key_drakkar
+!-----------------------------------------------------------------------             or set or usr_def_zgr )
+   nn_rnfisf_freq = 2
+
+   !___________!_____________!___________________!___________!_____________!_________!___________!__________!__________!_______________!
+   !           !  file name  ! frequency (hours) ! variable  ! time interp.!  clim   ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
+   !           !             !  (if <0  months)  !   name    !  (logical)  !  (T/F)  ! 'monthly' ! filename ! pairing  ! filename      !
+   sn_rnfisf2(1)   = 'eORCA025.L75_1m_greenland_isfbis_clim_y1950-1972' , -1. ,'sornfisf' ,  .true.    , .true.  , 'yearly'  ,    ''    ,   ''     ,    ''
+/
+
 ```
 
   * Calving
