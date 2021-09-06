@@ -1,0 +1,51 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=40
+#SBATCH --ntasks-per-node=40
+#SBATCH --threads-per-core=1
+#SBATCH -A cli@cpu
+#SBATCH --hint=nomultithread
+#SBATCH -J jobmoy
+#SBATCH -e zmoy.e%j
+#SBATCH -o zmoy.o%j
+#SBATCH --time=3:30:00
+#SBATCH --exclusive
+
+if [ $# = 0 ] ; then
+   echo "USAGE:  sbatch jobmoys  YEAR "
+   exit
+fi
+
+CONFIG=eORCA025.L75
+CASE=IMHOTEP.GAI
+
+freq=1d
+year=$1
+
+CONFCASE=${CONFIG}-${CASE}
+SWDIR=$SDIR/$CONFIG/${CONFCASE}-S/$freq/$year
+MWDIR=$WORK/$CONFIG/${CONFCASE}-MEAN2/$freq/$year
+
+mkdir -p $MWDIR
+
+cd $SWDIR
+# set the list of type  present in this directory (using for instance m01d01, and assuming coherency
+# of the data base throughout the year.
+
+lsttyp=( $(ls -1 ${CONFCASE}_y${year}m01d01.${freq}_*.nc | grep -v scalar | awk -F_ '{print $3}' | awk -F. '{print $1}' ) )
+
+
+n=0
+#for typ in ${lsttyp[@]} ; do
+for typ in gridU gridV  ; do
+   for mon in {01..12} ; do
+     cdfmoy -nc4 -o $MWDIR/${CONFCASE}_y${year}m${mon}.${freq}_$typ -l  ${CONFCASE}_y${year}m${mon}d??.${freq}_$typ.nc &
+     n=$(( n + 1 ))
+     if [ $n = 24 ] ; then
+       wait
+       n=0
+     fi
+   done
+done
+wait
+

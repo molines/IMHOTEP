@@ -1,0 +1,402 @@
+#--------------------------------------------------------------
+#   $Rev$
+#   $Date$
+#   $Id$
+#--------------------------------------------------------------
+#
+#----- Sections -----!----- Netcdf short name ----- Netcdf long name -------------Sens--
+#--------------------!----- Configs --------------- imin imax jmin jmax ----------------
+#
+#
+01_BERING                   berin                   Bering_Strait                  -1
+01_BERING                   ORCA12.L46              1356 1380 2502 2502
+01_BERING                   ORCA12.L75              1356 1380 2502 2502
+01_BERING                   eORCA12.L75             1356 1380 3049 3049
+01_BERING                   EORCA12                 1356 1380 2590 2590
+01_BERING                   EORCA12.L46             1356 1380 2590 2590
+01_BERING                   EORCA12.L75             1356 1380 2590 2590
+01_BERING                   ORCA025                  452  461  834  834
+01_BERING                   ORCA025.L75              452  461  834  834
+01_BERING                   eORCA025.L75             452  461 1020 1020
+01_BERING                   ORCA025.L300             452  461  834  834
+01_BERING                   ORCA2                     54   59  124  124
+01_BERING                   ORCA246                   54   59  124  124
+01_BERING                   ORCA05                   227  232  418  418
+#
+02_FRAM                     fram                    Fram_Strait                     1
+02_FRAM                     ORCA12.L46              3202 3317 2823 2823
+02_FRAM                     ORCA12.L75              3202 3317 2823 2823
+02_FRAM                     eORCA12.L75             3202 3317 3370 3370
+02_FRAM                     EORCA12                 3202 3317 2911 2911
+02_FRAM                     EORCA12.L46             3202 3317 2911 2911
+02_FRAM                     EORCA12.L75             3202 3317 2911 2911
+02_FRAM                     ORCA025                 1067 1107  941  941
+02_FRAM                     ORCA025.L75             1067 1107  941  941
+02_FRAM                     eORCA025.L75            1067 1107 1127 1127 
+02_FRAM                     ORCA025.L300            1067 1107  941  941
+02_FRAM                     ORCA2                    132  140  137  137    
+02_FRAM                     ORCA246                  132  140  137  137    
+02_FRAM                     NATL025                  311  351  527  527
+02_FRAM                     NATL12                   931 1051 1580 1580
+02_FRAM                     ORCA05                   535  554  473  472
+#
+03_BAFFIN                   baffi                   Baffin_Strait                   1
+03_BAFFIN                   ORCA12.L46              2779 2939 2760 2760
+03_BAFFIN                   ORCA12.L75              2779 2939 2760 2760
+03_BAFFIN                   eORCA12.L75             2779 2939 3307 3307
+03_BAFFIN                   EORCA12                 2779 2939 2848 2848
+03_BAFFIN                   EORCA12.L46             2779 2939 2848 2848
+03_BAFFIN                   EORCA12.L75             2779 2939 2848 2848
+03_BAFFIN                   ORCA025                  927  981  920  920
+03_BAFFIN                   ORCA025.L75              927  981  920  920
+03_BAFFIN                   eORCA025.L75             927  981 1106 1106 
+03_BAFFIN                   ORCA025.L300             927  981  920  920
+03_BAFFIN                   ORCA2                    113  122  136  136 
+03_BAFFIN                   ORCA246                  113  122  136  136 
+03_BAFFIN                   NATL025                  171  225  506  506
+03_BAFFIN                   NATL12                   511  673 1517 1517
+03_BAFFIN                   ORCA05                   465  483  467  467
+#
+04_DENMARK_STRAIT           denma                   Denmark_Strait                  1
+04_DENMARK_STRAIT           ORCA12.L46              3079 3157 2532 2490
+04_DENMARK_STRAIT           ORCA12.L75              3079 3157 2532 2490
+04_DENMARK_STRAIT           eORCA12.L75             3079 3157 3079 3037
+04_DENMARK_STRAIT           EORCA12                 3079 3157 2620 2578
+04_DENMARK_STRAIT           EORCA12.L46             3079 3157 2620 2578
+04_DENMARK_STRAIT           EORCA12.L75             3079 3157 2620 2578
+04_DENMARK_STRAIT           NNATL12                  482  560  407  325
+04_DENMARK_STRAIT           ORCA025                 1025 1055  845  830
+04_DENMARK_STRAIT           ORCA025.L75             1025 1055  845  830
+04_DENMARK_STRAIT           eORCA025.L75            1025 1055 1031 1016
+04_DENMARK_STRAIT           ORCA025.L300            1025 1055  845  830
+04_DENMARK_STRAIT           ORCA2                    126  131  126  123
+04_DENMARK_STRAIT           ORCA246                  126  131  126  123
+04_DENMARK_STRAIT           NATL025                  269  299  431  416
+04_DENMARK_STRAIT           NATL12                   805  895 1292 1247
+04_DENMARK_STRAIT           ORCA05                   511  527  419  415
+#
+05_ICELAND_SCOTLAND         icsco                   Iceland-Scotland_Section        1
+05_ICELAND_SCOTLAND         ORCA12.L46              3249 3361 2472 2354
+05_ICELAND_SCOTLAND         ORCA12.L75              3249 3361 2472 2354
+05_ICELAND_SCOTLAND         eORCA12.L75             3249 3361 3019 2901
+05_ICELAND_SCOTLAND         EORCA12                 3249 3361 2560 2442
+05_ICELAND_SCOTLAND         EORCA12.L46             3249 3361 2560 2442
+05_ICELAND_SCOTLAND         EORCA12.L75             3249 3361 2560 2442
+05_ICELAND_SCOTLAND         NNATL12                  652  764  307  189
+05_ICELAND_SCOTLAND         ORCA025                 1084 1120  824  785
+05_ICELAND_SCOTLAND         ORCA025.L75             1084 1120  824  785
+05_ICELAND_SCOTLAND         eORCA025.L75            1084 1120 1010  971 
+05_ICELAND_SCOTLAND         ORCA025.L300            1084 1120  824  785
+05_ICELAND_SCOTLAND         ORCA2                    134  139  123  117
+05_ICELAND_SCOTLAND         ORCA246                  134  139  123  117
+05_ICELAND_SCOTLAND         NATL025                  328  364  410  371
+05_ICELAND_SCOTLAND         NATL12                   982 1090 1229 1112
+05_ICELAND_SCOTLAND         ORCA05                   542  563  412  395
+#
+06_CUBA_FLORIDA             cubaf                   Cuba-Florida_Section            1
+06_CUBA_FLORIDA             ORCA12.L46              2480 2480 1776 1810
+06_CUBA_FLORIDA             ORCA12.L75              2480 2480 1776 1810
+06_CUBA_FLORIDA             eORCA12.L75             2480 2480 2323 2357
+06_CUBA_FLORIDA             EORCA12                 2480 2480 1864 1898
+06_CUBA_FLORIDA             EORCA12.L46             2480 2480 1864 1898
+06_CUBA_FLORIDA             EORCA12.L75             2480 2480 1864 1898
+06_CUBA_FLORIDA             ORCA025                  828  828  593  603
+06_CUBA_FLORIDA             ORCA025.L75              828  828  593  603
+06_CUBA_FLORIDA             eORCA025.L75             828  828  779  789
+06_CUBA_FLORIDA             ORCA025.L300             828  828  593  603
+06_CUBA_FLORIDA             ORCA2                    101  101   93   96
+06_CUBA_FLORIDA             ORCA246                  101  101   93   96
+06_CUBA_FLORIDA             NATL025                   72   72  179  189
+06_CUBA_FLORIDA             NATL12                   214  214  533  566
+06_CUBA_FLORIDA             ORCA05                   414  414  297  302
+#
+07_FLORIDA_BAHAMAS          floba                   Florida-Bahamas_Section        -1
+07_FLORIDA_BAHAMAS          ORCA12.L46              2484 2501 1826 1826
+07_FLORIDA_BAHAMAS          ORCA12.L75              2484 2501 1826 1826
+07_FLORIDA_BAHAMAS          eORCA12.L75             2484 2501 2373 2373
+07_FLORIDA_BAHAMAS          EORCA12                 2484 2501 1914 1914
+07_FLORIDA_BAHAMAS          EORCA12.L46             2484 2501 1914 1914
+07_FLORIDA_BAHAMAS          EORCA12.L75             2484 2501 1914 1914
+07_FLORIDA_BAHAMAS          ORCA025                  829  836  610  610
+07_FLORIDA_BAHAMAS          ORCA025.L75              829  836  610  610
+07_FLORIDA_BAHAMAS          eORCA025.L75             829  836  796  796
+07_FLORIDA_BAHAMAS          ORCA025.L300             829  836  610  610
+07_FLORIDA_BAHAMAS          ORCA2                    101  103   97   97
+07_FLORIDA_BAHAMAS          ORCA246                  101  103   97   97
+07_FLORIDA_BAHAMAS          NATL025                   73   80  196  196
+07_FLORIDA_BAHAMAS          NATL12                   217  238  585  585
+07_FLORIDA_BAHAMAS          ORCA05                   414  419  302  301
+#
+08_DRAKE                    drake                   Drake_Passage                   1
+08_DRAKE                    ORCA12.L46              2640 2670  705  426    
+08_DRAKE                    ORCA12.L75              2640 2670  705  426    
+08_DRAKE                    eORCA12.L75             2640 2670 1252  973
+08_DRAKE                    EORCA12                 2640 2670  793  514
+08_DRAKE                    EORCA12.L46             2640 2670  793  514
+08_DRAKE                    EORCA12.L75             2640 2670  793  514
+08_DRAKE                    ORCA025                  880  890  235  142
+08_DRAKE                    ORCA025.L75              880  890  235  142
+08_DRAKE                    eORCA025.L75             880  890  421  328
+08_DRAKE                    ORCA025.L300             880  890  235  142
+08_DRAKE                    ORCA2                    108  109   33   20
+08_DRAKE                    ORCA246                  108  109   33   20
+08_DRAKE                    PERIANT8                1754 1754   16  796
+08_DRAKE                    PERIANT05                439  439    5  200
+08_DRAKE                    PERIANT025               878  878    9  399
+08_DRAKE                    BIOPERIANT05             439  439    5  200
+08_DRAKE                    ORCA05                   443  439   70  116
+#
+09_AUS_AA                   ausaa                   Australia-Antarctic_Section     1
+09_AUS_AA                   ORCA12.L46               910  910 1007  352
+09_AUS_AA                   ORCA12.L75               910  910 1007  352
+09_AUS_AA                   eORCA12.L75              910  910 1554  899
+09_AUS_AA                   EORCA12                  910  910 1095  440
+09_AUS_AA                   EORCA12.L46              910  910 1095  440
+09_AUS_AA                   EORCA12.L75              910  910 1095  440
+09_AUS_AA                   ORCA025                  300  300  340  120
+09_AUS_AA                   ORCA025.L75              300  300  340  120
+09_AUS_AA                   eORCA025.L75             300  300  526  306
+09_AUS_AA                   ORCA025.L300             300  300  340  120
+09_AUS_AA                   ORCA2                     34   34   46   16
+09_AUS_AA                   ORCA246                   34   34   46   16
+09_AUS_AA                   PERIANT8                 534  534   16  796
+09_AUS_AA                   PERIANT05                134  134    5  200
+09_AUS_AA                   PERIANT025               268  268    9  399
+09_AUS_AA                   BIOPERIANT05             134  134    5  200
+09_AUS_AA                   ORCA05                   142  142  168   65
+#
+10_ITF                      itflo                   Indonesian_Throughflow         -1
+10_ITF                      ORCA12.L46               510  510 1393 1228
+10_ITF                      ORCA12.L75               510  510 1393 1228
+10_ITF                      eORCA12.L75              510  510 1940 1775
+10_ITF                      EORCA12                  510  510 1481 1316
+10_ITF                      EORCA12.L46              510  510 1481 1316
+10_ITF                      EORCA12.L75              510  510 1481 1316
+10_ITF                      ORCA025                  170  170  465  410
+10_ITF                      ORCA025.L75              170  170  465  410
+10_ITF                      eORCA025.L75             170  170  651  596
+10_ITF                      ORCA025.L300             170  170  465  410
+10_ITF                      ORCA2                     22   22   63   54
+10_ITF                      ORCA246                   22   22   63   54
+10_ITF                      ORCA05                    85   85  233  205
+#
+11_MOZAMBIQUE_CHANNEL       mozam                   Mozambique_Channel              1
+11_MOZAMBIQUE_CHANNEL       ORCA12.L46              3923 3980 1296 1296  
+11_MOZAMBIQUE_CHANNEL       ORCA12.L75              3923 3980 1296 1296  
+11_MOZAMBIQUE_CHANNEL       eORCA12.L75             3923 3980 1843 1843
+11_MOZAMBIQUE_CHANNEL       EORCA12                 3923 3980 1384 1384
+11_MOZAMBIQUE_CHANNEL       EORCA12.L46             3923 3980 1384 1384
+11_MOZAMBIQUE_CHANNEL       EORCA12.L75             3923 3980 1384 1384
+11_MOZAMBIQUE_CHANNEL       ORCA025                 1309 1328  432  432
+11_MOZAMBIQUE_CHANNEL       ORCA025.L75             1309 1328  432  432
+11_MOZAMBIQUE_CHANNEL       eORCA025.L75            1309 1328  618  618
+11_MOZAMBIQUE_CHANNEL       ORCA025.L300            1309 1328  432  432
+11_MOZAMBIQUE_CHANNEL       ORCA2                    161  166   58   58
+11_MOZAMBIQUE_CHANNEL       ORCA246                  161  166   58   58
+11_MOZAMBIQUE_CHANNEL       ORCA05                   655  665  217  217
+#
+12_SOUTH_AFR                soafr                   South-Africa                    1
+12_SOUTH_AFR                ORCA12.L46              3685 3685  300 1052
+12_SOUTH_AFR                ORCA12.L75              3685 3685  300 1052
+12_SOUTH_AFR                eORCA12.L75             3685 3685  847 1599
+12_SOUTH_AFR                EORCA12                 3685 3685  387 1140
+12_SOUTH_AFR                EORCA12.L46             3685 3685  387 1140
+12_SOUTH_AFR                EORCA12.L75             3685 3685  387 1140
+12_SOUTH_AFR                ORCA025                 1228 1228  100 0350
+12_SOUTH_AFR                ORCA025.L75             1228 1228  100 0350
+12_SOUTH_AFR                eORCA025.L75            1228 1228  286  536
+12_SOUTH_AFR                ORCA025.L300            1228 1228  100 0350
+12_SOUTH_AFR                PERIANT8                2538 2538   16  796
+12_SOUTH_AFR                PERIANT05                635  635    5  200
+12_SOUTH_AFR                PERIANT025              1270 1270    9  399
+12_SOUTH_AFR                BIOPERIANT05             635  635    5  200
+12_SOUTH_AFR                ORCA05                   615  615   51  175 
+#
+13_KERGUELEN                kergu                   Kerguelen                       1
+13_KERGUELEN                ORCA12.L46              4276 4276  373  811
+13_KERGUELEN                ORCA12.L75              4276 4276  373  811
+13_KERGUELEN                eORCA12.L75             4276 4276  920 1358
+13_KERGUELEN                EORCA12                 4276 4276  461  899
+13_KERGUELEN                EORCA12.L46             4276 4276  461  899
+13_KERGUELEN                EORCA12.L75             4276 4276  461  899
+13_KERGUELEN                ORCA025                 1425 1425  124  270
+13_KERGUELEN                ORCA025.L75             1425 1425  124  270
+13_KERGUELEN                eORCA025.L75            1425 1425  319  456
+13_KERGUELEN                ORCA025.L300            1425 1425  124  270
+13_KERGUELEN                PERIANT8                2858 2858   16  796
+13_KERGUELEN                PERIANT05                715  715    5  200
+13_KERGUELEN                PERIANT025              1430 1430    9  399
+13_KERGUELEN                BIOPERIANT05             715  715    5  200
+13_KERGUELEN                ORCA05                   715  715   62  134 
+#
+14_CAMPBELL                 campb                   Campbell                        1
+14_CAMPBELL                 ORCA12.L46              1170 1170  237  875
+14_CAMPBELL                 ORCA12.L75              1170 1170  237  875
+14_CAMPBELL                 eORCA12.L75             1170 1170  784 1422
+14_CAMPBELL                 EORCA12                 1170 1170  323  963
+14_CAMPBELL                 EORCA12.L46             1170 1170  323  963
+14_CAMPBELL                 EORCA12.L75             1170 1170  323  963
+14_CAMPBELL                 ORCA025                  390  390   79  291
+14_CAMPBELL                 ORCA025.L75              390  390   79  291
+14_CAMPBELL                 eORCA025.L75             390  390  264  477
+14_CAMPBELL                 ORCA025.L300             390  390   79  291
+14_CAMPBELL                 PERIANT8                 778  778   16  796
+14_CAMPBELL                 PERIANT05                195  195    5  200
+14_CAMPBELL                 PERIANT025               390  390    9  399
+14_CAMPBELL                 BIOPERIANT05             195  195    5  200
+14_CAMPBELL                 ORCA05                   195  195   62  134 
+#
+15_AFR_AUSTR                afaus                   Africa-Australia                1
+15_AFR_AUSTR                ORCA12.L46              3804  528 1194 1194
+15_AFR_AUSTR                ORCA12.L75              3804  528 1194 1194
+15_AFR_AUSTR                eORCA12.L75             3804  528 1741 1741
+15_AFR_AUSTR                EORCA12                 3804  528 1282 1282
+15_AFR_AUSTR                EORCA12.L46             3804  528 1282 1282
+15_AFR_AUSTR                EORCA12.L75             3804  528 1282 1282
+15_AFR_AUSTR                ORCA025                 1268  176  398  398
+15_AFR_AUSTR                ORCA025.L75             1268  176  398  398
+15_AFR_AUSTR                eORCA025.L75            1268  176  584  584
+15_AFR_AUSTR                ORCA025.L300            1268  176  398  398
+15_AFR_AUSTR                PERIANT8                2534  350  796  796
+15_AFR_AUSTR                PERIANT05                634   88  200  200
+15_AFR_AUSTR                PERIANT025              1268  176  398  398
+15_AFR_AUSTR                BIOPERIANT05             634   88  200  200
+15_AFR_AUSTR                ORCA05                   634   84  199  199 
+#
+16_AUSTR_AM                 ausam                   Australia-America              -1
+16_AUSTR_AM                 ORCA12.L46               947 2601 1194 1194
+16_AUSTR_AM                 ORCA12.L75               947 2601 1194 1194
+16_AUSTR_AM                 eORCA12.L75              947 2601 1741 1741
+16_AUSTR_AM                 EORCA12                  947 2601 1282 1282
+16_AUSTR_AM                 EORCA12.L46              947 2601 1282 1282
+16_AUSTR_AM                 EORCA12.L75              947 2601 1282 1282
+16_AUSTR_AM                 ORCA025                  315  867  398  398
+16_AUSTR_AM                 ORCA025.L75              315  867  398  398
+16_AUSTR_AM                 eORCA025.L75             315  867  584  584
+16_AUSTR_AM                 ORCA025.L300             315  867  398  398
+16_AUSTR_AM                 PERIANT8                 626 1738  796  796
+16_AUSTR_AM                 PERIANT05                157  435  200  200
+16_AUSTR_AM                 PERIANT025               314  870  398  398
+16_AUSTR_AM                 BIOPERIANT05             157  435  200  200
+16_AUSTR_AM                 ORCA05                   157  432  199  199 
+#
+17_AM_AFR                   ameaf                   America-Africa                 -1
+17_AM_AFR                   ORCA12.L46              2880 3622 1194 1194
+17_AM_AFR                   ORCA12.L75              2880 3622 1194 1194
+17_AM_AFR                   eORCA12.L75             2880 3622 1741 1741
+17_AM_AFR                   EORCA12                 2880 3622 1282 1282
+17_AM_AFR                   EORCA12.L46             2880 3622 1282 1282
+17_AM_AFR                   EORCA12.L75             2880 3622 1282 1282
+17_AM_AFR                   ORCA025                  960 1208  398  398
+17_AM_AFR                   ORCA025.L75              960 1208  398  398
+17_AM_AFR                   eORCA025.L75             960 1208  584  584
+17_AM_AFR                   ORCA025.L300             960 1208  398  398
+17_AM_AFR                   PERIANT8                1878 2450  796  796
+17_AM_AFR                   PERIANT05                470  613  200  200
+17_AM_AFR                   PERIANT025               940 1226  398  398
+17_AM_AFR                   BIOPERIANT05             470  613  200  200
+17_AM_AFR                   ORCA05                   479  606  199  199 
+#
+18_SOSAL                    sosal                   South_Solomon                         1
+18_SOSAL                    SOSMOD                    43  90  58  58
+#
+19_SOSAL2                   sosal2                  South_Solomon_2                       1
+19_SOSAL2                   SOSMOD                    42  82  60  62
+#
+20_VITIAZ                   vitiaz                  Vitiaz_Strait                         1
+20_VITIAZ                   SOSMOD                   31  40  75  77
+#
+21_SALSTR                   salstr                  Solomon_Strait                        1
+21_SALSTR                   SOSMOD                    50  64  82 75
+#
+22_SOVIT2                   sovit2                  South_Vitiaz_2                        1
+22_SOVIT2                   SOSMOD                    28  48  74  74
+#
+23_SOVIT                    sovit                   South_Vitiaz                          1 
+23_SOVIT                    SOSMOD                    28  49  75  75
+#
+24_NBCU                     nbcu                    New_Britain_Coastal_Undecurrent       1
+24_NBCU                     SOSMOD                    49 49 80 75
+#
+25_SICU                     sicu                    Sicu                                  1
+25_SICU                     SOSMOD                    64  81  75  75
+#
+26_NICU                     nicu                    New_Ireland_Coastal_Undercurrent      1
+26_NICU                     SOSMOD                    50  81  82  82
+#
+27_SOSALG0                  sosalg0                 South_Solomon_Global_0                1
+27_SOSALG0                  SOSMOD                    12  89  55  57
+#
+28_NOSAL                    nosal                   Nosal                1
+28_NOSAL                    SOSMOD                    30  64  75  75
+#
+29_SOSALG1                  sosalg1                 South_Solomon_Global_1                1
+29_SOSALG1                  SOSMOD                    22  109  40  40
+#
+30_SOSALG2                  sosalg2                 South_Solomon_Global_2                1
+30_SOSALG2                  SOSMOD                    11  105  58  58
+#
+31_Gibraltar                gibra                   Gibraltar_Strait                      1
+31_Gibraltar                ORCA12.L46              3378 3378 1956 1961
+31_Gibraltar                ORCA12.L75              3378 3378 1956 1961
+31_Gibraltar                eORCA12.L75             3378 3378 2503 2508
+31_Gibraltar                EORCA12                 3378 3378 2044 2049
+31_Gibraltar                EORCA12.L46             3378 3378 2044 2049
+31_Gibraltar                EORCA12.L75             3378 3378 2044 2049
+31_Gibraltar                ORCA025                 1126 1126  651  655
+31_Gibraltar                ORCA025.L75             1126 1126  651  655
+31_Gibraltar                eORCA025.L75            1126 1126  837  841
+31_Gibraltar                ORCA025.L300            1126 1126  651  655
+31_Gibraltar                ORCA2                    140  140   99  103
+31_Gibraltar                ORCA246                  140  140   99  103
+31_Gibraltar                NATL025                  370  370  237  241
+31_Gibraltar                NATL12                  1108 1108  710  722
+#
+32_DETROIT_TORES            tores                   Tores_Strait                          1
+32_DETROIT_TORES            SOSMOD12                  31   31  167  186
+#
+33_DETROIT_VITIAZ           vitiaz                  Vitiaz_Strait                         1
+33_DETROIT_VITIAZ           SOSMOD12                  91   96  222  228
+#
+34_DETROIT_DAMPIER          dampier                 Dampier_Strait                        1
+34_DETROIT_DAMPIER          SOSMOD12                  96  101  228  229
+#
+35_STGEORGES                stgeorg                 St_Georges_Channel                    1
+35_STGEORGES                SOSMOD12                 148  154  244  244
+#
+36_SOLOMONSTR               solostr                 Solomon_Strait                        1
+36_SOLOMONSTR               SOSMOD12                 156  176  243  236
+#
+37_INDISP                   indisp                  Indispensable_Strait                  1
+37_INDISP                   SOSMOD12                 249  256  178  174
+#
+38_SOLOSOUTH                solosouth               South_Entrance_Solomon_Sea            1
+38_SOLOSOUTH                SOSMOD12                 127  266  169  167
+#
+39_MILNE_BAY_S              milnebs                 Milne_Bay_South                       1
+39_MILNE_BAY_S              SOSMOD12                 127  132  173  176
+#
+40_MILNE_BAY_N              milnebn                 Milne_Bay_North                       1
+40_MILNE_BAY_N              SOSMOD12                 120  124  180  184
+#
+41_MILNE_BAY_NE             milnebne                Milne_Bay_North-East                  1
+41_MILNE_BAY_NE             SOSMOD12                 249  256  178  174
+#
+42_MILNE_BAY_E              milnebe                 Milne_Bay_East                        1
+42_MILNE_BAY_E              SOSMOD12                 131  131  179  181
+#
+43_SICU                     sicu                    Solomon_Island_Coastal_Undercurrent   1
+43_SICU                     SOSMOD12                 182  202  225  225    
+#
+44_NICU                     nicu                    New_Ireland_Coastal_Undercurrent      1
+44_NICU                     SOSMOD12                 156  202  247  247
+#
+45_NBCU                     nbcu                    New_Britain_Coastal_Undecurrent       1
+45_NBCU                     SOSMOD12                 146  146  217  233
+#
+46_SOVIT                    sovit                   South_Vitiaz                          1
+46_SOVIT                    SOSMOD12                  83  146  217  217
+#
+47_SICU_NICU                sicunicu                Sicu_Nicu                             1
+47_SICU_NICU                SOSMOD12                 202  202  225  247
+#

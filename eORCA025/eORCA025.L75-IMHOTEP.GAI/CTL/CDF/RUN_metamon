@@ -1,0 +1,90 @@
+#!/bin/bash
+## =====================================================================
+##     ***  script  RUN_metamon  ***
+## This is a wrapper for submitting metamon.sub from the CDF directory
+## =====================================================================
+## History : 1.0  !  2008     J.M. Molines      Original code
+## ----------------------------------------------------------------------
+##  DMONTOOLS_2.0 , MEOM 2012
+##  $Id: RUN_metamon 636 2015-08-19 08:50:48Z molines $
+##  Copyright (c) 2012, J.-M. Molines
+##  Software governed by the CeCILL licence (Licence/DMONTOOLSCeCILL.txt)
+## ----------------------------------------------------------------------
+#
+if [ $# != 2 ] ; then
+   echo USAGE: RUN_metamon year-init year-end
+   exit 0
+fi
+
+  year1=$1
+  year2=$2
+
+ # if only one year ...
+  year2=${year2:=$year1}
+
+  . ./config_def
+  . ./function_def
+
+  set -x 
+
+if [ $RNDTMPDIR == 0 ] ; then
+  
+  # move elementary scripts to the local TMPDIR
+  chkdir $R_MONITOR
+  XTMPDIR=$R_MONITOR
+  cp ./config_def   $XTMPDIR
+  cp ./function_def $XTMPDIR
+
+  # copy some DMONTOOLS utilities
+  cp $PRODTOOLS/create_sections_list       $XTMPDIR
+  cp $PRODTOOLS/drakkar_sections_table.txt $XTMPDIR
+  cp $PRODTOOLS/drakkar_trpsig_table.txt   $XTMPDIR
+  cp $PRODTOOLS/monitor_prod               $XTMPDIR
+
+fi
+
+  cp $PRODTOOLS/make_ncdf_timeseries   .
+  cp $PRODTOOLS/drakkar_sections_table.txt .
+  cp $PRODTOOLS/drakkar_trpsig_table.txt   .
+  cp $TIMESERIES/python/pydmontools/scripts/run_monitor_py        .
+
+  JOBTYPE=serial # this is the default (only for LoadLeveler)
+  TASKTRICK='#'
+
+  NB_NODES=1
+
+  if [ $useMPI == 1 ] ; then
+     cp $MPITOOLS/mpi_metamon      $XTMPDIR
+     JOBTYPE=parallel # we switch to parallel (only for LoadLeveler)
+     TASKTRICK=''
+
+     NB_NPROC=$(( year2 - year1 + 1 ))
+     # compute the required number of nodes (assuming MPIPROC cores on 1 node)
+     NB_NODES=$(( NB_NPROC / MPIPROC ))
+     if (( NB_NPROC % MPIPROC != 0 )) ; then NB_NODES=$(( NB_NODES + 1 )) ; fi
+
+     echo This job is asking for $NB_NODES nodes and $NB_NPROC cores
+  fi
+  year1=$( printf "%04d" $year1)
+  year2=$( printf "%04d" $year2)
+
+  # submit the monitoring mpi
+  cat $PRODTOOLS/metamon.skel.sub | sed -e "s/<year1>/$year1/" -e "s/<year2>/$year2/" \
+      -e "s@<R_MONITOR>@$R_MONITOR@" -e "s/<NB_NODES>/$NB_NODES/" -e "s/<MAIL>/$MAIL/" \
+      -e "s@<QUEUE>@$QUEUE@" -e "s/<ACCOUNT>/$ACCOUNT/"  \
+      -e "s/<JOBTYPE>/$JOBTYPE/" -e "s/<NB_NPROC>/$NB_NPROC/g" -e "s/<MPIPROC>/$MPIPROC/g" \
+      -e "s/ifloadlev#/$TASKTRICK/g" -e "s/<RNDTMPDIR>/$RNDTMPDIR/" -e "s/<NODETYPE>/$NODETYPE/g"  \
+      -e "s/<WALLTIME>/$WALLTIME/" -e "s/<WALL_CLOCK_LIMIT>/$WALL_CLOCK_LIMIT/" > metamon.sub
+ if [ $MACHINE = 'jean-zay' ] ; then
+   # Erase std SBATCH statements (valid for occigen) 
+   # Replace key_jean-zay by SBATCH afterward
+   cat metamon.sub | sed -e '/SBATCH/d' -e 's/key_jean-zay/SBATCH/' > ztmp
+   mv ztmp metamon.sub
+ elif [ $MACHINE = 'vayu' ] ; then
+   cat metamon.sub | sed -e 's/key_vayu/PBS/' > ztmp
+   mv ztmp metamon.sub
+ fi
+  chmod +x metamon.sub
+  submit  ./metamon.sub
+  \rm  metamon.sub
+
