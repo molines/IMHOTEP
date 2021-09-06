@@ -1,0 +1,50 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=40
+#SBATCH --ntasks-per-node=40
+#SBATCH --threads-per-core=1
+#SBATCH -A cli@cpu
+#SBATCH --hint=nomultithread
+#SBATCH -J jobmoy
+#SBATCH -e zmoy.e%j
+#SBATCH -o zmoy.o%j
+#SBATCH --time=4:00:00
+#SBATCH --exclusive
+
+CONFIG=eORCA025.L75
+CASE=IMHOTEP.S
+
+freq=1d
+year1=$1
+year2=$2
+
+nyrs=$(( year2 - year1 + 1 ))
+
+CONFCASE=${CONFIG}-${CASE}
+
+MWDIR=$WORK/$CONFIG/${CONFCASE}-MEAN2/$freq/
+
+
+# set the list of type  present in this directory (using for instance m01d01, and assuming coherency
+# of the data base throughout the year.
+cd $MWDIR/$year1
+lsttyp=( $(ls -1 ${CONFCASE}_y${year1}m01.${freq}_*.nc | awk -F_ '{print $3}' | awk -F. '{print $1}' ) )
+
+
+n=0
+for typ in ${lsttyp[@]} ; do
+for year in $(seq  $year1 $year2 ) ; do
+  MWDIR=$WORK/$CONFIG/${CONFCASE}-MEAN2/$freq/$year
+  cd $MWDIR
+     cdfmoy -nc4 -o $MWDIR/${CONFCASE}_y${year}.${freq}_$typ -l  ${CONFCASE}_y${year}m??.${freq}_$typ.nc &
+     n=$(( n + 1 ))
+     if [ $n = $nyrs ] ; then
+       wait
+       n=0
+     fi
+done
+wait
+n=0
+done
+wait
+
