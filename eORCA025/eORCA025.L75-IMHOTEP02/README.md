@@ -1,6 +1,6 @@
 # IMHOTEP02 : IMHOTEP spinup run
 ## History
-After several tests, we arrived to a consensual set up for IMHOTEP's spinup run: eORCA025.L75-IMHOTEP02. To summarize, this experiment uses the following;
+After several tests, we arrived to a consensual set up for IMHOTEP's spinup run: eORCA025.L75-IMHOTEP02. Then all sensitivity experiments will use the same code, for the numerics. (Forcing procedure may differ, regarding the experiment). To summarize, this experiment uses the following:
 ### Numerical schemes
 #### Tracers
   * Equation of state : TEOS10
