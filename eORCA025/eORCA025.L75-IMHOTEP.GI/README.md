@@ -65,3 +65,6 @@ In our case, `GA_runoff_ISBA_noAA_noGR_clim_366.nc` file is specified as the las
 
 ## Building `GI_runoff_ISBA_noAA_noGR_clim_366.nc`:
 We took the global runoff climatology and apply a mask in order to keep only coastal runoff corresponding to Amazon-Orenoque, Niger-Congo areas.
+
+See the [bash script](../BUILD/AI_RUNOFF/mk_clim_AI.sh) used to produce the GA and GI runoff input.
+
