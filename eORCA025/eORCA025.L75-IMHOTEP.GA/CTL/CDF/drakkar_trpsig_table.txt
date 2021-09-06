@@ -1,0 +1,332 @@
+#--------------------------------------------------------------
+#   $Rev$
+#   $Date$
+#   $Id$
+#--------------------------------------------------------------
+#----- Sections -----!----- Netcdf short name ----- Netcdf long name --------
+#--------------------!----- Configs --------------- imin imax jmin jmax -----
+#
+#
+01_Denmark_strait           denma                   Denmark_Strait_transport_in_sigma_classes
+01_Denmark_strait           ORCA12.L46              3043 3162 2496 2496
+01_Denmark_strait           ORCA12.L75              3043 3162 2496 2496
+01_Denmark_strait           eORCA12.L75             3043 3162 3043 3043
+01_Denmark_strait           EORCA12                 3043 3162 2584 2584
+01_Denmark_strait           EORCA12.L46             3043 3162 2584 2584
+01_Denmark_strait           EORCA12.L75             3043 3162 2584 2584
+01_Denmark_strait           NNATL12                  446  565  331  331
+01_Denmark_strait           ORCA025                 1013 1056  832  832 
+01_Denmark_strait           ORCA025.L75             1013 1056  832  832 
+01_Denmark_strait           eORCA025.L75            1013 1056 1018 1018
+01_Denmark_strait           ORCA025.L300            1013 1056  832  832 
+01_Denmark_strait           ORCA05                   507  528  416  416
+01_Denmark_strait           ORCA2                    123  131  123  123
+01_Denmark_strait           ORCA246                  123  131  123  123
+01_Denmark_strait           NATL025                  257  300  418  418 
+01_Denmark_strait           NATL12                   769  898 1253 1253 
+#
+02_Faoes_Bank_Channel      faroe                   Faroes_Bank_Channel_transport_in_sigma_classes 
+02_Faoes_Bank_Channel      ORCA12.L46              3318 3318 2398 2420 
+02_Faoes_Bank_Channel      ORCA12.L75              3318 3318 2398 2420 
+02_Faoes_Bank_Channel      eORCA12.L75             3318 3318 2945 2945
+02_Faoes_Bank_Channel      EORCA12                 3318 3318 2486 2508
+02_Faoes_Bank_Channel      EORCA12.L46             3318 3318 2486 2508
+02_Faoes_Bank_Channel      EORCA12.L75             3318 3318 2486 2508
+02_Faoes_Bank_Channel      NNATL12                  721  721  233  255
+02_Faoes_Bank_Channel      ORCA025                 1106 1106  800  808 
+02_Faoes_Bank_Channel      ORCA025.L75             1106 1106  800  808 
+02_Faoes_Bank_Channel      eORCA025.L75            1106 1106  986  994
+02_Faoes_Bank_Channel      ORCA025.L300            1106 1106  800  808 
+02_Faoes_Bank_Channel      ORCA05                   554  554  398  404
+02_Faoes_Bank_Channel      ORCA2                    137  137  117  121
+02_Faoes_Bank_Channel      ORCA246                  137  137  117  121
+02_Faoes_Bank_Channel      NATL025                  350  350  386  394
+02_Faoes_Bank_Channel      NATL12                  1048 1048 1157 1181 
+#
+03_Gibraltar                gibra                   Gibraltar_Strait_transport_in_sigma_classes
+03_Gibraltar                ORCA12.L46              3378 3378 1956 1961 
+03_Gibraltar                ORCA12.L75              3378 3378 1956 1961 
+03_Gibraltar                eORCA12.L75             3378 3378 2503 2508
+03_Gibraltar                EORCA12                 3378 3378 2044 2049
+03_Gibraltar                EORCA12.L46             3378 3378 2044 2049
+03_Gibraltar                EORCA12.L75             3378 3378 2044 2049
+03_Gibraltar                ORCA025                 1126 1126  651  655
+03_Gibraltar                ORCA025.L75             1126 1126  651  655
+03_Gibraltar                eORCA025.L75            1126 1126  837  841
+03_Gibraltar                ORCA025.L300            1126 1126  651  655
+03_Gibraltar                ORCA05                   563  563  326  327
+03_Gibraltar                ORCA2                    140  140   99  103
+03_Gibraltar                ORCA246                  140  140   99  103
+03_Gibraltar                NATL025                  370  370  237  241
+03_Gibraltar                NATL12                  1108 1108  710  722
+#
+04_Gibbs_FZ                 gibbs                   Gibbs_Fracture_Zone_transport_in_sigma_classes
+04_Gibbs_FZ                 ORCA12.L46              3075 3075 2215 2235
+04_Gibbs_FZ                 ORCA12.L75              3075 3075 2215 2235
+04_Gibbs_FZ                 eORCA12.L75             3075 3075 2762 2782
+04_Gibbs_FZ                 EORCA12                 3075 3075 2303 2323
+04_Gibbs_FZ                 EORCA12.L46             3075 3075 2303 2323
+04_Gibbs_FZ                 EORCA12.L75             3075 3075 2303 2323
+04_Gibbs_FZ                 NNATL12                  478  478   50   70
+04_Gibbs_FZ                 ORCA025                 1025 1025  739  745
+04_Gibbs_FZ                 ORCA025.L75             1025 1025  739  745
+04_Gibbs_FZ                 eORCA025.L75            1025 1025  925  931
+04_Gibbs_FZ                 ORCA025.L300            1025 1025  739  745
+04_Gibbs_FZ                 ORCA05                   513  513  370  373
+04_Gibbs_FZ                 NATL025                  269  269  325  331
+04_Gibbs_FZ                 NATL12                   805  805  974  992 
+#
+05_Romanche_FZ              roman                   Romanche_Fracture_Zone_transport_in_sigma_classes
+05_Romanche_FZ              ORCA12.L46              3252 3252 1495 1503
+05_Romanche_FZ              ORCA12.L75              3252 3252 1495 1503
+05_Romanche_FZ              eORCA12.L75             3252 3252 2042 2050
+05_Romanche_FZ              EORCA12                 3252 3252 1583 1591
+05_Romanche_FZ              EORCA12.L46             3252 3252 1583 1591
+05_Romanche_FZ              EORCA12.L75             3252 3252 1583 1591
+05_Romanche_FZ              ORCA025                 1084 1084  496  501
+05_Romanche_FZ              ORCA025.L75             1084 1084  496  501
+05_Romanche_FZ              eORCA025.L75            1084 1084  632  687
+05_Romanche_FZ              ORCA025.L300            1084 1084  496  501
+05_Romanche_FZ              ORCA05                   542  542  248  251
+05_Romanche_FZ              NATL12                   982  982  245  260
+#
+06_Vema_Channel             vema                    Vema_Channel_transport_in_sigma_classes
+06_Vema_Channel             ORCA12.L46              2970 2997 1116 1116
+06_Vema_Channel             ORCA12.L75              2970 2997 1116 1116
+06_Vema_Channel             eORCA12.L75             2970 2997 1663 1663
+06_Vema_Channel             EORCA12                 2970 2997 1204 1204
+06_Vema_Channel             EORCA12.L46             2970 2997 1204 1204
+06_Vema_Channel             EORCA12.L75             2970 2997 1204 1204
+06_Vema_Channel             ORCA025                  990  999  372  372
+06_Vema_Channel             ORCA025.L75              990  999  372  372
+06_Vema_Channel             eORCA025.L75             990  999  558  558
+06_Vema_Channel             ORCA025.L300             990  999  372  372
+06_Vema_Channel             ORCA05                   495  500  186  186
+#
+07_Bab_el_Mandeb            babel                   Bab_El_Mandeb_transport_in_sigma_classes
+07_Bab_el_Mandeb            ORCA12.L46              3952 3966 1659 1659
+07_Bab_el_Mandeb            ORCA12.L75              3952 3966 1659 1659
+07_Bab_el_Mandeb            eORCA12.L75             3952 3966 2206 2206
+07_Bab_el_Mandeb            EORCA12                 3952 3966 1747 1747
+07_Bab_el_Mandeb            EORCA12.L46             3952 3966 1747 1747
+07_Bab_el_Mandeb            EORCA12.L75             3952 3966 1747 1747
+07_Bab_el_Mandeb            ORCA025                 1318 1324  553  553
+07_Bab_el_Mandeb            ORCA025.L75             1318 1324  553  553
+07_Bab_el_Mandeb            eORCA025.L75            1318 1324  739  739
+07_Bab_el_Mandeb            ORCA025.L300            1318 1324  553  553
+07_Bab_el_Mandeb            ORCA05                   659  662  277  277
+#
+08_Lombok                   lombo                   Lombok_Strait_transport_in_sigma_classes
+08_Lombok                   ORCA12.L46               512  520 1392 1392
+08_Lombok                   ORCA12.L75               512  520 1392 1392
+08_Lombok                   eORCA12.L75              512  520 1939 1939
+08_Lombok                   EORCA12                  512  520 1480 1480
+08_Lombok                   EORCA12.L46              512  520 1480 1480
+08_Lombok                   EORCA12.L75              512  520 1480 1480
+08_Lombok                   ORCA025                  173  175  464  464
+08_Lombok                   ORCA025.L75              173  175  464  464
+08_Lombok                   eORCA025.L75             173  175  650  650
+08_Lombok                   ORCA025.L300             173  175  464  464
+08_Lombok                   ORCA05                    86   87  232  232
+#
+09_Mona                     mona                    Mona_Passage_transport_in_sigma_classes
+09_Mona                     ORCA12.L46              2624 2642 1721 1721 
+09_Mona                     ORCA12.L75              2624 2642 1721 1721 
+09_Mona                     eORCA12.L75             2624 2642 2268 2268
+09_Mona                     EORCA12                 2624 2642 1809 1809
+09_Mona                     EORCA12.L46             2624 2642 1809 1809
+09_Mona                     EORCA12.L75             2624 2642 1809 1809
+09_Mona                     ORCA025                  876  881  574  574
+09_Mona                     ORCA025.L75              876  881  574  574
+09_Mona                     eORCA025.L75             876  881  760  760
+09_Mona                     ORCA025.L300             876  881  574  574
+09_Mona                     ORCA05                   438  441  287  287
+09_Mona                     NATL025                  120  125  160  160
+09_Mona                     NATL12                   358  373  479  479
+#
+10_Windward_passage         windw                   Windward_Passage_transport_in_sigma_classes
+10_Windward_passage         ORCA12.L46              2555 2571 1739 1739
+10_Windward_passage         ORCA12.L75              2555 2571 1739 1739
+10_Windward_passage         eORCA12.L75             2555 2571 2286 2286
+10_Windward_passage         EORCA12                 2555 2571 1827  1827
+10_Windward_passage         EORCA12.L46             2555 2571 1827  1827
+10_Windward_passage         EORCA12.L75             2555 2571 1827  1827
+10_Windward_passage         ORCA025                  853  857  580  580
+10_Windward_passage         ORCA025.L75              853  857  580  580
+10_Windward_passage         eORCA025.L75             853  857  766  766
+10_Windward_passage         ORCA025.L300             853  857  580  580
+10_Windward_passage         ORCA05                   426  428  290  290
+10_Windward_passage         NATL025                   97  101  166  166
+10_Windward_passage         NATL12                   289  301  497  497
+#
+11_Drake                    drake                   Drake_Passage_transport_in_sigma_classes
+11_Drake                    ORCA12.L46               2634 2634   27 1197
+11_Drake                    ORCA12.L75               2634 2634   27 1197
+11_Drake                    eORCA12.L75              2634 2634  574 1744
+11_Drake                    EORCA12                  2609 2609  365  859
+11_Drake                    EORCA12.L46              2609 2609  365  859
+11_Drake                    EORCA12.L75              2609 2609  365  859
+11_Drake                    ORCA025                   878  878    9  399
+11_Drake                    ORCA025.L75               878  878    9  399
+11_Drake                    eORCA025.L75              879  879  193  585
+11_Drake                    ORCA025.L300              878  878    9  399
+11_Drake                    PERIANT8                 1754 1754   16  796
+11_Drake                    PERIANT05                 439  439    5  200
+11_Drake                    PERIANT025                878  878    9  399
+11_Drake                    BIOPERIANT05              439  439    5  200
+11_Drake                    ORCA05                    439  439   70  116 
+#
+12_South_Africa             soafr                   South_Africa_transport_in_sigma_classes
+12_South_Africa             ORCA12.L46               3810 3810 27 1197
+12_South_Africa             ORCA12.L75               3810 3810 27 1197
+12_South_Africa             eORCA12.L75              3810 3810 574 1744
+12_South_Africa             EORCA12                  3809 3809 73 1285
+12_South_Africa             EORCA12.L46              3809 3809 73 1285
+12_South_Africa             EORCA12.L75              3809 3809 73 1285
+12_South_Africa             ORCA025                  1270 1270    9  399
+12_South_Africa             ORCA025.L75              1270 1270    9  399
+12_South_Africa             eORCA025.L75             1270 1270  181  585
+12_South_Africa             ORCA025.L300             1270 1270    9  399
+12_South_Africa             PERIANT8                 2538 2538 16 796
+12_South_Africa             PERIANT05                 635  635  5 200
+12_South_Africa             PERIANT025               1270 1270  9 399
+12_South_Africa             BIOPERIANT05              635  635  5 200
+12_South_Africa             ORCA05                    615  615   51  175
+#
+13_kerguelen                kergu                   Kerguelen_transport_in_sigma_classes
+13_kerguelen                ORCA12.L46               4276 4276  373  811
+13_kerguelen                ORCA12.L75               4276 4276  373  811
+13_kerguelen                eORCA12.L75              4276 4276  920 1358
+13_kerguelen                EORCA12                  4276 4276  461  899
+13_kerguelen                EORCA12.L46              4276 4276  461  899
+13_kerguelen                EORCA12.L75              4276 4276  461  899
+13_kerguelen                ORCA025                  1425 1425  124  270
+13_kerguelen                ORCA025.L75              1425 1425  124  270
+13_kerguelen                eORCA025.L75             1425 1425  310  456
+13_kerguelen                ORCA025.L300             1425 1425  124  270
+13_kerguelen                PERIANT8                 2858 2858 16 796
+13_kerguelen                PERIANT05                 715  715  5 200
+13_kerguelen                PERIANT025               1430 1430  9 399
+13_kerguelen                BIOPERIANT05              715  715  5 200
+13_kerguelen                ORCA05                    715  715   62  135
+#
+14_South_Australia          soaus                   South-Australia_transport_in_sigma_classes
+14_South_Australia          ORCA12.L46               804 804 27 1197
+14_South_Australia          ORCA12.L75               804 804 27 1197
+14_South_Australia          eORCA12.L75              804 804 574 1744
+14_South_Australia          EORCA12                  804 804 43 1285
+14_South_Australia          EORCA12.L46              804 804 43 1285
+14_South_Australia          EORCA12.L75              804 804 43 1285
+14_South_Australia          ORCA025                  268  268    9  399
+14_South_Australia          ORCA025.L75              268  268    9  399
+14_South_Australia          eORCA025.L75             269  269  171  585
+14_South_Australia          ORCA025.L300             268  268    9  399
+14_South_Australia          PERIANT8                 534 534 16 796
+14_South_Australia          PERIANT05                134 134  5 200
+14_South_Australia          PERIANT025               268 268  9 399
+14_South_Australia          BIOPERIANT05             134 134  5 200
+14_South_Australia          ORCA05                   142  142 65 168
+#
+15_Campbell                 campb                   Campbell_transport_in_sigma_classes
+15_Campbell                 ORCA12.L46               1170 1170  237  875
+15_Campbell                 ORCA12.L75               1170 1170  237  875
+15_Campbell                 eORCA12.L75              1170 1170  784 1422
+15_Campbell                 EORCA12                  1170 1170  323  963
+15_Campbell                 EORCA12.L46              1170 1170  323  963
+15_Campbell                 EORCA12.L75              1170 1170  323  963
+15_Campbell                 ORCA025                   390  390   79  291
+15_Campbell                 ORCA025.L75               390  390   79  291
+15_Campbell                 eORCA025.L75              390  390  264  477
+15_Campbell                 ORCA025.L300              390  390   79  291
+15_Campbell                 PERIANT05                195 195  5 200
+15_Campbell                 PERIANT025               390 390  9 399
+15_Campbell                 BIOPERIANT05             195 195  5 200
+14_Campbell                 ORCA05                   195  195   62  134
+#
+18_SOSAL                    sosal                   South_Solomon        
+18_SOSAL                    SOSMOD                    43  90  58  58
+#
+19_SOSAL2                   sosal2                  South_Solomon_2     
+19_SOSAL2                   SOSMOD                    42  82  60  62
+#
+20_VITIAZ                   vitiaz                  Vitiaz_Strait      
+20_VITIAZ                   SOSMOD                   31  40  75  77
+#
+21_SALSTR                   salstr                  Solomon_Strait    
+21_SALSTR                   SOSMOD                    50  64  82 75
+#
+22_SOVIT2                   sovit2                  South_Vitiaz_2   
+22_SOVIT2                   SOSMOD                    28  48  74  74
+#
+23_SOVIT                    sovit                   South_Vitiaz    
+23_SOVIT                    SOSMOD                    28  49  75  75
+#
+24_NBCU                     nbcu                    New_Britain_Coastal_Undecurrent 
+24_NBCU                     SOSMOD                    49 49 80 75
+#
+25_SICU                     sicu                    Sicu             
+25_SICU                     SOSMOD                    64  81  75  75
+#
+26_NICU                     nicu                    New_Ireland_Coastal_Undercurrent
+26_NICU                     SOSMOD                    50  81  82  82
+#
+27_SOSALG0                  sosalg0                 South_Solomon_Global_0         
+27_SOSALG0                  SOSMOD                    12  89  55  57
+#
+28_NOSAL                    nosal                   Nosal             
+28_NOSAL                    SOSMOD                    30  64  75  75
+#
+29_SOSALG1                  sosalg1                 South_Solomon_Global_1 
+29_SOSALG1                  SOSMOD                    22  109  40  40
+#
+30_SOSALG2                  sosalg2                 South_Solomon_Global_2 
+30_SOSALG2                  SOSMOD                    11  105  58  58
+#
+31_DETROIT_TORES            tores                   Tores_Strait                          1
+31_DETROIT_TORES            SOSMOD12                  31   31  167  186
+#
+32_DETROIT_VITIAZ           vitiaz                  Vitiaz_Strait                         1
+32_DETROIT_VITIAZ           SOSMOD12                  91   96  222  228
+#
+33_DETROIT_DAMPIER          dampier                 Dampier_Strait                        1
+33_DETROIT_DAMPIER          SOSMOD12                  96  101  228  229
+#
+34_STGEORGES                stgeorg                 St_Georges_Channel                    1
+34_STGEORGES                SOSMOD12                 148  154  244  244
+#
+35_SOLOMONSTR               solostr                 Solomon_Strait                        1
+35_SOLOMONSTR               SOSMOD12                 156  176  243  236
+#
+36_INDISP                   indisp                  Indispensable_Strait                  1
+36_INDISP                   SOSMOD12                 249  256  178  174
+#
+37_SOLOSOUTH                solosouth               South_Entrance_Solomon_Sea            1
+37_SOLOSOUTH                SOSMOD12                 127  266  169  167
+#
+38_MILNE_BAY_S              milnebs                 Milne_Bay_South                       1
+38_MILNE_BAY_S              SOSMOD12                 127  132  173  176
+#
+39_MILNE_BAY_N              milnebn                 Milne_Bay_North                       1
+39_MILNE_BAY_N              SOSMOD12                 120  124  180  184
+#
+40_MILNE_BAY_NE             milnebne                Milne_Bay_North-East                  1
+40_MILNE_BAY_NE             SOSMOD12                 249  256  178  174
+#
+41_MILNE_BAY_E              milnebe                 Milne_Bay_East                        1
+41_MILNE_BAY_E              SOSMOD12                 131  131  179  181
+#
+42_SICU                     sicu                    Solomon_Island_Coastal_Undercurrent   1
+42_SICU                     SOSMOD12                 182  202  225  225
+#
+43_NICU                     nicu                    New_Ireland_Coastal_Undercurrent      1
+43_NICU                     SOSMOD12                 156  202  247  247
+#
+44_NBCU                     nbcu                    New_Britain_Coastal_Undecurrent       1
+44_NBCU                     SOSMOD12                 146  146  217  233
+#
+45_SOVIT                    sovit                   South_Vitiaz                          1
+45_SOVIT                    SOSMOD12                  83  146  217  217
+#
+46_SICU_NICU                sicunicu                Sicu_Nicu                             1
+46_SICU_NICU                SOSMOD12                 202  202  225  247
+#
