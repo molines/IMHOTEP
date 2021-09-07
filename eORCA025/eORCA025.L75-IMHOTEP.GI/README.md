@@ -21,6 +21,7 @@ code has been sligthly modified to become :
 ### corresponding namelist
 Note that with this trick, the last read data set replace the first ones: order of the data set does matter in the namelist !  
 In our case, `GA_runoff_ISBA_noAA_noGR_clim_366.nc` file is specified as the last one. In the namelist :
+  * River runoff
 
 ```fortran
 !-----------------------------------------------------------------------
@@ -40,25 +41,25 @@ In our case, `GA_runoff_ISBA_noAA_noGR_clim_366.nc` file is specified as the las
    ln_rnf_icb  = .false.   !  read in iceberg flux from a file (fill sn_i_rnf if .true.)
 
    cn_dir      = './'      !  root directory for the runoff data location
-   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
-   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
-   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_rnf      = 'eORCA025_runoff_ISBA_noAA_noGR' , 24.      , 'sorunoff', .true.      , .false. , 'yearly'  , ''       , '' , ''
-   sn_cnf      = 'eORCA025.L75_rnf_msk' ,   -12.       , 'socoefr' , .false.     , .true. , 'yearly'  , ''       , '' , ''
-   sn_s_rnf    = ' '            ,        24.       , 'rosaline',   .true.     , .true. , 'yearly'  , ''       , '' , ''
-   sn_t_rnf    = ' '            ,        24.       , 'rotemper',   .true.     , .true. , 'yearly'  , ''       , '' , ''
-   sn_dep_rnf  = 'eORCA025.L75_rnf_dep '   ,   0.  , 'sozisfmax' ,   .false.    , .true. , 'yearly'  , ''       , '' , ''
-   sn_i_rnf    = 'NOT_USED'              ,        -1.        , 'sorunoff',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________!__________!_______________!
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' ! filename ! pairing  !    filename   !
+   sn_rnf      = 'eORCA025_runoff_ISBA_noAA_noGR' , 24.      , 'sorunoff', .true.      , .false., 'yearly'  , ''       , ''       , ''
+   sn_cnf      = 'eORCA025.L75_rnf_msk'  ,         -12.      , 'socoefr' , .false.     , .true. , 'yearly'  , ''       , ''       , ''
+   sn_s_rnf    = ' '                     ,          24.      , 'rosaline', .true.      , .true. , 'yearly'  , ''       , ''       , ''
+   sn_t_rnf    = ' '                     ,          24.      , 'rotemper', .true.      , .true. , 'yearly'  , ''       , ''       , ''
+   sn_dep_rnf  = 'eORCA025.L75_rnf_dep ' ,           0.      , 'sozisfmax',.false.     , .true. , 'yearly'  , ''       , ''       , ''
+   sn_i_rnf    = 'NOT_USED'              ,        -1.        , 'sorunoff', .true.      , .true. , 'yearly'  , ''       , ''       , ''
 /
 !-----------------------------------------------------------------------
 &namsbc_rnf_drk  !   runoffs  drakkar multiple file enhancement         (ln_rnf =T)
 !-----------------------------------------------------------------------
    nn_rnf_freq = 3
-   !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
-   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
-   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_rnf2(1)  = 'eORCA025.L75_1m_greenland_rnfbis' , -1.    , 'sorunoff', .true.      , .false. , 'yearly' , ''       , '' , ''
-   sn_rnf2(2)  = 'GI_runoff_ISBA_noAA_noGR_clim_366' , 24.   , 'sorunoff', .true.      , .true. , 'yearly'  , ''       , '' , ''
+   !___________!_________________________!___________________!___________!_____________!________!___________!__________!__________!_______________!
+   !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
+   !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' ! filename ! pairing  !    filename   !
+   sn_rnf2(1)  = 'eORCA025.L75_1m_greenland_rnfbis' , -1.    , 'sorunoff', .true.      , .false., 'yearly'  , ''       , ''       , ''
+   sn_rnf2(2)  = 'GI_runoff_ISBA_noAA_noGR_clim_366' , 24.   , 'sorunoff', .true.      , .true. , 'yearly'  , ''       , ''       , ''
 /
 
 ```
