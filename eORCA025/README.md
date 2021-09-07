@@ -10,13 +10,13 @@ All experiments were monitored using the Drakkar Monitoring Tools (DMONTOOLS). R
 explore IMHOTEP questions. 
 
 
-## [IMHOTEP02](./eORCA025.L75-IMHOTEP02) : Spinup run
+## [IMHOTEP02](./eORCA025.L75-IMHOTEP02) : Spinup run with all freshwater sources set as climatological (and SSS restoring)
   * [monitoring](https://ige-meom-drakkar.u-ga.fr/DRAKKAR/eORCA025.L75/eORCA025.L75-IMHOTEP02)
 
-## [IMHOTEP.S](./eORCA025.L75-IMHOTEP.S) : Experiment with all freshwater sourced set as climatological
+## [IMHOTEP.S](./eORCA025.L75-IMHOTEP.S) : Experiment with all freshwater sources set as climatological (and __NO SSS restoring__ )
   * [monitoring](https://ige-meom-drakkar.u-ga.fr/DRAKKAR/eORCA025.L75/eORCA025.L75-IMHOTEP.S)
 
-## [IMHOTEP.GAI](./eORCA025.L75-IMHOTEP.GAI) : Experiment with all freshwater sourced set as interannual (except Antarctica, always climatological)
+## [IMHOTEP.GAI](./eORCA025.L75-IMHOTEP.GAI) : Experiment with all freshwater sources set as interannual (except Antarctica, always climatological)
   * [monitoring](https://ige-meom-drakkar.u-ga.fr/DRAKKAR/eORCA025.L75/eORCA025.L75-IMHOTEP.GAI)
 
 ## [IMHOTEP.AI](./eORCA025.L75-IMHOTEP.AI) : All interannual except Greenland.
