@@ -42,22 +42,23 @@ while getopts :hc:y:p:  opt ; do
 done
 
 MWDIR=$WORK/${CONFIG}/${CONFCASE}-MEAN/$freq/
-FIGDIR=$WORK/${CONFIG}/${CONFCASE}-PLOT/EKE/PACIF/LOG/
+FIGDIR=$WORK/${CONFIG}/${CONFCASE}-PLOT/SSH/ATLIND
 
 
 vp="-100 -70 120 70"
-vp="-240 -70 -70  70"
-zoom="80 112 915 1114"
+#zoom="2112 336 3840 3340"
+#zoom="704 112 1280 1114"
+zoom="704 112 231 1114"
 figs=$FIGDIR
-var=voeke
+var=sossheig
 pal=YlGnBu_r
 charpal=nrl
 proj=merc     # merc cyl 
-#bckgrd=shadedrelief   # none etopo shadedrelief bluemarble
+bckgrd=shadedrelief   # none etopo shadedrelief bluemarble
 bckgrd=none   # none etopo shadedrelief bluemarble
-vmax=-9999
-vmin=-9999
-clrlim='EKE.clrlim.$$'
+vmin=-1.8
+vmax=1.8
+tick=0.4
 width=7   # Plot frame in inches
 height=6
 res=i     # resolution of the coast line c l i h f 
@@ -69,13 +70,6 @@ depv="deptht"
 xstep=30
 ystep=30
 
-cat << eof > $clrlim
-1
-10
-100
-1000
-5000
-eof
 
 mkdir -p $figs
 
@@ -84,16 +78,17 @@ n=0
 for y in $(seq $y1 $y2 ) ; do
    MWDIRY=$MWDIR/$y
 
-for f in $MWDIRY/${CONFCASE}_y${y}.${freq}_EKE.nc ; do
+for f in $MWDIRY/${CONFCASE}_y${y}.${freq}_gridTsurf.nc ; do
    ff=$(basename $f )
    g=${ff%.nc} 
-   cf_out=${CONFCASE}_y${y}.${freq}_EKElog
+   cf_out=${CONFCASE}_y${y}.${freq}_SSH
+
    if [ ! -f $figs/$g.png ] ; then
      ( ln -sf $f $ff
       python_plot.py -i $g -v $var  -p $pal -proj $proj -xstep $xstep -ystep $ystep \
             -wij $zoom -wlonlat $vp  -d $figs -bckgrd $bckgrd -vmax $vmax -vmin $vmin \
-            -figsz $width $height -res $res -klev $klev -depv $depv -pc $charpal -dep $dep -clrlim $clrlim -log -o $cf_out  -orca
-      rm ./$ff   ) &
+            -figsz $width $height -res $res -klev $klev  -pc $charpal  -tick $tick -o $cf_out
+      rm ./$ff  ) &
       
     n=$(( n + 1 ))
     if [ $n = $nmax ] ; then
@@ -106,4 +101,3 @@ for f in $MWDIRY/${CONFCASE}_y${y}.${freq}_EKE.nc ; do
 done
 done
 wait
-rm ./$clrlim

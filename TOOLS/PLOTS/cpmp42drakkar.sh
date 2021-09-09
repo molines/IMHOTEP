@@ -1,0 +1,16 @@
+#!/bin/bash
+CONFIG=eORCA025.L75
+
+TGTDIR=PACIFIC
+SRCDIR=SSH
+
+cd $WORK/${CONFIG}
+
+for t in S GAI AI GA GI ; do
+   CASE=IMHOTEP.$t
+   CONFCASE=${CONFIG}-${CASE}
+
+   ssh monitor "mkdir -p DRAKKAR/${CONFIG}/${CONFCASE}/$TGTDIR"
+   scp ${CONFCASE}-PLOT/$SRCDIR/PACIF/*mp4 monitor:DRAKKAR/${CONFIG}/${CONFCASE}/$TGTDIR/
+done
+
