@@ -1,3 +1,9 @@
+
+
+![IMHOTEP Logo](./Doc/Figures/IMHOTEP_tr.png)
+
+
+
 # IMHOTEP : IMpacts of freshwater discHarge interannual variability on Ocean heaT-salt content and rEgional sea level change over the altimetry Period
 ## Description of IMHOTEP repository
 Within IMHOTEP scientific project, numerical experiment based on ocean simulations are performed.  This repository is first of all the place where all 
