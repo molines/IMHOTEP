@@ -28,7 +28,7 @@ explore IMHOTEP questions.
 ## [IMHOTEP.GI](./eORCA025.L75-IMHOTEP.GI) : All interannual except tropical Atlantic rivers
   * [monitoring](https://ige-meom-drakkar.u-ga.fr/DRAKKAR/eORCA025.L75/eORCA025.L75-IMHOTEP.GI)
 
-## [IMHOTEP.GAIa](./eORCA025.L75-IMHOTEP.GAIa) : repeat IMHOTEP.GAI since 1997 with monthly climatological E-P correction (instead of interannual in GAI).
+## [IMHOTEP.GAIa](./eORCA025.L75-IMHOTEP.GAIa) : repeat IMHOTEP.GAI (1997-2007) with monthly climatological E-P correction (instead of interannual in GAI).
   * [monitoring](https://ige-meom-drakkar.u-ga.fr/DRAKKAR/eORCA025.L75/eORCA025.L75-IMHOTEP.GAIa)
   * [comparison](https://ige-meom-drakkar.u-ga.fr/DRAKKAR/COMPARE/eORCA025.L75-IMHOTEP.GAIa_eORCA025.L75-IMHOTEP.GAI) between GAIa and GAI (monitoring).
 
