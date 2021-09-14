@@ -8,7 +8,7 @@ for typ in S GAI AI GI GA ; do
   CASE=IMHOTEP.$typ
   CONFCASE=${CONFIG}-${CASE}
 
-  cd $WORK/${CONFIG}/${CONFCASE}-PLOT/MLD/ATLIND
+  cd $WORK/${CONFIG}/${CONFCASE}-PLOT/PSI/PACIF
 
-  mkmp4_from_png.sh ${CASE}_MLD_m03_ATLIND
+  mkmp4_from_png.sh ${CASE}_PSI_PACIF
 done

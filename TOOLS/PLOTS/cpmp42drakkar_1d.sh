@@ -11,6 +11,6 @@ for t in S GAI AI GA GI ; do
    CONFCASE=${CONFIG}-${CASE}
 
    ssh monitor "mkdir -p DRAKKAR/${CONFIG}/${CONFCASE}/$TGTDIR"
-   scp ${CONFCASE}-PLOT/$SRCDIR/$TGTDIR/*mp4 monitor:DRAKKAR/${CONFIG}/${CONFCASE}/$TGTDIR/
+   scp ${CONFCASE}-PLOT/$SRCDIR/$TGTDIR/${CONFIG}*mp4 monitor:DRAKKAR/${CONFIG}/${CONFCASE}/$TGTDIR/
 done
 
