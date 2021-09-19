@@ -2,20 +2,20 @@
 ## Context:
 OBS module is primarily used for data assimilation as it gives the model equivalent of an observation dataset. But
 beyond data assimilation, this is also a powerfull tool for model-observation comparison.    
-We decided to switch it on as it was done in OCCIPUT, using [ENACT-ENSEMBLE](https://www.metoffice.gov.uk/hadobs/en4/download-en4-2-1.html) dataset, which gather in monthly files almost all the existing hydrographic profiles.   In OCCIPUT we also used JASON2 along track altimetric data. This latter data set is available since 2012. Unfortunatly, for IMHOTEP
+We decided to switch it on as it was done in OCCIPUT, using [ENACT-ENSEMBLE](https://www.metoffice.gov.uk/hadobs/en4/download-en4-2-1.html) dataset, which gather in monthly files, almost all the existing hydrographic profiles.   In OCCIPUT we also used JASON2 along track altimetric data. This latter data set is available since 2008. Unfortunatly, for IMHOTEP
 WP1 we simply forgot to switch it on ...
 
 ## ENACT data set:
   * Data set was downloaded (4.2.1 version) from the UKmetoffice dedicated [website](https://www.metoffice.gov.uk/hadobs/en4/download-en4-2-1.htm). 
   * Original data are in a specifig ENACT format, no more supported by NEMO (since 4.0), and data reformating is
 necessary before using them in OBS: NEMO now read only `feedback` format. 
-    * OBSTOOLS distributed with NEMO offer a series of program dealing with feedback data. In particular, `enact2fb.f90`
+    * OBSTOOLS distributed with NEMO offer a series of programs dealing with feedback data. In particular, `enact2fb.f90`
 and `fbcomb.f90`:
-       * **enact2fb.f90** transform original ENACT data set to feedback format. A [enact2fb.sh](./enac2fb.sh) script
+       * **enact2fb.f90** transforms original ENACT data set to feedback format. A [enact2fb.sh](./enac2fb.sh) script
 is given as an example of use for this reformating program.
        * **fbcomb.f90** is used for recombining all subdomain OBS file into a global feedback file
 > Note that we had to compile OBSTOOLS for NEMO 4.0.1 as more recent revision is not in phase with NEMO (there are
-> shared fortran module between NEMO and OBSTOOLS. 
+> shared fortran module between NEMO and OBSTOOLS). 
 
 ## JASON data set:
   * AVISO provide the data set in annual feedback files, ready to use in NEMO/OBS
@@ -25,7 +25,7 @@ is given as an example of use for this reformating program.
 Namelist block `namobs` is used to pass all OBS relevant information to NEMO.  
 Note `ln_diaobs   = .true.` and both `ln_t3d      = .true.`, `ln_s3d      = .true.` for using TS profiles.  
 Data files are specified at runtime with `cn_profbfiles = ENACTFILES_LIST`. The keyword `ENACTFILES_LIST` 
-is replaced by the corresponding list of file according to the period of simulation.
+is replaced by the corresponding list of files according to the period of simulation.
 
 
 Similarly, for JASON data set, `ln_sla` should be set to true and data files specified by `cn_slafbfiles = SLAFBFILES_LIST`
@@ -91,8 +91,9 @@ Similarly, for JASON data set, `ln_sla` should be set to true and data files spe
 ```
 
 ### Bug fix in NEMO
-  * We had to fix a bug in `obs_prep.F90`: During model initialisation, NEMO look for all available data in the data file,
-corresponding  to the time window covered by the simumation 'segment'.  The correct time limits, computed in the code
-were erased by values read in the namelist (and not updated). We have to move the  code lines computing the time limits aafter the namelist read.
+  * We had to fix a bug in `obs_prep.F90`: During model initialisation, NEMO looks for all available data in the
+data files, corresponding  to the time window covered by the simulation 'segment'.  The correct time limits,
+computed in the code were erased by values read in the namelist (and not updated). We have to move the  code 
+lines computing the time limits after the namelist read.
   * **NOT FIXED** : we noticed that as it is written in the actual code, a strong assumption is done when computing
 the time limits : time step should be the same since the begining of the **RUN**.  This is quite dangerous and should be fixed. (Presently, if time step is changed, there will be a mismatch between the model time and observation time).
