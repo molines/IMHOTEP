@@ -97,3 +97,12 @@ computed in the code were erased by values read in the namelist (and not updated
 lines computing the time limits after the namelist read.
   * **NOT FIXED** : we noticed that as it is written in the actual code, a strong assumption is done when computing
 the time limits : time step should be the same since the begining of the **RUN**.  This is quite dangerous and should be fixed. (Presently, if time step is changed, there will be a mismatch between the model time and observation time).
+
+## Issues during model production:
+OBS module consumes a lot of memory, as all the available data (in files)  are put into RAM during the model
+initialisation.  The amount of available data is increasing with time.  When we started the simulation (in 1958) we were able to proceed with yearly segments (which was very convenient as XIOS saved monthly and yearly means on the fly!).
+This was OK till the end of 1977. In 1978 we had memory issues due to the increase of ENACT data. We therefore 
+went to proceed with monthly segments and the memory issue disappeared. But we notice that restarting the model 
+every month had a CPU cost (+15%). So we went to proceed with semestrial segments, and it was OK till 2004 
+(June). Afterward we went back to monthly segments.  
+Note that for all the IMHOTEP WP1 simulations (S GAI AI GA GI), we proceed always with monthly segments.
