@@ -89,7 +89,7 @@ as it has been done for restart: putting the ICB trajectory files into member su
 This latter variable gives the path of the trajectory files (root name is `<CN_DIRICB> = <CONFIG>-<CASE>-ICB.<SEG>` (set by the nemo4.sh runtool)). In order to be coherent
 with restart directories with ensemble run, we aim at having a directory name for member `<MBR>` to be `<CN_DIRICB>/<MBR>`. This implies the creation
 of the `<MBR>` sub directory in the runtool script.  
-For restart files, we endup with file name looking like `<CN_ICBRST>-<SEG>.<MBR>` 
+For restart files, we endup with file name looking like `<CN_ICBRST>-<SEG>.<MBR>_<RANK>.nc` 
 
 ### Impact on stochastic parameterization.
 Apart from name differentiation in stopar.F90, in case of ensemble run, a call to sto_par is performed in step.F90. Consulting with Jean-Michel, he suggests
