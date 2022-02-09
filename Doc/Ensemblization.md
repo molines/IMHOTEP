@@ -75,18 +75,26 @@ The restart root filename  is : `<CN_RSTNAME>-<SEG>.<MBR>` where CN_RSTNAME is s
 At the end of a segment, there will be a restart file for each sub-domain and each member. For instance, in directory `eORCA025.L75-IMHOTEP.ES-RST.25/007/`
 restart file (for the ocean) restart-25.007_0234.nc. This latter file correspond to subdomain 0234, segment 25 member 007.    
   *  **TBD : this is also needed for all other restart (ice, icebergs ..**
+  * `icestp.F90` modification for restart_ice file name, just as for the ocean above.
   * `obs_wri.F90` modification for the OBS output file name, appending `.MBR` at the end of the file name.
   * `nemogcm.F90` modification for ocean output
-  * `stopar.F90` modification for stochastic restart files **(ask JMB ? )**
+  * `stopar.F90` modification for stochastic restart files. Stochastic restart files are used to continue a simulation when stochastic perturbations are
+being used. 
   * `stpctl.F90` modification for time-step file and run.stat as well as run_stat.nc
+  * icebergs treatment:  ICB module produces specific files for trajectory and for restart. File names of both types must be modified in order to take the
+member number into account. Restart files are written in the same directory than ocean restart files and as far as the directory name is concerned,
+the modification for ensemble run is already done.  For trajectories, a root name for directory is passed via the namelist and I suggest to proceed 
+as it has been done for restart: putting the ICB trajectory files into member sub directory. So modifications occur in 
+    * `icbini.F90`:  In this routine, the namberg_drk namelist block is defined and read. This block hold `cn_icbrst_in`, `cn_icbrst_out` and `cn_icbdir_trj`.
+This latter variable gives the path of the trajectory files (root name is `<CN_DIRICB> = <CONFIG>-<CASE>-ICB.<SEG>` (set by the nemo4.sh runtool)). In order to be coherent
+with restart directories with ensemble run, we aim at having a directory name for member `<MBR>` to be `<CN_DIRICB>/<MBR>`. This implies the creation
+of the `<MBR>` sub directory in the runtool script.  
+For restart files, we endup with file name looking like `<CN_ICBRST>-<SEG>.<MBR>` 
 
 ### Impact on stochastic parameterization.
-Apart from name differentiation in stopar.F90, in case of ensemble run, a call to sto_par is performed in step.F90.  **(ask JMB ? )**
-
-
-
-
-
+Apart from name differentiation in stopar.F90, in case of ensemble run, a call to sto_par is performed in step.F90. Consulting with Jean-Michel, he suggests
+to have this call systematically, independently of the use of stochastic parameterization, as it reduces to an empty loop if not needed.   
+Note that for the project, at this level we only port stochastic parameterization related to the equation of state.
 
 
 ## Code modification: Ensemble forcing
