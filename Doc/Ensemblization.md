@@ -74,7 +74,6 @@ the member number. Note that the run script is modified to take care of the crea
 The restart root filename  is : `<CN_RSTNAME>-<SEG>.<MBR>` where CN_RSTNAME is set in the namelist (and set in the RUNTOOLS), SEG and MBR as above. 
 At the end of a segment, there will be a restart file for each sub-domain and each member. For instance, in directory `eORCA025.L75-IMHOTEP.ES-RST.25/007/`
 restart file (for the ocean) restart-25.007_0234.nc. This latter file correspond to subdomain 0234, segment 25 member 007.    
-  *  **TBD : this is also needed for all other restart (ice, icebergs ..**
   * `icestp.F90` modification for restart_ice file name, just as for the ocean above.
   * `obs_wri.F90` modification for the OBS output file name, appending `.MBR` at the end of the file name.
   * `nemogcm.F90` modification for ocean output
@@ -103,6 +102,13 @@ is done in trasbc.F90. In NEMO workflow, a call to SBC is done for all members, 
 Then the forcing is taken into account for tracers in trasbc.F90 and for momentum in in dyn_zdf.F90.   
 In OCCIPUT we only dealt with heat and fresh water forcing, by adding a member average in trasbc.F90, just before the forcing is used. For IMHOTEP, we imagine
 that the wind stress may also be averaged through members, in order to have a common momentum forcing.  This raises additional question as the wind stress module 
-is also used in other routine such as zdftke (vertical mixing using tke). Other potential issues to check : atmospheric stress on sea-ice....
+is also used in other routine such as zdftke (vertical mixing using tke). Other potential issues to check : atmospheric stress on sea-ice. A discussion
+around this topic leads to the decision **NOT** to use ensemble average for wind stress, the main rationale being that we do want to have the Renault Current Feedback ON. 
+
+The implementation of this ensemble forcing, needs the introduction of a new routine, available if ln_ens_diag is true: `mpp_ens_ave_std` that computes the ensemble average and 
+ensemble standard deviation. This routine is then used in trasbc.F90 in order to replace the heat flux forcing by the ensemble mean.  
+
+We introduce a specific flag in the namelist `nammpp_drk`, `ln_ens_forcing` which needs to be T if the ensemble forcing is desired. Important to note that
+if ln_ens_forcing is true, then ln_ens_diag must also be true ( **TBD Sanity check** ) 
 
 ## Code modification: Model output and XIOS related modifications.
