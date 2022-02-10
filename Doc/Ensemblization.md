@@ -98,5 +98,11 @@ Note that for the project, at this level we only port stochastic parameterizatio
 
 
 ## Code modification: Ensemble forcing
+The idea is that all members use a common atmospheric forcing, computed as the mean of the individual members forcing. The implementation of this idea
+is done in trasbc.F90. In NEMO workflow, a call to SBC is done for all members, setting up heat forcing, fresh water forcing and momentum forcing.
+Then the forcing is taken into account for tracers in trasbc.F90 and for momentum in in dyn_zdf.F90.   
+In OCCIPUT we only dealt with heat and fresh water forcing, by adding a member average in trasbc.F90, just before the forcing is used. For IMHOTEP, we imagine
+that the wind stress may also be averaged through members, in order to have a common momentum forcing.  This raises additional question as the wind stress module 
+is also used in other routine such as zdftke (vertical mixing using tke). Other potential issues to check : atmospheric stress on sea-ice....
 
 ## Code modification: Model output and XIOS related modifications.
