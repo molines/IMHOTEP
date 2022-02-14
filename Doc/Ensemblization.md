@@ -109,6 +109,58 @@ The implementation of this ensemble forcing, needs the introduction of a new rou
 ensemble standard deviation. This routine is then used in trasbc.F90 in order to replace the heat flux forcing by the ensemble mean.  
 
 We introduce a specific flag in the namelist `nammpp_drk`, `ln_ens_forcing` which needs to be T if the ensemble forcing is desired. Important to note that
-if ln_ens_forcing is true, then ln_ens_diag must also be true ( **TBD Sanity check** ) 
+if ln_ens_forcing is true, then ln_ens_diag must also be true. A sanity check is implemented just after the namelist
+is read.
 
 ## Code modification: Model output and XIOS related modifications.
+XIOS needs an input file describing the data to be written (variables, frequency, grid etc...). This file uses
+the xml format and is named `iodef.xml`. In this file,  `context`  environment for XIOS and for NEMO are defined.
+For XIOS, it reduces to few lines defining xios internal variables. For NEMO, in case of a standard run, there is the
+inclusion of a `context_nemo.xml` file, that will be detailed below. In case of ensemble run, the modification consists in adding as many
+nemo context files as member. Therefore in the production stream, we must define a unique contex file per member. For instance; in iodef.xml
+we used to have:
+
+  ```
+  <context id="nemo" src="./context_nemo.xml"/>       <!--  NEMO       -->
+  ```
+
+that will  be modified to
+
+  ```
+  <context id="nemo.001" src="./context_nemo.001.xml"/>       <!--  NEMO       -->
+  <context id="nemo.002" src="./context_nemo.002.xml"/>       <!--  NEMO       -->
+  <context id="nemo.003" src="./context_nemo.003.xml"/>       <!--  NEMO       -->
+  ......
+  <context id="nemo.010" src="./context_nemo.010.xml"/>       <!--  NEMO       -->
+  ```
+
+Note that the context id is recognized in NEMO, and the ensemble version is waiting for those id, formed with the member number : nemo.001 etc..
+
+
+### Context file : context_nemo.xml
+This file describe a particular context, identified by its id. In the context there are different parts:
+  * variables definition : physical constants used by xios for some diags
+  * fields definition : they are defined by importing `fiels_def_nemo-oce.xml` for the ocean and `fiels_def_nemo-ice.xml` for the sea ice. Any of the
+possible NEMO output (ie corresponding to an `iom_put` statement in NEMO) must be defined in this file.  *A priori* it does not depend on members.
+  * axis definition : they are defined by importing `axis_def_nemo.xml`.  This is the place where vertical axis, ice category axis, float number etc...
+are defined. In a word, all axis which are not the horizontal ones (x and y). Variables described in field, have an associated axis. Axis are
+independent from members in an ensemble run.
+  * domain definition : They are defined by importing `domain_def.xml` file. They refer to horizontal domain or subdomain of the computational grid.
+For example this is the place where specific 'boxes' or section are defined. Then this information can be used in the file_def file in order to
+produce model output on a restricted area.  It is unclear to me (JMM) how this file is used for the global domain. There are probably domain
+definition that are set directly from  NEMO, independently of the xml file.  Domain definitions are not member depending.
+  * grid definition: They are defined by importing `grid_def.xml` file. Grids are defined by the association of a domain (horizontal) and axis (vertical
+or other). There can be more than one axis for a given grid, although not frequent (example of grid `grid_znl_T_3D` which handle 3D zonal mean, with a 
+a vertical axis and a basin axis). So far grids are independent from members. 
+  * file definition:  They are defined by importing the user defined files `file_def_nemo-oce.xml` and `file_def_nemo-ice.xml`. These files
+defined the output data plan, made by the user (which variables, which domain, which frequency). They might differ from member to member (for instance if
+we decide to output ensemble mean computed on the fly, only one member will do the output). They can also differ when using DCM because the output file
+names are defined in these files, including the output directory (DCM extension).   
+In order to simplify the managment of file_def xml files, we opt at having a single file for all members. This requires the following
+    * If ensemble mean are to be saved, the corresponding fields are defined in fields_def and in file_def, for all members. In NEMO, only one member
+(for exemple 001 --why not ? -- ) with make the corresponding call to iom_put. 
+    * We modify NEMO so that the keyword `@dirout@` is recognized in `iom.F90` and replaced by the absolute path of the xios output files. Therefore
+we also add a new character variables in the namelist (namblock namrun_drk) : `cn_dirout`. This latter variable gives the root pathname of the output files,
+and the segment number will be added in NEMO, as well as a member sub directory in case of ensemble run. (Just like for the restart files).  For example,
+xios output files (prior any recombination) will be in directory $TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS-35/007/ (for segment 35 and member 007). Note that 
+in this example, `cn_dirout` corresponds to the path `$TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS` and will be set in the namelist by the runtools.
