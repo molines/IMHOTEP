@@ -78,7 +78,8 @@ restart file (for the ocean) restart-25.007_0234.nc. This latter file correspond
   * `obs_wri.F90` modification for the OBS output file name, appending `.MBR` at the end of the file name.
   * `nemogcm.F90` modification for ocean output
   * `stopar.F90` modification for stochastic restart files. Stochastic restart files are used to continue a simulation when stochastic perturbations are
-being used. 
+being used. We decided to store/read  them in the same directory (out/in) than the ocean restart files. With ensembles, there is a subdirectory per member.
+The name of the restart file follow the same construction as the ocean or ice restart files.
   * `stpctl.F90` modification for time-step file and run.stat as well as run_stat.nc
   * icebergs treatment:  ICB module produces specific files for trajectory and for restart. File names of both types must be modified in order to take the
 member number into account. Restart files are written in the same directory than ocean restart files and as far as the directory name is concerned,
