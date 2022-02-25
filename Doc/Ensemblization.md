@@ -155,13 +155,15 @@ or other). There can be more than one axis for a given grid, although not freque
 a vertical axis and a basin axis). So far grids are independent from members. 
   * file definition:  They are defined by importing the user defined files `file_def_nemo-oce.xml` and `file_def_nemo-ice.xml`. These files
 defined the output data plan, made by the user (which variables, which domain, which frequency). They might differ from member to member (for instance if
-we decide to output ensemble mean computed on the fly, only one member will do the output). They can also differ when using DCM because the output file
-names are defined in these files, including the output directory (DCM extension).   
+we decide to output ensemble mean computed on the fly, only one member will do the output). In the DCM extension they also use to hold the absolute path
+of the output files (`<OUTPUT>` ) updated by the runtools at runtime. We took the oportunity to modify this behaviou by adding a new keyword (`@dirout@`)
+recognized by NEMO (see below). 
 In order to simplify the managment of file_def xml files, we opt at having a single file for all members. This requires the following
     * If ensemble mean are to be saved, the corresponding fields are defined in fields_def and in file_def, for all members. In NEMO, only one member
 (for exemple 001 --why not ? -- ) with make the corresponding call to iom_put. 
     * We modify NEMO so that the keyword `@dirout@` is recognized in `iom.F90` and replaced by the absolute path of the xios output files. Therefore
 we also add a new character variables in the namelist (namblock namrun_drk) : `cn_dirout`. This latter variable gives the root pathname of the output files,
 and the segment number will be added in NEMO, as well as a member sub directory in case of ensemble run. (Just like for the restart files).  For example,
-xios output files (prior any recombination) will be in directory $TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS-35/007/ (for segment 35 and member 007). Note that 
-in this example, `cn_dirout` corresponds to the path `$TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS` and will be set in the namelist by the runtools.
+xios output files (prior any recombination) will be in directory $TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS.35/007/ (for segment 35 and member 007). Note that 
+in this example, `cn_dirout` corresponds to the path `$TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS` and will be set in the namelist by the runtools, replacing
+the generic namelist keyword `<CN_DIROUT>`.
