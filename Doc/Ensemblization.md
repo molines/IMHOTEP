@@ -1,5 +1,5 @@
 # From single run to ensemble run: NEMO modification.
-## Overview
+## 1. Overview
 Since already many years, we have used ensemble simulations with NEMO for various purposes. The code modifications 
 have been initiated for assimilation purposes, by Jean-Michel Brankart. The modified code, has been used with some 
 modifications for the OCCIPUT project aiming at disatangling intrisic and forced variability of the ocean, by using 
@@ -8,24 +8,24 @@ executable performing various members in parallell. This specific feature allows
 communication between various members at run-time. This possibility is used for building unique forcing fields 
 for all member, as shown below.
 
-In this document, NEMO modifications related to ensemble simulations are detailed, for NEMO version 4.0.6. 
+In this document, NEMO modifications related to ensemble simulations are detailed, for NEMO version 4.0.6.   
+Last paragraph is a summary on how to set up an ensemble configuration, in a practical way.
 
-## Code modification: Base
-These are the core of the modification for running ensemble run, introduced in NEMO 4.0.2 by Jean-Michel.
+## 2. Code modification: Base
+These are the core of the modifications for running ensemble run, introduced in NEMO 4.0.2 by Jean-Michel.
 
-For DCM version, all modifications related to ensemble will be introduced only when key_drakkar is defined at compile time. 
-Is it necessary to have also a new CPP key such as key_drakkar_ensemble ? No clear idea, but for porting purpose I will 
-introduce this key, that eventually will be merged with key_drakkar in order to leave only one drakkar key. 
+For DCM version, all modifications related to ensemble will be introduced only when key_drakkar_ensemble  is defined at compile time.
+Once tests have been performed, it is likely that we will only keep key_drakkar for all drakkar related modifications, including ensemble.
 
 We decide to keep the nomemclature that what used for OCCIPUT for naming the ensemble (this introduces differences with Jean-Michel code).
 Following DCM good practice, an experiment is defined by the config name and the case name `<CONFIG>-<CASE>`. (Example eORCA025-IMHOTEP.S ).
 The ensemble nomenclature used in OCCIPUT, encode the member number into the CASE part of the name, leading to `<CONFIG>-<CASE>.<MBR>` (where
 `<MBR>` is a 3 digit member number (001 ... 010 etc.. ) (Example : eORCA025.L75-IMHOTHEP.ES.007 for the 7th member of run IMHOTEP.ES). The idea
-is to be able to consider a single member as a particular CASE of the simulation (hence using standard tools will be OK). To implement this
-nomenclature, for model output files, this will be coded in the xml files used by XIOS. In the fortran code, this have an impact on the files
-directly written by NEMO such as restart files, ocean.output files and all the log files produced by NEMO at runtime.
+is to be able to consider a single member as a particular CASE of the simulation (hence using standard tools will be OK).  
+In the fortran code, this have also an impact on the files directly written by NEMO such as restart files, ocean.output files and all the log 
+files produced by NEMO at runtime. 
 
-### New control variables in namelist
+### 2.1 New control variables in namelist
 New control variables are introduced in order to control the ensemble run. In order to be orthogonal to the standard code, modification
 are introduced in the nammpp_drk new namelist block:
 
@@ -45,16 +45,16 @@ are introduced in the nammpp_drk new namelist block:
 Note that `ln_ens_diag` flag just mean that there is a need for intermember communication. No specific diags are activated by this flag. Therefore,
 it must be set to true when diags or communication between members (forcing issue for example) is required.
 
-### Introduction of specific routines in lib_mpp.F90
+### 2.2 Introduction of specific routines in lib_mpp.F90
   * `mpp_start_ensemble:` This routine is called from `nemogcm` at nemo initialisation. It returns `ilocal_comm`, a communicator associated with
 each member and used to run NEMO.  This routine is  a driver that call `mpp_set_ensemble`. 
-  * `mpp_set_ensemble:` When running NEMO in parrallel, an overall communicator is created which has the size equal to the number of mpi_task 
+  * `mpp_set_ensemble:` When running NEMO in parallel, an overall communicator is created which has the size equal to the number of mpi_task 
 for NEMO.  When using ensemble run with several members, this overall communicator is divided into sub-communicator associated to each member. This
 routine perfoms this splitting into member communicators, using the information provided in the namelist (number of members for instance).  
 In addition, if `ln_ens_diag` is true, it defines an intermember communicator (in fact an array of communicator, with size jpproc (number of 
 nemo task per member) )  allowing communication between all members on a subdomain. 
 
-### Differentiation of file names according to member number.
+### 2.3 Differentiation of file names according to member number.
 When performing ensemble runs, all members run in parallel and should use files (restart file, log files, output files ... ) with an unambiguous name.
 Therefore, the member number must appear in the relevant file names. 
 
@@ -62,10 +62,10 @@ We decide to keep the nomemclature that what used for OCCIPUT for naming the ens
 Following DCM good practice, an experiment is defined by the config name and the case name `<CONFIG>-<CASE>`. (Example eORCA025-IMHOTEP.S ).
 The ensemble nomenclature used in OCCIPUT, encode the member number into the CASE part of the name, leading to `<CONFIG>-<CASE>.<MBR>` (where
 `<MBR>` is a 3 digit member number (001 ... 010 etc.. ) (Example : eORCA025.L75-IMHOTHEP.ES.007 for the 7th member of run IMHOTEP.ES). The idea
-is to be able to consider a single member as a particular CASE of the simulation (hence using standard tools will be OK). To implement this
-nomenclature, for model output files, this will be coded in the xml files used by XIOS. In the fortran code, this have an impact on the files
-directly written by NEMO such as restart files, ocean.output files and all the log files produced by NEMO at runtime. The following fortran modules
-have been modified in this sense:
+is to be able to consider a single member as a particular CASE of the simulation (hence using standard tools will be OK).  To implement this
+nomenclature, for model output files, it will be transparent, as far as the `CASE` name is updated with member number in NEMO.  
+In the fortran code, this have also an impact on the files directly written by NEMO such as restart files, ocean.output files and all the log
+files produced by NEMO at runtime.  The following fortran modules have been modified in this sense:
   * `domain.F90:` In this module, we fix directory and file names for ocean restart files. This module was already modified in the frame of DCM, 
 as it allows the specification of a particular directory for restart files (in and out) and also allow to produce restart files names ready for 
 restarting a new segment without renaming the file (as in the standard code). For ensemble run, this module is modified so that the restart 
@@ -91,16 +91,50 @@ with restart directories with ensemble run, we aim at having a directory name fo
 of the `<MBR>` sub directory in the runtool script.  
 For restart files, we endup with file name looking like `<CN_ICBRST>-<SEG>.<MBR>_<RANK>.nc` 
 
-### Impact on stochastic parameterization.
+### 2.4 Impact on stochastic parameterization.
 Apart from name differentiation in stopar.F90, in case of ensemble run, a call to sto_par is performed in step.F90. Consulting with Jean-Michel, he suggests
 to have this call systematically, independently of the use of stochastic parameterization, as it reduces to an empty loop if not needed.   
-Note that for the project, at this level we only port stochastic parameterization related to the equation of state.
+Note that for the project, at this level we only port stochastic parameterization related to the equation of state and to the grid scaling.  We drop all
+developement dedicated to passive tracers stochastic parameterization.
 
+In the context of ensemble run, the stochastic parameterization is used for creating a spread among the members. It will be used typically during one year (ot until
+spread is saturated and does'nt grow anymore), then the members will evolve freely, with stochastic perturbations OFF. If various successive segment of a run
+are using stochastic parameterization, it is important to save restart points and use them. (`ln_rststo=.true.`).  The actual namsto and namsto_drk namelist blocks are:
 
-## Code modification: Ensemble forcing
+```fortran
+!-----------------------------------------------------------------------
+&namsto        ! Stochastic parametrization of EOS                      (default: OFF)
+!-----------------------------------------------------------------------
+   ln_sto_eos  = .true.   ! stochastic equation of state
+   nn_sto_eos  = 1         ! number of independent random walks
+   rn_eos_stdxy = 1.4       ! random walk horz. standard deviation (in grid points)
+   rn_eos_stdz = 0.7       ! random walk vert. standard deviation (in grid points)
+   rn_eos_tcor = 1440.     ! random walk time correlation (in timesteps)
+   nn_eos_ord  = 1         ! order of autoregressive processes
+   nn_eos_flt  = 0         ! passes of Laplacian filter
+   rn_eos_lim  = 2.0       ! limitation factor (default = 3.0)
+   ln_rststo   = .true.    ! start from mean parameter (F) or from restart file (T)
+   ln_rstseed  = .true.    ! read seed of RNG from restart file
+   cn_storst_in  = "restart_sto" !  suffix of stochastic parameter restart file (input)
+   cn_storst_out = "restart_sto" !  suffix of stochastic parameter restart file (output)
+/
+!-----------------------------------------------------------------------
+&namsto_drk      ! Stochastic parametrization of HGR                      (default: OFF)
+!-----------------------------------------------------------------------
+   ln_sto_hgr  = .false.   ! STOchastic Horizontal GRid
+   rn_hgr_std  = 1         ! Standard deviation (in %)
+   rn_hgr_tcor = 1         ! correlation timescale (in timestep)
+   nn_hgr_flt  = 0         ! Number of passes of laplacian filter
+   nn_hgr_ord  = 1         ! Order of autoregressive processes
+/
+```
+
+Note that some values are to be specified in the namelist, in order to fix the intensity of the perturbations. ***TBD***
+
+## 3. Code modification: Ensemble forcing
 The idea is that all members use a common atmospheric forcing, computed as the mean of the individual members forcing. The implementation of this idea
-is done in trasbc.F90. In NEMO workflow, a call to SBC is done for all members, setting up heat forcing, fresh water forcing and momentum forcing.
-Then the forcing is taken into account for tracers in trasbc.F90 and for momentum in in dyn_zdf.F90.   
+is done in `trasbc.F90`. In NEMO workflow, a call to SBC is done for all members, setting up heat forcing, fresh water forcing and momentum forcing.
+Then the forcing is taken into account for tracers in trasbc.F90 and for momentum  in dyn_zdf.F90.   
 In OCCIPUT we only dealt with heat and fresh water forcing, by adding a member average in trasbc.F90, just before the forcing is used. For IMHOTEP, we imagine
 that the wind stress may also be averaged through members, in order to have a common momentum forcing.  This raises additional question as the wind stress module 
 is also used in other routine such as zdftke (vertical mixing using tke). Other potential issues to check : atmospheric stress on sea-ice. A discussion
@@ -111,9 +145,24 @@ ensemble standard deviation. This routine is then used in trasbc.F90 in order to
 
 We introduce a specific flag in the namelist `nammpp_drk`, `ln_ens_forcing` which needs to be T if the ensemble forcing is desired. Important to note that
 if ln_ens_forcing is true, then ln_ens_diag must also be true. A sanity check is implemented just after the namelist
-is read.
+is read. Updated version of nammpp_drk is : 
 
-## Code modification: Model output and XIOS related modifications.
+```fortran
+!-------------------------------------------------------------------------
+&nammpp_drk
+!-------------------------------------------------------------------------
+    ln_ensemble   = .false.     ! using ensemble T or F
+    ln_ens_rst_in = .false.     ! members read their own restart ( T or F)
+    nn_ens_size   = 10          ! number of members in the ensemble
+    nn_ens_start  = 1           ! number of the first member
+    ln_ens_diag   = .false.     ! Set up a member MPI-communicator allowing inter-member comm. (T or F )
+    ln_ens_forcing = .true.     ! T : each member is using the ensemble mean forcing
+                                ! F : each member used its own forcing.
+/
+!-------------------------------------------------------------------------
+```
+
+## 4. Code modification: Model output and XIOS related modifications.
 XIOS needs an input file describing the data to be written (variables, frequency, grid etc...). This file uses
 the xml format and is named `iodef.xml`. In this file,  `context`  environment for XIOS and for NEMO are defined.
 For XIOS, it reduces to few lines defining xios internal variables. For NEMO, in case of a standard run, there is the
@@ -121,13 +170,13 @@ inclusion of a `context_nemo.xml` file, that will be detailed below. In case of 
 nemo context files as member. Therefore in the production stream, we must define a unique contex file per member. For instance; in iodef.xml
 we used to have:
 
-  ```
+  ```xml
   <context id="nemo" src="./context_nemo.xml"/>       <!--  NEMO       -->
   ```
 
 that will  be modified to
 
-  ```
+  ```xml
   <context id="nemo.001" src="./context_nemo.001.xml"/>       <!--  NEMO       -->
   <context id="nemo.002" src="./context_nemo.002.xml"/>       <!--  NEMO       -->
   <context id="nemo.003" src="./context_nemo.003.xml"/>       <!--  NEMO       -->
@@ -138,8 +187,8 @@ that will  be modified to
 Note that the context id is recognized in NEMO, and the ensemble version is waiting for those id, formed with the member number : nemo.001 etc..
 
 
-### Context file : context_nemo.xml
-This file describe a particular context, identified by its id. In the context there are different parts:
+### 4.1 Context file : context_nemo.xml
+This file describes a particular context, identified by its id. In the context there are different parts:
   * variables definition : physical constants used by xios for some diags
   * fields definition : they are defined by importing `fiels_def_nemo-oce.xml` for the ocean and `fiels_def_nemo-ice.xml` for the sea ice. Any of the
 possible NEMO output (ie corresponding to an `iom_put` statement in NEMO) must be defined in this file.  *A priori* it does not depend on members.
@@ -166,12 +215,30 @@ we also add a new character variables in the namelist (namblock namrun_drk) : `c
 and the segment number will be added in NEMO, as well as a member sub directory in case of ensemble run. (Just like for the restart files).  For example,
 xios output files (prior any recombination) will be in directory $TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS.35/007/ (for segment 35 and member 007). Note that 
 in this example, `cn_dirout` corresponds to the path `$TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS` and will be set in the namelist by the runtools, replacing
-the generic namelist keyword `<CN_DIROUT>`.
+the generic namelist keyword `<CN_DIROUT>`. 
 
-##  RUNTOOLS modification:
+```fortran
+!-----------------------------------------------------------------------
+&namrun_drk     !   extra parameters of the run (drakkar)
+!-----------------------------------------------------------------------
+    cn_dirout  = "<CN_DIROUT>"     ! XIOS output directory rootname
+                                               ! data will be in <cn_dirout>-<SEG>/<MBR>
+                                               ! <SEG> and <MBR> (if any) added by NEMO
+/
+```
+
+On the side of the file_def xml files we will have the following syntax, for example
+
+```xml
+    <file_definition type="multiple_file" name="@dirout@/@expname@_@freq@" sync_freq="1d" min_digits="4">
+      <file_group id="1h" output_freq="1h"  split_freq="1d"  output_level="10" enabled=".FALSE."> <!-- 1h files -->
+    ...
+```
+
+##  5. RUNTOOLS modification:
 RUNTOOLS were almost prepared for ensemble run since OCCIPUT. Some directory definitions have been added for iceberg for instance.
 However, the management of xml file is completely different than for OCCIPUT (xios_1.0), and much simpler, by the way. Among the differences, is that every 
-member use the same `file_dev_xx.xml` file, only the (small) context files are proper to each member.   This means that for instance, if intermember diagnostics
+member use the same `file_def_xx.xml` file, only the (small) context files are proper to each member.   This means that for instance, if intermember diagnostics
 are to be output, the rule is to define in the code (NEMO) which member does the corresponding `iom_put`.
 
 RUNTOOLS creates the different context files from a template file `context_nemo_MBR.xml` and the customization is reduced to change the `context_id`.  The 
@@ -179,7 +246,7 @@ RUNTOOLS creates the different context files from a template file `context_nemo_
 add as many context lines as members. RUNTOOLS takes this in charge. I had to add some specific words for the script to recognize where to add the lines (START END).
 Below is the actual `iodef_MBR.xml` file.
 
-```
+```xml
 <?xml version="1.0"?>
 <simulation>
 
