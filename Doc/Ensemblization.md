@@ -167,3 +167,47 @@ and the segment number will be added in NEMO, as well as a member sub directory 
 xios output files (prior any recombination) will be in directory $TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS.35/007/ (for segment 35 and member 007). Note that 
 in this example, `cn_dirout` corresponds to the path `$TMPDIR/eORCA025.L75-IMHOTEP.ES-XIOS` and will be set in the namelist by the runtools, replacing
 the generic namelist keyword `<CN_DIROUT>`.
+
+##  RUNTOOLS modification:
+RUNTOOLS were almost prepared for ensemble run since OCCIPUT. Some directory definitions have been added for iceberg for instance.
+However, the management of xml file is completely different than for OCCIPUT (xios_1.0), and much simpler, by the way. Among the differences, is that every 
+member use the same `file_dev_xx.xml` file, only the (small) context files are proper to each member.   This means that for instance, if intermember diagnostics
+are to be output, the rule is to define in the code (NEMO) which member does the corresponding `iom_put`.
+
+RUNTOOLS creates the different context files from a template file `context_nemo_MBR.xml` and the customization is reduced to change the `context_id`.  The 
+`iodef.xml` file (which in fact is the direct XIOS input file) is created from template `iodef_MBR.xml`. As said above, the modification in iodef.xml is to 
+add as many context lines as members. RUNTOOLS takes this in charge. I had to add some specific words for the script to recognize where to add the lines (START END).
+Below is the actual `iodef_MBR.xml` file.
+
+```
+<?xml version="1.0"?>
+<simulation>
+
+<!-- ============================================================================================ -->
+<!-- XIOS context                                                                                 -->
+<!-- ============================================================================================ -->
+
+  <context id="xios" >
+
+      <variable_definition>
+
+          <variable id="info_level"                type="int">10</variable>
+          <variable id="using_server"              type="bool">true</variable>
+          <variable id="print_file"                type="bool">true</variable>
+          <variable id="using_oasis"               type="bool">false</variable>
+          <variable id="oasis_codes_id"            type="string" >oceanx</variable>
+
+      </variable_definition>
+  </context>
+
+<!-- ============================================================================================ -->
+<!-- NEMO  CONTEXT add and suppress the components you need                                       -->
+<!-- ============================================================================================ -->
+<!--  START    -->
+  <context id="nemo" src="./context_nemo.xml"/>       <!--  NEMO       -->
+<!--  END      -->
+
+</simulation>
+
+```
+
