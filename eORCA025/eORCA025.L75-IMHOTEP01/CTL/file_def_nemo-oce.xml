@@ -144,6 +144,7 @@
            <field field_ref="qair"         name="sohumspe"  />
            <field field_ref="tair"         name="sotemair"  />
            <field field_ref="precip"       name="sowapre"   />
+           <field field_ref="fwfisf"       name="fwfisf"    />
    <!--
            <field field_ref="clouds"       name="soccov"    />   -->
 
@@ -328,6 +329,7 @@
            <field field_ref="qair"         name="sohumspe"  />
            <field field_ref="tair"         name="sotemair"  />
            <field field_ref="precip"       name="sowapre"   />
+           <field field_ref="fwfisf"       name="fwfisf"    />
    <!--
            <field field_ref="clouds"       name="soccov"    />   -->
 
@@ -506,6 +508,7 @@
            <field field_ref="qair"         name="sohumspe"  />
            <field field_ref="tair"         name="sotemair"  />
            <field field_ref="precip"       name="sowapre"   />
+           <field field_ref="fwfisf"       name="fwfisf"    />
    <!--
            <field field_ref="clouds"       name="soccov"    />   -->
 
