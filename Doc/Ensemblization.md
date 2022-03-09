@@ -270,3 +270,104 @@ Below is the actual `iodef_MBR.xml` file.
 
 ```
 
+## 6. Summary (or what you must do for performing an ensemble run)
+### 6.1 Install an updated DCM for ensemble
+####  6.1.1 Clone from GitHub
+
+```bash
+   cd $DEVGIT
+   git clone github:meom-group/DCM.git DCM_4.0.6ens
+   cd DCM_4.0.6ens
+   # change to branch ensemble_406
+   git co ensemble_406
+   # verify :
+   git br 
+   # you should see :
+   * ensemble_406
+     master
+```
+####  6.1.2  Customize DCM
+
+```
+  cd $DEVGIT/DCM_4.0.6ens/DCMTOOLS/NEMOREF
+  # retrieve NEMOREF from NEMO official SVN site
+  ./getnemoref.sh
+  # Customize RUNTOOLS
+  cd $DEVGIT/DCM_4.0.6ens/RUNTOOLS/lib
+  ln -sf function_4_jean-zay.sh function_4.sh
+  # if you are not on jean-zay choose the correct function_4_xxxx.sh file
+```
+
+### 6.2 add a module file  and load new module
+
+```
+   cd $DEVGIT/DCM_4.0.6ens/DCMTOOLS/templates
+   cp module_4.0.6ens $HOME/modules/DCM/4.0.6ens
+
+```
+
+  Loading new module can be added to your .bash_rc file or can be done manually, when necessary:
+
+```
+  module unload DCM
+  module load DCM/4.0.6ens
+```
+
+  You can check that all is OK :
+
+```
+  dcm_version
+  # will give :
+=========================================================
+ Actual DCM version is: DCM_4.0.6ens 
+
+ origin git repository : 
+github:meom-group/DCM.git
+Actual Branch : ensemble_406
+
+ current commit:  
+commit 7db283c0b7756cab6b64a54fd66afe265c0aac5e
+Date:   Wed Mar 9 15:59:14 2022 +0100
+=========================================================
+
+Actual NEMOREF revision is : 
+URL: https://forge.ipsl.jussieu.fr/nemo/svn/NEMO/releases/r4.0/r4.0.6
+Relative URL: ^/NEMO/releases/r4.0/r4.0.6
+Revision: 14608
+Last Changed Rev: 14600
+Last Changed Date: 2021-03-08 12:33:46 +0100 (Mon, 08 Mar 2021)
+=========================================================
+```
+
+### 6.3 Use DCM with ensembles.
+We assume that you alreasy have XIOS installed on your system (same as for 4.0.6 version). In fact the creation of an ensemble configuration
+is the same than any configuration creation with DCM, until the editing of input files in CTL
+
+#### 6.3.1 Create a configuration and compile (short summary)
+
+```
+   dcm_mkconfdir_local  eORCA025.L75-IMHOTEP.ES
+   cd $UDIR/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP.ES
+   # clone the master config (from JMM), by editing makefile
+   PREV_CONFIG = 
+   # copy configuration
+   make copyconfigall
+   # edit makefile to suit your compiling requirement
+   make install && make
+   # at this level you should have NEMO compiled in $PDIR/RUN_eORCA025.L75/eORCA025.L75-IMHOTEP.ES/EXE/
+```
+
+#### 6.3.2 Customization in the CTL directory
+  * namelist for ocean
+  * namelist for ice
+  * xml files
+  * run scripts
+
+#### 6.3.4 Run NEMO ensemble :
+
+```
+   # in CTL :
+   ./run_nemo.sh
+```
+
+
