@@ -17,14 +17,6 @@ These are the core of the modifications for running ensemble run, introduced in 
 For DCM version, all modifications related to ensemble will be introduced only when key_drakkar_ensemble  is defined at compile time.
 Once tests have been performed, it is likely that we will only keep key_drakkar for all drakkar related modifications, including ensemble.
 
-We decide to keep the nomemclature that what used for OCCIPUT for naming the ensemble (this introduces differences with Jean-Michel code).
-Following DCM good practice, an experiment is defined by the config name and the case name `<CONFIG>-<CASE>`. (Example eORCA025-IMHOTEP.S ).
-The ensemble nomenclature used in OCCIPUT, encode the member number into the CASE part of the name, leading to `<CONFIG>-<CASE>.<MBR>` (where
-`<MBR>` is a 3 digit member number (001 ... 010 etc.. ) (Example : eORCA025.L75-IMHOTHEP.ES.007 for the 7th member of run IMHOTEP.ES). The idea
-is to be able to consider a single member as a particular CASE of the simulation (hence using standard tools will be OK).  
-In the fortran code, this have also an impact on the files directly written by NEMO such as restart files, ocean.output files and all the log 
-files produced by NEMO at runtime. 
-
 ### 2.1 New control variables in namelist
 New control variables are introduced in order to control the ensemble run. In order to be orthogonal to the standard code, modification
 are introduced in the nammpp_drk new namelist block:
@@ -97,8 +89,8 @@ to have this call systematically, independently of the use of stochastic paramet
 Note that for the project, at this level we only port stochastic parameterization related to the equation of state and to the grid scaling.  We drop all
 developement dedicated to passive tracers stochastic parameterization.
 
-In the context of ensemble run, the stochastic parameterization is used for creating a spread among the members. It will be used typically during one year (ot until
-spread is saturated and does'nt grow anymore), then the members will evolve freely, with stochastic perturbations OFF. If various successive segment of a run
+In the context of ensemble run, the stochastic parameterization is used for creating a spread among the members. It will be used typically during one year (or until
+spread is saturated and does'nt grow anymore), then the members will evolve freely, with stochastic perturbations OFF. If various successive segments of a run
 are using stochastic parameterization, it is important to save restart points and use them. (`ln_rststo=.true.`).  The actual namsto and namsto_drk namelist blocks are:
 
 ```fortran
@@ -205,11 +197,11 @@ a vertical axis and a basin axis). So far grids are independent from members.
   * file definition:  They are defined by importing the user defined files `file_def_nemo-oce.xml` and `file_def_nemo-ice.xml`. These files
 defined the output data plan, made by the user (which variables, which domain, which frequency). They might differ from member to member (for instance if
 we decide to output ensemble mean computed on the fly, only one member will do the output). In the DCM extension they also use to hold the absolute path
-of the output files (`<OUTPUT>` ) updated by the runtools at runtime. We took the oportunity to modify this behaviou by adding a new keyword (`@dirout@`)
+of the output files (`<OUTPUT>` ) updated by the runtools at runtime. We took the oportunity to modify this behaviour by adding a new keyword (`@dirout@`)
 recognized by NEMO (see below). 
 In order to simplify the managment of file_def xml files, we opt at having a single file for all members. This requires the following
     * If ensemble mean are to be saved, the corresponding fields are defined in fields_def and in file_def, for all members. In NEMO, only one member
-(for exemple 001 --why not ? -- ) with make the corresponding call to iom_put. 
+(for exemple 001 --why not ? -- ) will make the corresponding call to iom_put. 
     * We modify NEMO so that the keyword `@dirout@` is recognized in `iom.F90` and replaced by the absolute path of the xios output files. Therefore
 we also add a new character variables in the namelist (namblock namrun_drk) : `cn_dirout`. This latter variable gives the root pathname of the output files,
 and the segment number will be added in NEMO, as well as a member sub directory in case of ensemble run. (Just like for the restart files).  For example,
