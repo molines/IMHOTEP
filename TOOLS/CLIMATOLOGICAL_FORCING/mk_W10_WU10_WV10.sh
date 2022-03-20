@@ -43,7 +43,7 @@ y1=$(echo $year_span | awk -F- '{print $1}' )
 y2=$(echo $year_span | awk -F- '{print $2}' )
 
 cd $DATA_FORCING/$DATA_SET
-mkdir -p $WORK_DIR
+mkdir -p $WORK_DIR_3H
 
 
 cd $DATA_DIR_3H
@@ -59,7 +59,7 @@ for y in $( seq $y1 $y2 ) ; do
 done
 wait
 
-mv ${prefix}${w10}*.nc $WORK_DIR
+mv ${prefix}${w10}*.nc $WORK_DIR_3H
 
 for y in $( seq $y1 $y2 ) ; do
    $FORCING_TOOLS/mkmodxu.exe -y y${y} -set $DATA_SET -u10 $u10 -v10 $v10 -wu10 $wu10  -wv10 $wv10 -prefix $prefix &
@@ -70,5 +70,5 @@ for y in $( seq $y1 $y2 ) ; do
    fi
 done
 wait
-mv ${prefix}${wu10}*.nc $WORK_DIR
-mv ${prefix}${wv10}*.nc $WORK_DIR
+mv ${prefix}${wu10}*.nc $WORK_DIR_3H
+mv ${prefix}${wv10}*.nc $WORK_DIR_3H
