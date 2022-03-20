@@ -47,7 +47,7 @@ by JRA55 they are somehow linked to this data set (changing the atmospheric forc
 SSS restoring term). Note that SSS restoring was faded out in the coastal area so that there are no
 direct impact on the continental fresh water fluxes.  For the climatological run we just compute the monthly
 mean over the 1980-2019 period.
-  * [mk_WDMP_climato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mkclimato.sh) is used for this purpose. It is a
+  * [mk_WDMP_climato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mk_WDMP_climato.sh) is used for this purpose. It is a
 light interface to the `cdfmoy` tools from [CDFTOOLS](https:github.com/meom-group/CDFTOOLS.git)
 
 ## 3. Setting up the namelist for this run
