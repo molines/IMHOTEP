@@ -4,7 +4,7 @@ This configuration is identical to IMHOTEP.S  in term of code and parameterizati
 that it uses a JRA55 daily climatology (1980-2019) as atmospheric forcing.  The goal of this climatological
 run is primarily to help for detrending interannual run performed in IMHOTEP WP1. The idea is to use a 
 similar procedure than in OCCIPUT for retrieving physical local trends in various fields, but primarily for 
-the SSH.  Therefore, this simulation will use the same restart file (form spinup run 01/01/1980) as the WP1 
+the SSH.  Therefore, this simulation will use the same restart file (from spinup run 01/01/1980) as the WP1 
 simulations.
 
 As for IMHOTEP.S, all continental fresh water forcing are climatological. However, we note an extra difference
@@ -12,7 +12,7 @@ concerning the fresh water flux correction term (replacing SSS restoring): in IM
 term was kept as monthly interannual, in IMHOTEP.SC it is a monthly climatology over 1980-2019.
 
 ## 2. Preparing Climatological forcing
-After some internal discutions and tests, we decided to follow the standard procedure for preparing the 
+After some internal discussions and tests, we decided to follow the standard procedure for preparing the 
 climatological forcing field. Tools were adapted for IMHOTEP from JMMTOOLS/FORCING_TOOLS/CLIMATO and are
 availbale in this [directory](../../TOOLS/CLIMATOLOGICAL_FORCING/src)
 The goal is to obtain a 365 days annual climatology suitable for use in 
@@ -33,11 +33,10 @@ files, and the 3-hourly pseudo stress files.
 clever enough to handle this task properly ! Note that at the end of this step, all files in the TMP_CLIMATO
 working directory are **noleap** files although they have the same name as original files !
 
-### 2.3 Compute daily climatology from noleap hourly files
-  * [mkclimato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mkclimato.sh) computes the daily climatology from the
-**noleap** files in TMP_CLIMATO. It ends up with climatological files in the JRA55/CLIMATO_1980-2019
+### 2.3 Compute daily climatology from noleap 3-hourly files
+  * [mkclimato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mkclimato.sh) computes the daily climatology from the **noleap** files in TMP_CLIMATO. It ends up with climatological files in the JRA55/CLIMATO_1980-2019
 directory.  Note that both unfiltered (*eg* drowned_tas_JRA55_CLIM_1980-2019.nc) and 10-days filtered files
-(*eg* drowned_tas_JRA55_CLIM_1980-2019-f.nc)  are availble in the CLIMATOLOGY. It is likely that we will
+(*eg* drowned_tas_JRA55_CLIM_1980-2019-f.nc)  are availble in the climatology. It is likely that we will
 use the filtered files.
 
 ### 2.4 Preparing WDMP climatology.
@@ -48,7 +47,7 @@ SSS restoring term). Note that SSS restoring was faded out in the coastal area s
 direct impact on the continental fresh water fluxes.  For the climatological run we just compute the monthly
 mean over the 1980-2019 period.
   * [mk_WDMP_climato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mk_WDMP_climato.sh) is used for this purpose. It is a
-light interface to the `cdfmoy` tools from [CDFTOOLS](https:github.com/meom-group/CDFTOOLS.git)
+light interface to the `cdfmoyt` tools from [CDFTOOLS](https:github.com/meom-group/CDFTOOLS.git)
 
 ## 3. Setting up the namelist for this run
   * Lionel Renault Current Feed Back parametrisation
