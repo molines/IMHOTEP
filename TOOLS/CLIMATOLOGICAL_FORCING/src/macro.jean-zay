@@ -1,0 +1,8 @@
+
+NCROOT=/opt/netcdf-4.1.1-ifort
+NCDF=-lnetcdf -lnetcdff
+
+F90=ifort
+FFLAGS= -O3   $(NCDF) 
+INSTALL=$(HOME)/bin
+
