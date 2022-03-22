@@ -14,9 +14,9 @@ term was kept as monthly interannual, in IMHOTEP.SC it is a monthly climatology 
 ## 2. Preparing Climatological forcing
 After some internal discussions and tests, we decided to follow the standard procedure for preparing the 
 climatological forcing field. Tools were adapted for IMHOTEP from JMMTOOLS/FORCING_TOOLS/CLIMATO and are
-availbale in this [directory](../../TOOLS/CLIMATOLOGICAL_FORCING/src)
+available in this [directory](../../TOOLS/CLIMATOLOGICAL_FORCING/src).
 The goal is to obtain a 365 days annual climatology suitable for use in 
-IMHOTEP.SC. A 10 days smoothing filter is used at the end to get read of unphysical noise in the local 
+IMHOTEP.SC. A 10 days smoothing filter is used at the end to get rid of unphysical noise in the local 
 time series of the climatology. We performed the following steps:
 
 ### 2.1 Computing wind speed and pseudo stress (3-hourly)
@@ -34,16 +34,17 @@ clever enough to handle this task properly ! Note that at the end of this step, 
 working directory are **noleap** files although they have the same name as original files !
 
 ### 2.3 Compute daily climatology from noleap 3-hourly files
-  * [mkclimato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mkclimato.sh) computes the daily climatology from the **noleap** files in TMP_CLIMATO. It ends up with climatological files in the JRA55/CLIMATO_1980-2019
+  * [mkclimato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mkclimato.sh) computes the daily climatology from the **noleap**
+files in TMP_CLIMATO. It ends up with climatological files in the JRA55/CLIMATO_1980-2019
 directory.  Note that both unfiltered (*eg* drowned_tas_JRA55_CLIM_1980-2019.nc) and 10-days filtered files
-(*eg* drowned_tas_JRA55_CLIM_1980-2019-f.nc)  are availble in the climatology. It is likely that we will
+(*eg* drowned_tas_JRA55_CLIM_1980-2019-f.nc)  are available in the climatology. It is likely that we will
 use the filtered files.
 
 ### 2.4 Preparing WDMP climatology.
-WDMP files are the results of the spinup run, from which we compute an interannual monthly mean on the
+WDMP files are buildt from the output of the spinup run, from which we compute an interannual monthly mean on the
 eORCA025 model grid.  But they are considered as part of the forcing and although they are not provided
 by JRA55 they are somehow linked to this data set (changing the atmospheric forcing will likely change the
-SSS restoring term). Note that SSS restoring was faded out in the coastal area so that there are no
+SSS restoring term). Note that SSS restoring was faded out in  coastal areas so that there are no
 direct impact on the continental fresh water fluxes.  For the climatological run we just compute the monthly
 mean over the 1980-2019 period.
   * [mk_WDMP_climato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mk_WDMP_climato.sh) is used for this purpose. It is a
