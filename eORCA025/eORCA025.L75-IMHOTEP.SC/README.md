@@ -50,7 +50,23 @@ mean over the 1980-2019 period.
   * [mk_WDMP_climato.sh](../../TOOLS/CLIMATOLOGICAL_FORCING/mk_WDMP_climato.sh) is used for this purpose. It is a
 light interface to the `cdfmoyt` tools from [CDFTOOLS](https:github.com/meom-group/CDFTOOLS.git)
 
-## 3. Setting up the namelist for this run
+## 3. Installing the NEMO configuration
+For reference we list the procedure for installing the NEMO configuration for this simulation.
+### 3.1 Check for valid version of DCM:
+In order to be similar with WP1 IMHOTEP run, we need to use exactly the same commit (check install history in 
+the IMHOTEP.S config directory:
+
+  ```
+   Thu Jul 29 06:19:01 CEST 2021
+   origin	https://github.com/meom-group/DCM.git (fetch)
+   origin	https://github.com/meom-group/DCM.git (push)
+   commit 667c0038ba5fc22e4eebc9b8073d655bed32872d
+   Author: jmm <Jean-Marc.Molines@univ-grenoble-alpes.fr>
+   Date:   Wed Jul 28 09:48:36 2021 +0200
+  ```
+
+
+## 4. Setting up the namelist for this run
   * Lionel Renault Current Feed Back parametrisation
   * Leap or no leap ?
   * change in the input files
