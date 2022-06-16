@@ -106,3 +106,14 @@ went to proceed with monthly segments and the memory issue disappeared. But we n
 every month had a CPU cost (+15%). So we went to proceed with semestrial segments, and it was OK till 2004 
 (June). Afterward we went back to monthly segments.  
 Note that for all the IMHOTEP WP1 simulations (S GAI AI GA GI), we proceed always with monthly segments.
+
+## Use of SLA from satelite altimetry
+  * AVISO/CMEMS propose L3 dataset (along-track SLA) for all the satelites from TP to j3. The format of CMEMS file is not
+compatible with NEMO/OBS operator, which requires `feedback` format.
+  * Convertion program has been developped (aviso_fdbk.f90)[https://github.com/molines/JMMTOOLS/blob/master/DATA_TOOLS/FBK/aviso_fdbk.f90] for this purpose.
+  * Monthly feedback files are archived on jean-zay at :
+    * `/gpfswork/rech/cli/commun/DATA_SET/OBS/AVISO` and
+    * `/gpfsstore/rech/cli/commun/DATASET/OBS/AVISO`
+  * In ALL subdirectory, symbolic links have been done to the various satelites with a generic name, so that it can
+be used easily in the production stream. Note that some adjustment is required in the RUNTOOLS in order to deal with
+monthly SLA OBS files.
