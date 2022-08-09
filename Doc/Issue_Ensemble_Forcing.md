@@ -1,4 +1,4 @@
-# Test regarding the ensemble forcing stategy
+# Issues when using ensemble average forcing for the ocean
   
 ## 1. Context
   We decided to use the ensemble mean  for the forcing at ocean surface. Doing so, we arrived to ice model instability after 2.5 years of run. The instability show up with spurious 20m ice thickness but also temperature of -5 or -6 C associated to very high salinities ( > 60 g/kg) at  many points in the Arctic, mainly.  The model security check set an error flag when salinity exceeds 100 g/kg which happens during Nov. 1977 for member #1O. (Ensemble run started from restart files Jan. 01, 1975).  In order to find a solution we performs some tests and compared the results with October 1977.
