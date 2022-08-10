@@ -37,11 +37,11 @@ for  typ in gridU gridV gridT gridW ; do
   mkdir -p $DTA5d
   cd $DTA1d
   if [ $leap = 1 ] ; then
-    cp $DEVGIT/IMHOTEP/TOOLS/AVERAGE_5d/task_leap.TYP.MBR.conf ./task.TYP.MBR.conf
+    cp $DEVGIT/IMHOTEP/TOOLS/AVERAGE_5d/task_leap.CASE.TYP.MBR.conf ./task.CASE.TYP.MBR.conf
   else
-    cp $DEVGIT/IMHOTEP/TOOLS/AVERAGE_5d/task.TYP.MBR.conf ./task.TYP.MBR.conf
+    cp $DEVGIT/IMHOTEP/TOOLS/AVERAGE_5d/task.CASE.TYP.MBR.conf ./task.CASE.TYP.MBR.conf
   fi
-  cat task.TYP.MBR.conf | sed -e "s/<MBR>/$MBR/g"  -e "s/<YEAR>/$YEAR/g" -e "s/<TYP>/$typ/g" > ztask.conf.$$
+  cat task.CASE.TYP.MBR.conf | sed -e "s/<MBR>/$MBR/g"  -e "s/<YEAR>/$YEAR/g" -e "s/<TYP>/$typ/g" -e "s/<CASE>/$CASE/g" > ztask.conf.$$
   if [ $typ = gridW ] ; then
     cat  ztask.conf.$$ | sed -e "s/-vvl/ /g" > ztmp
     mv ztmp ztask.conf.$$
