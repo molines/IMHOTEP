@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --ntasks-per-node=40
+#SBATCH --threads-per-core=1
+#SBATCH -A cli@cpu
+#SBATCH --hint=nomultithread
+#SBATCH -J JOB_
+#SBATCH -e zjob.e%j
+#SBATCH -o zjob.o%j
+#SBATCH --time=0:30:00
+
+
+module unload DCM
+module load DCM/4.0.6ens
+cd /linkhome/rech/genlgg01/rcli002/CONFIGS/CONFIG_eORCA025.L75/eORCA025.L75-IMHOTEP.EGAI
+#make cleaninst
+make install
+make
+

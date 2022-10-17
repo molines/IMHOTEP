@@ -1,0 +1,12 @@
+    <!-- 
+============================================================================================================
+=                                           output files definition                                        =
+=                                            Define your own files                                         =
+=                                         put the variables you want...                                    =
+============================================================================================================
+    -->
+
+    <file_definition type="multiple_file" name="@dirout@/@expname@_@freq@"  min_digits="4">
+      <file_group src="./file_def_nemo-oce-1d.xml"/>
+      <file_group src="./file_def_nemo-oce-1m.xml"/>
+    </file_definition>

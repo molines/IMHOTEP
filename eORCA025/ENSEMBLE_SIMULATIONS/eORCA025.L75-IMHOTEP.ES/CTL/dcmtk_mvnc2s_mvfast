@@ -1,0 +1,108 @@
+#!/bin/bash
+# this script is used to migrate netcdf files from the directory where they are 
+# rebuilt after a run to the storage directory CONFCASE-S
+# The command must be issued from either a CONFCASE-DIMGPROC.xx or a CONFCASE-XIOS.xx directory 
+# class = @File management tools@
+
+usage() {
+     echo
+     echo "USAGE : dcmtk_mvnc2s_mv_fast [-h ]"
+     echo
+     echo "  PURPOSE:"
+     echo "     This script is used to move rebuilt nc file to the CONFCASE-S directory"
+     echo "     It is used in <CONFCASE>-XIOS.<seg> output directory after a run."
+     echo "     This script does not store the files on the archive but only move then"
+     echo "     to $DDIR"
+     echo "     In this fast version, we assume std XIOS output already rebuild in "
+     echo "     <freq>_OUTPUT, with no year mixingi. Ensemble run not suported"
+     echo "     You can use cpdd of mcp to perform the archiving (as a mirror -deprecated-)"
+     echo 
+     echo "  OPTIONS :"
+     echo "     [ -h ] : show this help message "
+     echo 
+     exit 0
+        }
+
+#set -x 
+
+
+if [ $# != 0 ] ; then usage ; fi
+
+here=$(pwd)
+echo $here | grep -q XIOS 
+tmp=$?
+
+if [ $tmp  !=  0 ] ; then
+   echo You must use dcmtk_mvnc2s in a CONFIG-CASE-XIOS.x directory.
+   echo It will then copy all CONFIG*nc file in the corresponding -S
+   echo directory, if any, respecting output frequency and year.
+   exit 0
+fi
+
+DDIR=${DDIR:-$CDIR}
+#if [ $MACHINE = 'jean-zay' ] ; then DDIR=$WORK ; fi
+
+ensemble=0
+# detect if ensemble run (look for 001 directory)
+if [ -d 001 ] ; then 
+   ensemble=1
+   mbrlst=$( ls -1d 0?? )
+else
+   mbrlst=./
+fi
+
+for mbr in $mbrlst ; do
+   cd $mbr
+   echo dealing with member $mbr
+echo Ready to copy from $here to -S, XIOS output
+# look for CONFIG-CASE
+# CONFIG-CASE-XIOS.seg
+CONFIG=$( echo $(basename $here)  | awk -F- '{print $1}' )
+CASE=$( echo $(basename $here)    | awk -F- '{print $2}' )
+
+CONFCASE=${CONFIG}-${CASE}
+echo WORKING for $CONFCASE
+
+# looking for available freq
+tmp=( $(ls -1d *_OUTPUT) )
+
+nbfrq=${#tmp[@]}
+echo -n $nbfrq " : "
+
+for n in $( seq 0 $(( nbfrq - 1 )) ) ; do
+  frqlst[$n]=${tmp[$n]%_OUTPUT}
+done
+
+echo ${frqlst[@]}
+
+cd ${frqlst[0]}_OUTPUT
+#look for actual year
+if [ $ensemble = 1 ] ; then
+   tmp=$( ls -l ${CONFCASE}.${mbr}_y*.nc | head -1 | awk -F_ '{print $2}' )
+else
+   tmp=$( ls -l ${CONFCASE}_y*.nc | head -1 | awk -F_ '{print $2}' )
+fi
+year=${tmp:1:4}
+month=${tmp:6:2}
+echo $year  $month
+
+cd $here/$mbr
+
+# loop on frequencies
+for freq in  ${frqlst[@]} ; do
+  # prepare target directory
+  if [ $ensemble = 1 ] ; then 
+     tgtdir=$DDIR/${CONFIG}/${CONFCASE}.${mbr}-S/$freq/$year
+  else
+     tgtdir=$DDIR/${CONFIG}/${CONFCASE}-S/$freq/$year
+  fi
+  mkdir -p $tgtdir
+  cd ${freq}_OUTPUT
+     mv * $tgtdir
+  cd $here/$mbr
+done
+
+if [ $ensemble = 1 ] ; then cd ../  ; fi
+done
+
+

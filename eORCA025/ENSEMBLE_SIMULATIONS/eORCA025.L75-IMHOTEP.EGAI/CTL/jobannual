@@ -1,0 +1,108 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=40
+#SBATCH --ntasks-per-node=40
+#SBATCH -A cli@cpu
+####SBATCH --partition=archive
+#SBATCH --hint=nomultithread
+#SBATCH -J JOB_an_EGAI
+#SBATCH -e zjobannual.e%j
+#SBATCH -o zjobannual.o%j
+#SBATCH --time=2:00:00
+#SBATCH --exclusive
+
+
+#set -x 
+
+if [ $# = 0 ] ; then
+  echo "USAGE: jobannual LIST-years"
+  echo
+  echo "PURPOSE: "
+  echo "    Compute annual mean from monthly mean produced by XIOS"
+  exit
+fi
+
+get_confcase() {
+here=$(pwd)
+b_name=$( basename $here )
+
+case $b_name in
+(CTL) tmp=$(dirname  $here )
+      echo "paf $tmp "
+      CONFCASE=$( basename $tmp )
+      CONFIG=${CONFCASE%-*}
+      CASE=${CONFCASE#*-} ;;
+
+(CDF ) tmp=$(dirname $here  )
+       tmp=$(dirname $tmp  )
+      CONFCASE=$( basename $tmp )
+      CONFIG=${CONFCASE%-*}
+      CASE=${CONFCASE#*-} ;;
+( * ) echo " cannot infer CONFASE !"
+      echo " This is not a CTL dir nor a CTL/CDF dir "
+      exit 1
+esac
+echo "     CONFIG   : " $CONFIG
+echo "     CASE     : " $CASE
+echo " ==> CONFCASE : " $CONFCASE
+               }
+
+get_confcase
+
+ROOT_DIR=$DDIR
+#==========================================
+years=( $* )
+
+for mbr in {001..010} ; do
+
+CONFCASE=${CONFIG}-${CASE}.$mbr
+MONTHLYDIR=$ROOT_DIR/${CONFIG}/${CONFCASE}-S/1m
+YEARLYDIR=$ROOT_DIR/${CONFIG}/${CONFCASE}-S/1y
+
+n=0
+for year in ${years[@]} ; do
+   # detect leap years
+   if [ $(( year % 4 )) = 0 ] ; then
+        if [ $(( $year % 100 )) -eq  0  -a  $(( $year % 400 )) -ne  0  ] ; then
+          LEAP=''
+        else
+          LEAP='-leap'
+        fi
+   else
+          LEAP=''
+   fi
+
+   mkdir -p  $YEARLYDIR/$year/
+   cd ${MONTHLYDIR}/$year
+   typlst=( $(ls *m01* | awk -F_ '{print $NF}' | sed -e "s/.nc//")  ) 
+   ntypes=${#typlst[@]}
+   echo $ntypes  types to deal with
+   echo $(( 40 / ntypes ))
+   for typ in  ${typlst[@]} ; do
+      case $typ in
+      ('PRODU')
+           cdfmoy_weighted -l ${CONFCASE}_y${year}m??.1m_${typ}.nc -month -vvl -e3 ${CONFCASE}_y${year}m??.1m_gridU.nc\
+           $LEAP -nc4 -o $YEARLYDIR/$year/${CONFCASE}_y${year}.1y_${typ}.nc &
+           echo PRODU ;;
+      ('PRODV')
+           cdfmoy_weighted -l ${CONFCASE}_y${year}m??.1m_${typ}.nc -month -vvl -e3 ${CONFCASE}_y${year}m??.1m_gridV.nc\
+           $LEAP -nc4 -o $YEARLYDIR/$year/${CONFCASE}_y${year}.1y_${typ}.nc &
+           echo PRODV ;;
+      ('PRODW'| 'gridW')
+           cdfmoy_weighted -l ${CONFCASE}_y${year}m??.1m_${typ}.nc -month \
+           $LEAP -nc4 -o $YEARLYDIR/$year/${CONFCASE}_y${year}.1y_${typ}.nc &
+           echo W-point no vvl ;;
+      ( *     )
+      cdfmoy_weighted -l ${CONFCASE}_y${year}m??.1m_${typ}.nc -month -vvl $LEAP -nc4 -o $YEARLYDIR/$year/${CONFCASE}_y${year}.1y_${typ}.nc &
+           echo $typ ;;
+      esac
+      n=$(( n + 1 ))
+   done
+   if [ $n = 26 ] ; then
+       wait
+       n=0
+   fi
+done
+wait
+done
+wait

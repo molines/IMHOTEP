@@ -1,0 +1,77 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=24
+#SBATCH --ntasks-per-node=40
+#SBATCH -A cli@cpu
+##SBATCH --partition=archive
+#SBATCH --hint=nomultithread
+#SBATCH -J JOB_OBS_EGAI
+#SBATCH -e zjobobs.e%j
+#SBATCH -o zjobobs.o%j
+#SBATCH --time=01:15:00
+#SBATCH --exclusive
+
+
+set -x 
+ulimit -s unlimited
+
+
+if [ $# != 3 ] ; then
+   echo "USAGE  :   jobobs  CONFCASE SEG1 SEG2 "
+   echo "PURPOSE:    Post process Observations "
+   exit 0
+fi
+
+CONFCASE=$1
+n1=$2
+n2=$3
+
+
+nproc=480
+nmember=10
+
+CONFIG=${CONFCASE%-*}
+CASE=${CONFCASE#*-}
+
+#==========================================
+
+CONFCASE=${CONFIG}-${CASE}
+rootdir=$DDIR
+OBSDIR=$DDIR/${CONFIG}/${CONFCASE}-S/OBS
+
+TRJDIR=$DDIR/${CONFIG}/${CONFCASE}-S/ICBTRJ
+STRJDIR=$SDIR/${CONFIG}/${CONFCASE}-S/ICBTRJ
+
+CTLDIR=$PDIR/RUN_${CONFIG}/${CONFCASE}/CTL/
+DBfile=${CTLDIR}/${CONFCASE}.db
+
+mkdir -p $OBSDIR
+
+mkdir -p $TRJDIR
+mkdir -p $STRJDIR
+for member in $( seq 1 $nmember ) ; do
+  mbr=$( printf "%03d" $member )
+  SOBSDIR=$SDIR/${CONFIG}/${CONFCASE}.${mbr}-S/OBS
+  mkdir -p $SOBSDIR
+  nn=0
+  for n in $(seq $n1 $n2)  ; do
+    tmp=$(head -$n $DBfile | tail -1 | awk '{print $4}')
+    year=${tmp:0:4}
+    mont=${tmp:4:2}
+    dayf=${tmp:6:2}
+    echo $year
+
+    #  recombine OBS file in yearly fdbk format
+    cd $rootdir/${CONFCASE}-DIAOBS.$n/$mbr
+    ( fbcomb.exe $OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc profb.${mbr}_fdbk_????.nc
+     dd bs=50M if=$OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc of=$SOBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc ) &
+    ( fbcomb.exe $OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc slafb.${mbr}_fdbk_????.nc
+     dd bs=50M if=$OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc of=$SOBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc ) &
+    nn=$(( nn + 1 ))
+    if [ $nn = 12 ] ; then
+       wait
+       nn=0
+    fi
+  done
+  wait
+done
