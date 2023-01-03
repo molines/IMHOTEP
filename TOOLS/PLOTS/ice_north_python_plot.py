@@ -137,6 +137,15 @@ elif cv_in == 'sovitmod':
     unit='m/s'
     tick=0.1
     lmsk = True
+elif cv_in == 'siconc':
+    cname='Sea ice concentration'
+    vmin=0.
+    vmax=1.
+    offset=0
+    scalef=1
+    unit=''
+    tick=0.1
+    lmsk = False
 else:
     print 'ERROR : variable ',cv_in, ' not yet supported.' 
     quit()
@@ -183,8 +192,10 @@ for tim in range(frd,fre):
 #    V2d=nmp.where(V2d == 0, Vmsk, V2d )
     dat=cdftime.num2date(Xtim[tim])
     datstr = dat.strftime("%b-%d-%Y %H:%M")
+#    V2d=nmp.where ( V2d is nmp.ma.masked, 5, V2d)
     if lmsk:
        V2d=nmp.ma.masked_where(V2d == 0 , V2d) 
+
     if tim < 10:
        cnum='00'+str(tim)
     elif tim < 100:   

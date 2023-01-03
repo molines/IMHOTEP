@@ -45,8 +45,6 @@ parser = ap.ArgumentParser(description='Generate pixel maps of a given scalar.')
 requiredNamed = parser.add_argument_group('required arguments')
 requiredNamed.add_argument('-i', '--input_file', required=True,                help='specify the input file ...')
 requiredNamed.add_argument('-v', '--variable'  , required=True,                help='specify the input variable')
-requiredNamed.add_argument('-wij', '--ijwindow', required=True, nargs=4,       help=' data window in i,j coordinate (imin jmin imax jmax)' )
-requiredNamed.add_argument('-wlonlat', '--lonlatwindow', required=True, nargs=4, help=' plot window in lonlat coordinate (lonmin latmin lonmax latmax)' )
 #  Options
 parser.add_argument('-p', '--palette',default='plasma',required=False,         help='specify the palette name')
 parser.add_argument('-d', '--figures',default='./figs',required=False,         help='specify the output directory')
@@ -54,8 +52,6 @@ parser.add_argument('-t', '--frame',  type=int, default=-1,required=False,     h
 parser.add_argument('-nt', '--number',type=int, default=-1,required=False,     help='specify the number of frame, [all]')
 parser.add_argument('-dpi','--dpi',type=int,    default=150,required=False,    help='specify dpi resolution [150] ')
 parser.add_argument('-proj','--projection',     default='cyl',required=False,    help='specify projection [cyl] ')
-parser.add_argument('-xstep','--xstep',type=float, default=45.0,required=False,    help='specify longitude graduation [45] ')
-parser.add_argument('-ystep','--ystep',type=float, default=45.0,required=False,    help='specify latitude graduation [45] ')
 
 args = parser.parse_args()
 ####
@@ -67,18 +63,6 @@ frame=args.frame
 number=args.number
 dpi=args.dpi
 proj=args.projection
-xstep=args.xstep
-ystep=args.ystep
-# 
-zzoom=args.ijwindow
-zvp=args.lonlatwindow
-# transform strings in integer and float
-zoom=[ int(zzoom[0]), int(zzoom[1]), int(zzoom[2]), int(zzoom[3]) ]
-vp=[ float(zvp[0]), float(zvp[1]), float(zvp[2]), float(zvp[3]) ]
-#vp   = [ -100, -10, 40, 70 ]
-#zoom = [2190, 1727,3900,3400]
-
-print 
 
 cf_plt=cf_in
 cf_in=cf_in+".nc"
@@ -130,8 +114,7 @@ elif cv_in == 'sos':
 elif cv_in == 'sovitmod':
     cname='Sea Surface Velocity '
     vmin=0.
-#    vmax=1.
-    vmax=0.5
+    vmax=1.
     offset=0
     scalef=1
     unit='m/s'
@@ -151,7 +134,6 @@ id_in = Dataset(cf_in)
 list_var = id_in.variables.keys()
 
 Xlon = id_in.variables['nav_lon'][:,:]
-Xlon =nmp.where(Xlon > 73, Xlon-360,Xlon )
 Xlat = id_in.variables['nav_lat'][:,:]
 
 (nj,ni) = nmp.shape(Xlon) ; print('Shape Arrays => ni,nj ='), ni,nj
@@ -196,15 +178,23 @@ for tim in range(frd,fre):
 
     vfig_size = [ 4, 4.5 ] 
     vsporg = [0.1, 0.12, 0.80, 0.75]
-    eps=0.00  # 0.1
+    eps=0.10  # 0.1
+#    vp   = [ -30, 20, -5, 40 ]
+#    vp   = [ -180, -89, 180, 89 ]
+#    vp   = [ -180, -89, 179, 89 ]
+#    vp   = [ -180, -89, 180, 89 ]
+#    vp   = [ -270, -89, 73, 89 ]
+#    vp   = [ -287, -89, 73, 89 ]
+#    vp   = [ -280, -89, 73, 89 ]
+    vp   = [ -100, -10, 40, 70 ]
+    zoom = [2190, 1727,3900,3400]
     ni=zoom[2]-zoom[0]+1
     nj=zoom[3]-zoom[1]+1
     print ni, nj
 
     lon_0= (vp[0]+vp[2])/2.
     lat_0= (vp[1]+vp[3])/2.
-    lat_0=90
-    lon_0=-30
+    lat_0=0
     print "lon_0=", lon_0
     print "lat_0=", lat_0
 #    vp   = [ -200, -89, 60, 89 ]
@@ -216,15 +206,18 @@ for tim in range(frd,fre):
 #    fig = plt.figure(num = 1,  dpi=300, facecolor='k', edgecolor='k')
     ax  = plt.axes(vsporg, facecolor = 'w')
     
+#   carte = Basemap(llcrnrlon=vp[0]-eps, llcrnrlat=vp[1]-eps, urcrnrlon=vp[2]+eps, urcrnrlat=vp[3]+eps, \
+#                   resolution='h', area_thresh=10., projection='robin',lon_0=-108,\
+#                   epsg=None)
     carte = Basemap(llcrnrlon=vp[0]-eps, llcrnrlat=vp[1]-eps, urcrnrlon=vp[2]+eps, urcrnrlat=vp[3]+eps, \
-                    resolution='c', area_thresh=10., projection=proj,boundinglat=40, lon_0=lon_0,lat_0=lat_0,\
+                    resolution='c', area_thresh=10., projection=proj,lon_0=lon_0,lat_0=lat_0,\
                     epsg=None)
     
     x0,y0 = carte(Xlon,Xlat)
     print type(x0)
     print x0[nj-1,ni-1]
     print y0[nj-1,ni-1]
-#   x0=nmp.where(x0 > 73, x0-360,x0 )
+#    x0=nmp.where(x0 > 73, x0-360,x0 )
     print zoom
     type (zoom[1])
     print x0[zoom[1]:zoom[3],zoom[0]:zoom[2]]
@@ -240,11 +233,9 @@ for tim in range(frd,fre):
     carte.drawcoastlines(linewidth=0.5)
     
 
-#   xstep=45
-#   ystep=20
-    carte.drawmeridians(nmp.arange(vp[0],vp[2]+xstep,xstep), labels=[1,1,1,1], linewidth=0.3)
-#    carte.drawparallels(nmp.arange(vp[1],vp[3]+ystep,ystep), labels=[1,1,1,1], linewidth=0.3)
-    carte.drawparallels(nmp.arange(vp[1],vp[3]+ystep,ystep), linewidth=0.3)
+    step=45
+    carte.drawmeridians(nmp.arange(vp[0],vp[2]+step,step), labels=[1,0,0,1], linewidth=0.3)
+    carte.drawparallels(nmp.arange(vp[1],vp[3]+step,step), labels=[1,0,0,1], linewidth=0.3)
 
     # add color bar  : 
     ax3 = plt.axes( [0.1,0.05,0.80,0.015])

@@ -127,7 +127,6 @@ elif cv_in == 'sos':
     unit='--'
     tick=0.4
     lmsk = True
-
 elif cv_in == 'sovitmod':
     cname='Sea Surface Velocity '
     vmin=0.
@@ -137,67 +136,6 @@ elif cv_in == 'sovitmod':
     unit='m/s'
     tick=0.1
     lmsk = True
-
-elif cv_in == 'berg_melt':
-    cname  = 'Iceberg melting'
-    vmin   = 0.
-    vmax   = 1.5
-    offset = 0
-    scalef = 86400
-    unit   = 'mm/day'
-    tick   = 0.5
-    lmsk   = False
-
-elif cv_in == 'vfxice':
-    cname  = 'ice-ocean fwf ice melt/growth'
-    vmin   = -10
-    vmax   = 10
-    offset = 0
-    scalef = 86400
-    unit   = 'mm/day'
-    tick   = 1
-    lmsk   = True
-
-elif cv_in == 'vfxsnw':
-    cname  = 'ice-ocean fwf snw melt/growth'
-    vmin   = -10
-    vmax   = 10
-    offset = 0
-    scalef = 86400
-    unit   = 'mm/day'
-    tick   = 1
-    lmsk   = True
-
-elif cv_in == 'siconc':
-    cname  = 'Sea Ice concentration'
-    vmin   = 0
-    vmax   = 1
-    offset = 0
-    scalef = 1
-    unit   = '[0-1]'
-    tick   = 0.1
-    lmsk   = True
-
-elif cv_in == 'sivolu':
-    cname  = 'Sea Ice volume per area'
-    vmin   = 0
-    vmax   = 6
-    offset = 0
-    scalef = 0.5
-    unit   = 'm'
-    tick   = 1
-    lmsk   = True
-
-elif cv_in == 'sithic':
-    cname  = 'Sea Ice thickness'
-    vmin   = 0
-    vmax   = 6
-    offset = 0
-    scalef = 0.5
-    unit   = 'm'
-    tick   = 1
-    lmsk   = True
-
 else:
     print 'ERROR : variable ',cv_in, ' not yet supported.' 
     quit()
@@ -278,7 +216,7 @@ for tim in range(frd,fre):
     ax  = plt.axes(vsporg, facecolor = 'w')
     
     carte = Basemap(llcrnrlon=vp[0]-eps, llcrnrlat=vp[1]-eps, urcrnrlon=vp[2]+eps, urcrnrlat=vp[3]+eps, \
-                    resolution='c', area_thresh=10., projection=proj,boundinglat=-45, lon_0=lon_0,lat_0=lat_0,\
+                    resolution='c', area_thresh=10., projection=proj,boundinglat=-30, lon_0=lon_0,lat_0=lat_0,\
                     epsg=None)
     
     x0,y0 = carte(Xlon,Xlat)
