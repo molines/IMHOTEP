@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# = 0 ] ; then
-   echo "  USAGE : mkmp4 NAME_id year"
+   echo "  USAGE : mkmp4 NAME_id"
    echo "    Purpose :"
    echo "      Transform a bunch of sequential png file into an mp4 movie."
    echo "    Options :"
@@ -12,10 +12,9 @@ if [ $# = 0 ] ; then
 fi
 
 NAME=$1
-YEAR=$2
 
 n=0
-for f in *${YEAR}*.png ; do
+for f in *.png ; do
    n=$(( n + 1 ))
    nnnn=$( printf "%04d" $n )
    ln -sf $f ${NAME}_$nnnn.png
