@@ -9,7 +9,7 @@
 #SBATCH -J CONCAT_
 #SBATCH -e zconcat.e%j
 #SBATCH -o zconcat.o%j
-#SBATCH --time=5:00:00
+#SBATCH --time=2:00:00
 #SBATCH --exclusive
 
 

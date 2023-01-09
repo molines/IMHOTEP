@@ -5,7 +5,7 @@
 #SBATCH -A cli@cpu
 ##SBATCH --partition=archive
 #SBATCH --hint=nomultithread
-#SBATCH -J JOB_OBS
+#SBATCH -J JOB_OBS_ES
 #SBATCH -e zjobobs.e%j
 #SBATCH -o zjobobs.o%j
 #SBATCH --time=01:15:00
