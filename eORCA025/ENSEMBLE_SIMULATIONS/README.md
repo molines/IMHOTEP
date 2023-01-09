@@ -63,19 +63,19 @@ It is possible to have various ensemble configuration running at the same time (
 to post-process files ASAP, in order to be able to free disc space on the scratch file system. 
 
 A production job is able to perform 24 month of simulation, looping over the month. In our jargon, each month is a segment of a job, and is indenfied
-by its number. `<CONFIG>.db` file is used to make the correspondance between segment number, and date as weel as model time-steps.
+by its number. `<CONFIG>.db` file is used to make the correspondance between segment number, and date as well as model time-steps.
 
 The post-processing is performed by scripts (interactive  or submitted in the batch queue). I keep the chaining of the post-processing tools manual,
-in order to check the smooth advance..
+in order to check the smooth advance. All post processing must be launched from the corresponding CTL directory.
 
-I used to have a text file with the sequential post-processing task to performe, in order to tag task done/submitted/to be done. Below is an example of this text file:
+I used to have a text file with the sequential post-processing task to perform, in order to tag tasks done/submitted/to be done. Below is an example of this text file:
 
 ```
 ######### When  job's segment completed:
 ========================================
 
 XIOS  rangexios SEG1 SEG2  MV  ( MV move the recombined files into the proper -S directory)
-                               ( RM remove the XIOS.seg directorys from scratch !!! CAUTION !!
+                               ( RM remove the XIOS.seg directories from scratch !!! CAUTION !!
 =====
 EGAI    545 done
 ES :    545 done
