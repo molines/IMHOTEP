@@ -57,5 +57,120 @@ squared fields, which are useless in this context. A parallel script has been se
 [job_5d.sh](eORCA025.L75-IMHOTEP.EAI/CTL/job_5d.sh) and [job_ssh5d.sh](eORCA025.L75-IMHOTEP.EAI/CTL/job_ssh5d.sh). Note that for speeding up the 
 parallelisation initialization, templates of task files are used ([task_leap.CASE.TYP.MBR.conf](../../TOOLS/AVERAGE_5d/task_leap.CASE.TYP.MBR.conf)).
 
+## `baby-sitting` of ensemble simulations.
+  Production of the ensemble simulation generates a large amount of files that requires post-processing before archiving.  
+It is possible to have various ensemble configuration running at the same time (if the machine is free enough). In this case, it is very important
+to post-process files ASAP, in order to be able to free disc space on the scratch file system. 
+
+A production job is able to perform 24 month of simulation, looping over the month. In our jargon, each month is a segment of a job, and is indenfied
+by its number. `<CONFIG>.db` file is used to make the correspondance between segment number, and date as weel as model time-steps.
+
+The post-processing is performed by scripts (interactive  or submitted in the batch queue). I keep the chaining of the post-processing tools manual,
+in order to check the smooth advance..
+
+I used to have a text file with the sequential post-processing task to performe, in order to tag task done/submitted/to be done. Below is an example of this text file:
+
+```
+######### When  job's segment completed:
+========================================
+
+XIOS  rangexios SEG1 SEG2  MV  ( MV move the recombined files into the proper -S directory)
+                               ( RM remove the XIOS.seg directorys from scratch !!! CAUTION !!
+=====
+EGAI    545 done
+ES :    545 done
+EAI :   545 done
+
+OBS /ICB jobobs_3  CONFCASE SEG1 SEG2  : post process OBS dataset
+         jobtrj_3  CONFCASE SEG1 SEG2  : post process ICB dataset (iceberg trajectories)
+========
+EGAI    545 done
+ES :    545 done
+EAI :   545 done
+
+######### When full year completed : 
+====================================
+
+1y  jobannual LIST-years : Compute yearly mean from monthly output
+===
+EGAI: 2016 done 2017 done 2018 done
+ES  : 2016 done 2017 done 2018 done
+EAI : 2016 done 2017 done 2018 done
+
+RST SAVE only 1 per year corresponding to 1231 (end of december) ( On STORE ), move 1231 segments to SAVE, remove other.
+===
+EGAI :  2016 (521) SAVE 2017 (533) SAVE 2018 (545) SAVE
+ES   :  2016 (521) SAVE 2017 (533) SAVE 2018 (545) SAVE
+EAI  :  2016 (521) SAVE 2017 (533) SAVE 2018 (545) SAVE
+
+5d sbatch job_5d <YEAR> <MBR> or job_5d2 YEAR1 YEAR2 MBR  Process 5d average for 3D file, year and member
+=================
+EGAI 2016 done 2017 done 2018 done
+ES   2016 done 2017 done 2018 done
+EAI  2016 done 2017 done 2018 done 
+
+ssh_5d sbatch job_ssh5d <YEAR> <MBR>  job_ssh5d2 YEAR1 YEAR2 MBR  Process 5d average for 2D file, year and member
+======
+EGAI 2016 done 2017 done 2018 done
+ES   2016 done 2017 done 2018 done
+EAI  2016 done 2017 done 2018 done
+
+rmgrid UVW pour 1d (remove gridU gridV gridW files from 1d output )!! AFTER 5d and ssh_5d completed successfuly !!!
+==========
+EGAI 2015 done 2016 done 2017 done 2018 done
+ES   2015 done 2016 done 2017 done 2018 done
+EAI  2015 done 2016 done 2017 done 2018 done
+
+5d_concat : concat5d   YEAR  (!!!AFTER 5d and ssh5d!!!) : concatenation of 5d files into monthly files (part 1 )
+            concat5d-2 YEAR                             : concatenation of 5d files into monthly files (part 2 )
+===========
+EGAI  2015 done 2016 done 2017 done 2018 done
+ES    2015 done 2016 done 2017 done 2018 done
+EAI   2015 done 2016 done 2017 done 2018 done
+
+1d_concat : (concat1d YEAR MBR ) !!! AFTER rmgridTUVW.sh AND AFTER  5d !!!
+=========
+EGAI  2015 done 2016 done 2017 done 2018 done 
+ES    2015 done 2016 done 2017 done 2018 done
+EAI : 2015 done 2016 done 2017 done 2018 done
+
+rmdiryrs : !!!AFTER concat 1d et 5d !!!  (remove yearly files from scratch)
+==========
+EGAI  2015 done 2016 2017 done
+ES    2015 done 2016 2017 2018 done
+EAI : 2015 done 2016 2017 2018 done
+
+
+##############  when year and concat completed
+===========================================================================
+store_migration :store_migration.sh (edit script to set up year limit  and frequency)
+===========================================================================
+    1y:  perform migration for 1y files
+    ===
+EGAI 2015 done 2016 2017 done 2018 done
+ES   2015 done 2016 2017 done 2018 done
+EAI  2015 done 2016 done 2017 2018 done
+
+    1m: perform migration for 1m files
+    ===
+EGAI 2015 done 2016 2017 done 2018 done
+ES   2015 done 2016 2017 done 2018 done
+EAI  2015 done 2016 done 2017 2018 done
+
+    5d: concat :perform migration for 5d-concat files
+    ===
+EGAI 2015 done 2016 2017 done
+ES   2015 done 2016 2017 done 2018 done
+EAI  2015 done 2016 2017 done 2018 done
+
+    1d: concat perform migration for 1d-concat files
+    ===
+EGAI 2015 done 2016 2017 done 2018 done
+ES   2015 done 2016 2017 done 2018 done
+EAI  2015 done 2016 2017 done 2018 done
+
+```
+
+
 
 
