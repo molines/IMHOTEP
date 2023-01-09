@@ -6,7 +6,7 @@
 ##SBATCH --partition=prepost
 #SBATCH -A cli@cpu
 #SBATCH --hint=nomultithread
-#SBATCH -J CONCAT_
+#SBATCH -J CONCAT1d2
 #SBATCH -e zconcat.e%j
 #SBATCH -o zconcat.o%j
 #SBATCH --time=2:00:00

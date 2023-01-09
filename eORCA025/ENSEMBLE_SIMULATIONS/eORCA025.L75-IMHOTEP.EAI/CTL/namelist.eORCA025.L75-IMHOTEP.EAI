@@ -1477,7 +1477,7 @@
    !
    ln_t3d      = .true.              ! Logical switch for T profile observations
    ln_s3d      = .true.              ! Logical switch for S profile observations
-   ln_sla      = .false.             ! Logical switch for SLA observations
+   ln_sla      = .true.              ! Logical switch for SLA observations
    ln_sst      = .false.             ! Logical switch for SST observations
    ln_sss      = .false.             ! Logical swithc for SSS observations
    ln_sic      = .false.             ! Logical switch for Sea Ice observations

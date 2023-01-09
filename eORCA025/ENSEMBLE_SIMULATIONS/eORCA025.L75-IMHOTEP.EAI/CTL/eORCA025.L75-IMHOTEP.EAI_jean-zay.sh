@@ -13,7 +13,7 @@
 #SBATCH --exclusive
 
 #for semestre  in {1..2} ; do
-for month in {1..24} ; do
+for month in {1..23} ; do
 #for month in {1..12} ; do
 #for month in {1..1} ; do
 set -x

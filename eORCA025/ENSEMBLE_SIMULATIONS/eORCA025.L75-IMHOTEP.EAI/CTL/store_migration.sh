@@ -18,8 +18,9 @@ set -x
 CONFIG=eORCA025.L75
 CASE=IMHOTEP.EAI
 
-freq=1d
-ylst=( {1984..1985} )
+freq=5d
+
+ylst=( {2017..2018} )
 mlst=( {001..010} )
 n=0
 #==================

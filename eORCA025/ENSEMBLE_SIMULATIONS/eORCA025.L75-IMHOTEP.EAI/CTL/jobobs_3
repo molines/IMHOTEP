@@ -65,8 +65,8 @@ for member in $( seq 1 $nmember ) ; do
     cd $rootdir/${CONFCASE}-DIAOBS.$n/$mbr
     ( fbcomb.exe $OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc profb.${mbr}_fdbk_????.nc
      dd bs=50M if=$OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc of=$SOBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_enact4_fdbk.$n.nc ) &
-#   ( fbcomb.exe $OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc slafb.${mbr}_fdbk_????.nc
-#    dd bs=50M if=$OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc of=$SOBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc ) &
+   ( fbcomb.exe $OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc slafb.${mbr}_fdbk_????.nc
+    dd bs=50M if=$OBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc of=$SOBSDIR/${CONFCASE}.${mbr}_y${year}m${mont}d${dayf}_slafb_fdbk.$n.nc ) &
     nn=$(( nn + 1 ))
     if [ $nn = 12 ] ; then
        wait
