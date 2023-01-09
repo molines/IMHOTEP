@@ -12,7 +12,7 @@ CASE=IMHOTEP.EGAI
 
 freq=1d
 
-ylst=( {2008..2009} )
+ylst=( {2018..2018} )
 
 for m in {001..010} ; do
    for y in ${ylst[@]} ; do

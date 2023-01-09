@@ -9,13 +9,14 @@
 #SBATCH -o nemo_jean-zay.o%j
 #SBATCH -A cli@cpu
 #SBATCH --time=20:00:00
+##SBATCH --time=1:00:00
 #SBATCH --dependency=singleton
 #SBATCH --exclusive
 
 #for semestre  in {1..2} ; do
-for month in {1..24} ; do
 #for month in {1..12} ; do
-#for month in {1..1} ; do
+#for month in {1..12} ; do
+for month in {1..24} ; do
 set -x
 ulimit -s 
 ulimit -s unlimited
@@ -40,7 +41,7 @@ export NB_NCORE_DP=4   # activate depopulated core computation for XIOS. If not 
 export MERGE=0         # 1 = on the fly rebuild, 0 = dedicated job
 export NB_NPROC_MER=60 # number of cores used for rebuild on the fly  (1/node is a good choice)
 export NB_NNODE_MER=5  # number of nodes used for rebuild in dedicated job (MERGE=0). One instance of rebuild per node will be used.
-export WALL_CLK_MER=3:00:00   # wall clock time for batch rebuild
+export WALL_CLK_MER=2:00:00   # wall clock time for batch rebuild
 export ACCOUNT=cli@cpu # account to be used
 
 date
