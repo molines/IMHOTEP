@@ -6,7 +6,7 @@ Fields in Iceberg restart files are not gridded fields, hence traditional tools 
 A specific tool has been developped for this purpose: `icbrstsplit.exe`
 
 ## Method
-  * The method used assumes that the new domain decomposition is already known and a layout.dat file is therefore available.
+  * The used method  assumes that the new domain decomposition is already known and a layout.dat file is therefore available.
   * The bunch of existing file is read and used to fill global arrays.
   * Reading `layout.dat` file, new iceberg restart files are created (one for each subdomain) and a screening on iceberg position is performed in
 order to fill every subdomain file with the *ad hoc* information.
