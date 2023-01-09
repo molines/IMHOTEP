@@ -37,7 +37,7 @@ corresponding to member 7 of the IMHOTEP.ES simulation.
     Resulting synthetic observation files are saved under OBS directory.
 #### Iceberg trajectories
   * As for WP1 runs, icebergs are explicitely represented in the simulation via the ICB module. Each member will produce its own set of icebergs
-    trajectories, saved in ICBTRJ directorY.
+    trajectories, saved in ICBTRJ directory.
 
 ## Issues
 When starting the production of thre run, some issues were raised concerning :
