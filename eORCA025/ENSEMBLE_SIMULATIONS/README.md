@@ -49,13 +49,13 @@ When starting the production of thre run, some issues were raised concerning :
 ### `FeedBack` formating of the altimetric data from AVISO
 This tools was develloped under the [JMMTOOLS for feed_back](https://github.com/molines/JMMTOOLS/tree/master/DATA_TOOLS/FBK).
 ### Spliting iceberg restart files
-Specific tool for this task was developped ([icbrstsplit.f90](../TOOLS/ICB_RST_SPLIT/icbrstsplit.f90)). See details in the corresponding
-[README](../TOOLS/ICB_RST_SPLIT/README.md) file.
+Specific tool for this task was developped ([icbrstsplit.f90](../../TOOLS/ICB_RST_SPLIT/icbrstsplit.f90)). See details in the corresponding
+[README](../../TOOLS/ICB_RST_SPLIT/README.md) file.
 ### Performing data reduction from daily output to 5d average (VVL case).
  This is done using cdfmoy tools, in which the new option `-nosqd` has been added. This last option prevent cdftools to compute the mean value of
 squared fields, which are useless in this context. A parallel script has been set up for performing this task more efficiently. See for instance
 [job_5d.sh](eORCA025.L75-IMHOTEP.EAI/CTL/job_5d.sh) and [job_ssh5d.sh](eORCA025.L75-IMHOTEP.EAI/CTL/job_ssh5d.sh). Note that for speeding up the 
-parallelisation initialization, templates of task files are used ([task_leap.CASE.TYP.MBR.conf](../TOOLS/AVERAGE_5d/task_leap.CASE.TYP.MBR.conf)).
+parallelisation initialization, templates of task files are used ([task_leap.CASE.TYP.MBR.conf](../../TOOLS/AVERAGE_5d/task_leap.CASE.TYP.MBR.conf)).
 
 
 
