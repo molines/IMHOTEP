@@ -1,0 +1,20 @@
+# macro.jade for jade at CINES
+#  $Rev: 539 $
+#  $Date: 2011-07-11 12:33:35 +0200 (Mon, 11 Jul 2011) $
+#  $Id: macro.jade 539 2011-07-11 10:33:35Z molines $
+# -------------------------------------------------------------
+
+NCDF = -I$(NETCDF_INCDIR) -I$(NETCDFF_INCDIR) $(NETCDF_LDFLAGS) $(NETCDFF_LDFLAGS)
+
+ 
+F90=ifort
+MPF90=mpif90
+
+#FFLAGS= -static -O  $(NCDF) -assume byterecl -convert big_endian $(OMP)
+
+FFLAGS= -O  $(NCDF) $(NC4) $(CMIP6) $(GSW) -fp-model precise
+#FFLAGS= -O  $(NCDF) $(NC4) $(CMIP6) $(GSW) -assume byterecl -convert big_endian -CB -fpe0 -ftrapuv -traceback -g $(OMP)
+
+
+INSTALL=$(WORKDIR)/bin
+INSTALL_MAN=$(WORKDIR)/man
